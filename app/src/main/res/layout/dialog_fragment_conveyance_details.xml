@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
+
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:id="@+id/tv_establishment_title"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:background="@color/drawer_background"
+                android:gravity="center"
+                android:text="Conveyance Details"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/_15sdp" />
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp">
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Date : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12.03.2019"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Log In Time : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12.00AM"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Log Out Time : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4.00PM"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Deviation : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.00PM - 3.00PM"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Half : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="O/D"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Justification : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Official"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Conveyance : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="From : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="kolkata"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="To : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Canning"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Vehicle Type : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Taxi"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Purpose : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="project site visit"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Job Alloted By : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jhone deo"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Amount : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INR 2000"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_15sdp"
+                    android:text="Pending Approval"
+                    android:textColor="@color/color_approval_status"
+                    android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+            android:id="@+id/iv_df_back"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_40sdp"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:src="@drawable/ic_back_butt" />
+
+
+</RelativeLayout>

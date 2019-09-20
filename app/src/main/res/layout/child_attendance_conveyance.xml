@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        >
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Date : 21st june,2019"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:gravity="right"
+            android:id="@+id/tv_cac_date"
+            />
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Jhon deo"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_employee_name"
+            />
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="From : Kolkata"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_cac_from_adrs"
+            />
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="To : Durgapur"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_cac_to_adrs"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp"
+            >
+
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vehicle type : Bike"
+                android:textColor="@color/color_black"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:id="@+id/tv_cac_vehicle_type"
+                />
+
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tv_cac_purpose"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:text="Purpose : test"
+                android:textColor="@color/color_black"
+                android:textSize="15dp" />
+
+
+        </LinearLayout>
+
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Job Alloted By : Manoj kr Das"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_cac_job_alloted_by"
+            />
+
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Amount : INR 300.00"
+            android:textColor="@color/color_black"
+            android:textSize="15dp"
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv_cac_amount"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/rl_approve_reject_section"
+            >
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rectangle_shape_blue"
+                android:text="APPROVE"
+                android:textColor="@color/color_white"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/tv_cac_approve"
+                />
+
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:background="@drawable/rectangle_shape_red"
+                android:text="REJECT"
+                android:textColor="@color/color_white"
+                android:textSize="15dp"
+                android:gravity="center"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_cac_reject"
+                />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/color_black"
+        />
+
+
+</LinearLayout>

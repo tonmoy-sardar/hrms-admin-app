@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HRMS Admin</string>
+    <string name="login_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="password_old">Old Password</string>
+    <string name="password_new">New Password</string>
+    <string name="password_confirm">Confirm Password</string>
+    <string name="login_button">Log In</string>
+    <string name="save_button">Save</string>
+    <string name="forgot_password">Forgot Password?</string>
+</resources>

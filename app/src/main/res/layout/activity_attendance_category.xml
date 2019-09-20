@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context=".activity.AttendanceCategoryActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_7sdp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_box_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:id="@+id/ll_report"
+                >
+
+
+                <ImageView
+                    android:id="@+id/iv_item"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@mipmap/reports_icon"
+                    />
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="report"
+                    app:textAllCaps="true"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_box_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:id="@+id/ll_approval"
+                >
+
+
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@mipmap/approvals_icon"
+                    />
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="approval"
+                    app:textAllCaps="true"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_7sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_7sdp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_box_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginRight="@dimen/_4sdp"
+                android:id="@+id/ll_conveyance"
+                >
+
+
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@mipmap/conveyance_icon"
+                    />
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="conveyance"
+                    app:textAllCaps="true"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_box_background"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:visibility="invisible"
+                >
+
+
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@mipmap/attendance"
+                    />
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="approval"
+                    app:textAllCaps="true"
+                    android:textSize="@dimen/_13sdp"
+                    android:layout_marginTop="@dimen/_6sdp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
