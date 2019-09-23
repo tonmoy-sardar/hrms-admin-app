@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.adapter.Adapter_conveyance_list;
@@ -23,6 +24,8 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     ArrayList<JSONObject> arrayList_conveyance;
     Adapter_conveyance_list adapter_conveyance_list;
 
+    LinearLayout ll_search_btn,ll_sort_field,ll_filter_btn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,11 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         img_topbar_back.setVisibility(View.VISIBLE);
 
         rv_attendance_conveyance = findViewById(R.id.rv_attendance_conveyance);
+
+
+        ll_search_btn = findViewById(R.id.ll_search_btn);
+        ll_sort_field = findViewById(R.id.ll_sort_field);
+        ll_filter_btn = findViewById(R.id.ll_filter_btn);
 
 
         arrayList_conveyance = new ArrayList<JSONObject>();

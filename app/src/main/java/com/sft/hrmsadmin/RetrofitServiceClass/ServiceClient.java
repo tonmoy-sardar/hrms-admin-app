@@ -24,6 +24,13 @@ public interface ServiceClient {
                                           @Header("Content-Type") String Content_type,
                                           @Query("page") int page);
 
+    @POST(mServiceList.post_login)
+    Call<ResponseBody> post_login(@Header("Content-Type") String Content_type,
+                                  @Body JsonObject object);
+
+    @GET(mServiceList.get_logout)
+    Call<ResponseBody> call_logoutApi(@Header("Authorization") String Bearer);
+
 
     /*@GET(mServiceList.vms_employee_details_master_add)
     Call<ResponseBody> get_vms_employee_details_master_add(@Header("Authorization") String Bearer,

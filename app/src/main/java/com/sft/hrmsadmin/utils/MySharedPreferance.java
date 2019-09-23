@@ -10,6 +10,9 @@ import android.content.SharedPreferences;
 public class MySharedPreferance {
 
     public String login_token = "login_token";
+    public String login_response = "login_response";
+    public String remember_user_name = "remember_user_name";
+    public String remember_password = "remember_password";
 
     Context context;
 

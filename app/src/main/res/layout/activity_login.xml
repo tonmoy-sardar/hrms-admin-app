@@ -55,7 +55,7 @@
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularEditText
-                android:id="@+id/etEmail"
+                android:id="@+id/et_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -84,7 +84,7 @@
             android:background="@drawable/rectangle_border_solid_white">
 
             <com.sft.hrmsadmin.widget.GothiciRegularEditText
-                android:id="@+id/etPWD"
+                android:id="@+id/et_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
@@ -103,7 +103,7 @@
 
 
         <Button
-            android:id="@+id/btLogin"
+            android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
             android:layout_centerInParent="true"

@@ -35,7 +35,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<Adapter_convey
 
     @Override
     public View_Holder_menu onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_attendance_conveyance, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_conveyance_approval, parent, false);
         View_Holder_menu view_holder_menu = new View_Holder_menu(v);
         return view_holder_menu;
     }

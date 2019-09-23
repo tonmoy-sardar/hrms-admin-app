@@ -16,17 +16,29 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sft.hrmsadmin.R;
+import com.sft.hrmsadmin.RetrofitServiceClass.AppConfig;
+import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
+import com.sft.hrmsadmin.RetrofitServiceClass.mServiceList;
+import com.sft.hrmsadmin.utils.MySharedPreferance;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public DrawerLayout mDrawerLayout;
     RelativeLayout base_rl_contentview;
     ImageView iv_cross;
     public ImageView iv_close;
-    public ImageButton img_topbar_menu,img_topbar_back;
+    public ImageButton img_topbar_menu, img_topbar_back;
     private ActionBarDrawerToggle mDrawerToggle;
-    TextView tvAccount, tv_universal_header, tv_user_name;
+    TextView tvAccount, tv_universal_header, tv_user_name, tv_logout;
     RelativeLayout rl_menu;
+    MySharedPreferance mySharedPreferance;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         tvAccount = findViewById(R.id.tvAccount);
         tv_user_name = findViewById(R.id.tv_user_name);
+        tv_logout = findViewById(R.id.tv_logout);
+
+        mySharedPreferance = new MySharedPreferance(this);
 
         initializeDrawer();
 
         clickEvent();
+
+        System.out.println("token: "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
 
 
         img_topbar_back.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         iv_cross.setOnClickListener(this);
         tvAccount.setOnClickListener(this);
         rl_menu.setOnClickListener(this);
+        tv_logout.setOnClickListener(this);
     }
 
 
@@ -136,12 +154,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     mDrawerLayout.closeDrawers();
                 }
 
-               /* Intent intent = new Intent(MainActivity.this, MyAccountActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);*/
-
+                break;
+            case R.id.tv_logout:
+                if (isDrawerOpen()) {
+                    mDrawerLayout.closeDrawers();
+                }
+                callLogOutApi();
                 break;
         }
 
+    }
+
+    private void callLogOutApi() {
+
+
+        System.out.println("tokenLogOut: "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
+
+        Retrofit retrofit = AppConfig.getRetrofit(mServiceList.Base_URL);
+        ServiceClient apiInterface = retrofit.create(ServiceClient.class);
+
+        final Call<ResponseBody> register = apiInterface.call_logoutApi("Token "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
+        register.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                System.out.println("url: " + response.raw().request().url()+" "+response.code());
+                if (response.code() == 200 || response.code() == 201) {
+                    navigateToLogin();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    private void navigateToLogin() {
+
+        mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_response);
+        mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_token);
+        mySharedPreferance.deletePreferenceValue(mySharedPreferance.remember_user_name);
+        mySharedPreferance.deletePreferenceValue(mySharedPreferance.remember_password);
+        Intent logIntent = new Intent(MainActivity.this, LoginActivity.class);
+        logIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(logIntent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        finish();
     }
 }

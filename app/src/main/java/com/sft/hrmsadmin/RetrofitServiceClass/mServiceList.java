@@ -7,6 +7,9 @@ public class mServiceList {
     //public static final String Base_URL = "http://13.232.240.233:8000/"; //AWS Server
 
     public static final String e_task_attendance_approval_list = "e_task_attendance_approval_list/?";
+    public static final String post_login = "login/";
+    public static final String get_logout = "logout/";
+    public static final String get_attendance_conveyance = "attendance_conveyance_approval_list/";
     /*public static final String vms_employee_details_master_add = "vms_employee_details_master_add/?";
     public static final String get_floor_details_master_add = "floor_details_master_add/";
     public static final String get_card_details_master_add = "card_details_master_add/?";
