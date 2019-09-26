@@ -19,106 +19,106 @@ import retrofit2.http.Query;
 public interface ServiceClient {
 
 
-    @GET(mServiceList.e_task_attendance_approval_list)
-    Call<ResponseBody> get_e_task_attendance_approval_list(@Header("Authorization") String Bearer,
-                                          @Header("Content-Type") String Content_type,
-                                          @Query("page") int page);
-
     @POST(mServiceList.post_login)
     Call<ResponseBody> post_login(@Header("Content-Type") String Content_type,
                                   @Body JsonObject object);
+
 
     @GET(mServiceList.get_logout)
     Call<ResponseBody> call_logoutApi(@Header("Authorization") String Bearer);
 
 
-    /*@GET(mServiceList.vms_employee_details_master_add)
-    Call<ResponseBody> get_vms_employee_details_master_add(@Header("Authorization") String Bearer,
+    @GET(mServiceList.e_task_attendance_approval_list)
+    Call<ResponseBody> get_e_task_attendance_approval_list(@Header("Authorization") String Bearer,
                                                            @Header("Content-Type") String Content_type,
-                                                           @Query("name") String name);
+                                                           @Query("page") int page,
+                                                           @Query("search") String search,
+                                                           @Query("request_type") String request_type,
+                                                           @Query("field_name") String field_name,
+                                                           @Query("order_by") String order_by);
 
 
-    @GET(mServiceList.vms_available_card_list)
-    Call<ResponseBody> get_vms_available_card_list(@Header("Authorization") String Bearer,
-                                                   @Header("Content-Type") String Content_type,
-                                                   @Query("status") boolean status,
-                                                   @Query("page") int page,
-                                                   @Query("card_no") String card_no);
+    @GET(mServiceList.admin_attendance_advance_leave_pending_list)
+    Call<ResponseBody> get_admin_attendance_advance_leave_pending_list(@Header("Authorization") String Bearer,
+                                                                       @Header("Content-Type") String Content_type,
+                                                                       @Query("page") int page,
+                                                                       @Query("search") String search,
+                                                                       @Query("leave_type") String leave_type,
+                                                                       @Query("field_name") String field_name,
+                                                                       @Query("order_by") String order_by);
 
 
-    @PUT(mServiceList.vms_card_report_change)
-    Call<ResponseBody> put_vms_card_report_change(@Header("Authorization") String Bearer,
-                                                  @Path("id") String id,
-                                                  @Body JsonObject object);
+    @GET(mServiceList.attendance_advance_leave_report)
+    Call<ResponseBody> get_attendance_advance_leave_report(@Header("Authorization") String Bearer,
+                                                                       @Header("Content-Type") String Content_type,
+                                                                       @Query("page") int page,
+                                                                       @Query("search") String search,
+                                                                       @Query("leave_type") String leave_type,
+                                                                       @Query("field_name") String field_name,
+                                                                       @Query("order_by") String order_by);
 
 
-    @PUT(mServiceList.vms_visit_logout)
-    Call<ResponseBody> put_vms_visit_logout(@Header("Authorization") String Bearer,
-                                            @Path("id") String id);
+    @GET(mServiceList.attendance_conveyance_approval_list)
+    Call<ResponseBody> get_attendance_conveyance_approval_list(@Header("Authorization") String Bearer,
+                                                               @Header("Content-Type") String Content_type,
+                                                               @Query("page") int page,
+                                                               @Query("search") String search,
+                                                               @Query("from_date") String from_date,
+                                                               @Query("to_date") String to_date,
+                                                               @Query("department") String department,
+                                                               @Query("designation") String designation,
+                                                               @Query("field_name") String field_name,
+                                                               @Query("order_by") String order_by);
 
 
-    @GET(mServiceList.get_visitor_details_add)
-    Call<ResponseBody> get_visitor_details_add(@Header("Authorization") String Bearer,
-                                               @Header("Content-Type") String Content_type,
-                                               @Query("phone_no") String phone_no);
+    @GET(mServiceList.attendance_conveyance_report_list)
+    Call<ResponseBody> get_attendance_conveyance_report_list(@Header("Authorization") String Bearer,
+                                                               @Header("Content-Type") String Content_type,
+                                                               @Query("page") int page,
+                                                               @Query("search") String search,
+                                                               @Query("from_date") String from_date,
+                                                               @Query("to_date") String to_date,
+                                                               @Query("department") String department,
+                                                               @Query("designation") String designation,
+                                                               @Query("field_name") String field_name,
+                                                               @Query("order_by") String order_by);
 
 
-    @GET(mServiceList.get_floor_details_master_add)
-    Call<ResponseBody> get_floor_details_master_add(@Header("Authorization") String Bearer,
-                                                    @Header("Content-Type") String Content_type);
+    @GET(mServiceList.attendance_admin_summary_list)
+    Call<ResponseBody> get_attendance_admin_summary_list(@Header("Authorization") String Bearer,
+                                                               @Header("Content-Type") String Content_type,
+                                                               @Query("emp_id") int emp_id,
+                                                               @Query("year") int year,
+                                                               @Query("month") int month);
+
+    @PUT(mServiceList.e_task_attendance_approval)
+    Call<ResponseBody> put_e_task_attendance_approval(@Header("Authorization") String Bearer,
+                                                      @Path("id") int id,
+                                                      @Body JsonObject object);
 
 
-    @GET(mServiceList.get_card_details_master_add)
-    Call<ResponseBody> get_card_details_master_add(@Header("Authorization") String Bearer,
-                                                   @Header("Content-Type") String Content_type,
-                                                   @Query("report_arise") boolean report_arise,
-                                                   @Query("status") boolean status,
-                                                   @Query("card_current_status") String card_current_status,
-                                                   @Query("floor_access") String floor_access,
-                                                   @Query("card_friendly_no") String card_friendly_no);
+    @PUT(mServiceList.admin_attendance_advance_leave_approval)
+    Call<ResponseBody> put_admin_attendance_advance_leave_approval(@Header("Authorization") String Bearer,
+                                                                   @Path("id") int id,
+                                                                   @Body JsonObject object);
 
 
-    @Multipart
-    @POST(mServiceList.post_visitor_details_add)
-    Call<ResponseBody> post_visitor_details_add(@Part MultipartBody.Part multipartBody,
-                                                @Part("name") RequestBody name,
-                                                @Part("phone_no") RequestBody phone_no,
-                                                @Part("email") RequestBody email,
-                                                @Part("address") RequestBody address,
-                                                @Part("organization") RequestBody organization);
-
-    @Multipart
-    @PUT(mServiceList.visitor_details_edit)
-    Call<ResponseBody> put_visitor_details_edit(@Path("id") String id,
-                                                @Part MultipartBody.Part multipartBody,
-                                                @Part("name") RequestBody name,
-                                                @Part("phone_no") RequestBody phone_no,
-                                                @Part("email") RequestBody email,
-                                                @Part("address") RequestBody address,
-                                                @Part("organization") RequestBody organization);
-
-    @POST(mServiceList.post_visitor_details_add)
-    Call<ResponseBody> put_visitor_details_add(@Header("Authorization") String Bearer,
-                                               @Header("Content-Type") String Content_type,
-                                               @Body JsonObject object);
+    @PUT(mServiceList.attendance_conveyance_approval_list)
+    Call<ResponseBody> put_attendance_conveyance_approval_list(@Header("Authorization") String Bearer,
+                                                                   @Query("req_id") int req_id,
+                                                                   @Body JsonObject object);
 
 
-    @PUT(mServiceList.visitor_details_edit)
-    Call<ResponseBody> put_visitor_details_edit(@Header("Authorization") String Bearer,
-                                                @Body JsonObject object,
-                                                @Path("id") String id);
+    @GET(mServiceList.t_core_designation_add)
+    Call<ResponseBody> get_t_core_designation_add(@Header("Authorization") String Bearer);
 
 
-    @POST(mServiceList.post_vms_visit_add)
-    Call<ResponseBody> post_vms_visit_add(@Header("Authorization") String Bearer,
-                                          @Body JsonObject object);
+    @GET(mServiceList.t_core_department_add)
+    Call<ResponseBody> get_t_core_department_add(@Header("Authorization") String Bearer);
 
 
-    @POST(mServiceList.post_login)
-    Call<ResponseBody> post_login(@Header("Content-Type") String Content_type,
-                                  @Body JsonObject object);
+    @GET(mServiceList.employee_list_wo_pagination)
+    Call<ResponseBody> get_employee_list_wo_pagination(@Header("Authorization") String Bearer);
 
 
-    @GET(mServiceList.get_logout)
-    Call<ResponseBody> get_logout(@Header("Authorization") String Bearer);*/
 }

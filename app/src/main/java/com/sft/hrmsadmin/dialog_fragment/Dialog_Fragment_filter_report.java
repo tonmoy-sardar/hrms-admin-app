@@ -131,13 +131,16 @@ public class Dialog_Fragment_filter_report extends DialogFragment implements Ada
     }
 
 
-    public void setOnDialogListener(OnItemClickDialog itemClickDialog) {
-        this.itemClickDialog = itemClickDialog;
-    }
+
 
     @Override
     public void onItemClick(int pos) {
 
+    }
+
+
+    public void setOnDialogListener(OnItemClickDialog itemClickDialog) {
+        this.itemClickDialog = itemClickDialog;
     }
 
     public interface OnItemClickDialog {

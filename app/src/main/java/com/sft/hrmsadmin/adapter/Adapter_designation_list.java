@@ -1,12 +1,10 @@
 package com.sft.hrmsadmin.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,21 +20,22 @@ import java.util.ArrayList;
 /**
  * Created by User on 8/18/2016.
  */
-public class Adapter_filter_by_list extends RecyclerView.Adapter<Adapter_filter_by_list.View_Holder_menu> {
+public class Adapter_designation_list extends RecyclerView.Adapter<Adapter_designation_list.View_Holder_menu> {
 
 
     ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     Context context;
     OnItemClick itemClick;
+    int mSelectedPos = -1;
 
-    public Adapter_filter_by_list(ArrayList<JSONObject> arrayList, Context context) {
+    public Adapter_designation_list(ArrayList<JSONObject> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
 
     @Override
     public View_Holder_menu onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_filter_by, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_department_list, parent, false);
         View_Holder_menu view_holder_menu = new View_Holder_menu(v);
         return view_holder_menu;
     }
@@ -45,28 +44,26 @@ public class Adapter_filter_by_list extends RecyclerView.Adapter<Adapter_filter_
     public void onBindViewHolder(final View_Holder_menu holder, final int position) {
 
         try {
-            holder.tv_filter_by.setText(arrayList.get(position).getString("filter_by"));
-            holder.chkbxSelect.setChecked(arrayList.get(position).getBoolean("status"));
+            holder.tv_filter_by.setText(arrayList.get(position).getString("cod_name"));
 
             holder.ll_total_cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    try {
-                        if (arrayList.get(position).getBoolean("status") == false) {
-                            arrayList.get(position).put("status", true);
-                            notifyDataSetChanged();
-                        } else {
-                            arrayList.get(position).put("status", false);
-                            notifyDataSetChanged();
-                        }
-                        if (itemClick != null) {
-                            itemClick.onItemClick(position);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    mSelectedPos = position;
+                    notifyDataSetChanged();
+                    if (itemClick != null) {
+                        itemClick.onItemClickDesignation(position);
                     }
                 }
             });
+
+
+            if (mSelectedPos == position) {
+                holder.chkbxSelect.setChecked(true);
+            } else {
+                holder.chkbxSelect.setChecked(false);
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -101,6 +98,6 @@ public class Adapter_filter_by_list extends RecyclerView.Adapter<Adapter_filter_
     }
 
     public interface OnItemClick {
-        void onItemClick(int pos);
+        void onItemClickDesignation(int pos);
     }
 }

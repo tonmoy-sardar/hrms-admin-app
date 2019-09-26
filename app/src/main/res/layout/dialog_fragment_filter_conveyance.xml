@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:background="@color/drawer_background"
+            android:gravity="center"
+            android:text="Filter Conveyance"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_marginRight="15dp"
+                        android:text="Date Range : "
+                        android:textColor="@color/text_color"
+                        android:textSize="@dimen/_13sdp" />
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginRight="15dp"
+                        android:orientation="horizontal">
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tv_fr_from_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_34sdp"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_box_black_outline"
+                            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                            android:gravity="center_vertical"
+                            android:hint="From Date"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tv_fr_to_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_34sdp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rectangle_box_black_outline"
+                            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                            android:gravity="center_vertical"
+                            android:hint="To Date"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="15dp"
+                    android:text="Department : "
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_13sdp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_filter_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:overScrollMode="never"
+                    />
+
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="@dimen/_25sdp"
+                    android:layout_marginRight="15dp"
+                    android:text="Designation : "
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/_13sdp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:overScrollMode="never"
+                    android:id="@+id/rv_filter_designation"
+                    />
+
+
+                <Button
+                    android:id="@+id/tv_submit"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/rectangle_box_curve_solid"
+                    android:gravity="center"
+                    android:text="apply"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_30sdp"
+                    />
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_df_back"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:src="@drawable/ic_back_butt" />
+
+
+</RelativeLayout>

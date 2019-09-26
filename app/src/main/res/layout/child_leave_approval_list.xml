@@ -83,13 +83,13 @@
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deviation Start : "
+                android:text="Start Date : "
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/_12sdp" />
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_deviation_start_time"
+                android:id="@+id/tv_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -113,7 +113,7 @@
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deviation End : "
+                android:text="End Date : "
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/_12sdp" />
 
@@ -125,38 +125,7 @@
                 android:text="2.00 PM"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_deviation_end_time"
-                />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            >
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deviation Time : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
-
-
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="30 min"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_deviation_time"
+                android:id="@+id/tv_end_date"
                 />
 
 
@@ -204,7 +173,7 @@
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Justification : "
+                android:text="Reason for Leave : "
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/_12sdp" />
 
@@ -216,7 +185,7 @@
                 android:text="Family emergency"
                 android:textColor="@color/color_black"
                 android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_approval_justification"
+                android:id="@+id/tv_leave_reason"
                 />
 
 
@@ -286,6 +255,7 @@
                     android:layout_weight="1"
                     android:textSize="@dimen/_12sdp"
                     android:id="@+id/rb_free"
+                    android:visibility="invisible"
                     />
 
             </RadioGroup>

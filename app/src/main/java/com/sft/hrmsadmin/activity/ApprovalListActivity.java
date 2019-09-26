@@ -1,6 +1,5 @@
 package com.sft.hrmsadmin.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +19,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_approval_list;
-import com.sft.hrmsadmin.adapter.Adapter_report_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_by;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
@@ -48,6 +48,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     ImageView iv_search_close;
     int selected_pos = 0;
     Spinner sp_sort_items;
+    String field_name = "", order_by = "", request_types = "";
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -116,7 +117,6 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         });
 
 
-
         ll_search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,6 +168,15 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
                 final Dialog_Fragment_filter_by dialog_fragment_filter_by = new Dialog_Fragment_filter_by();
+                dialog_fragment_filter_by.setOnDialogListener(new Dialog_Fragment_filter_by.OnItemClickDialog() {
+                    @Override
+                    public void onItemClick(String request_type) {
+                        System.out.println("request_type=====>>>" + request_type);
+                        request_types = request_type;
+                        page = 1;
+                        get_e_task_attendance_approval_list();
+                    }
+                });
                 dialog_fragment_filter_by.show(getSupportFragmentManager(), "dialog_fragment_filter_by");
             }
         });
@@ -178,12 +187,12 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     }
 
 
-
     public void get_e_task_attendance_approval_list() {
 
         adapter_approval_list.loader(true);
 
-        retrofitResponse.getWebServiceResponse(serviceClient.get_e_task_attendance_approval_list("Token " + token, "application/json", page),
+        retrofitResponse.getWebServiceResponse(serviceClient.get_e_task_attendance_approval_list("Token " + token, "application/json", page,
+                et_search_field.getText().toString(), request_types, field_name, order_by),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
@@ -210,12 +219,51 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     }
 
 
+    public void put_e_task_attendance_approval(final int position, String approval_status, String add_remark, int id) {
+       /* retrofitResponse = new RetrofitResponse(ApprovalListActivity.this, getSupportFragmentManager());
+        retrofitResponse.showProgressDialog();*/
+
+        JsonObject object = new JsonObject();
+        object.addProperty("approved_status", approval_status);
+        object.addProperty("remarks", add_remark);
+        System.out.println("created jsonobject========>>" + object);
+
+        retrofitResponse.getWebServiceResponse(serviceClient.put_e_task_attendance_approval("Token " + token, id, object),
+
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        try {
+                            if (jsonObject != null) {
+                                /*arrayList_approval.remove(position);
+                                adapter_approval_list.notifyDataSetChanged();*/
+                                page = 1;
+                                get_e_task_attendance_approval_list();
+                            } else {
+                                Toast.makeText(ApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
 
     @Override
     public void onItemClick(int pos) {
         System.out.println("clicked=============>>>");
         final Dialog_Fragment_conveyance_details dialog_fragment_conveyance_details = new Dialog_Fragment_conveyance_details();
         dialog_fragment_conveyance_details.show(getSupportFragmentManager(), "dialog_fragment_conveyance_details");
+    }
+
+    @Override
+    public void onItemClickApproval(int pos, String approval_status, String add_remark) {
+        try {
+            put_e_task_attendance_approval(pos, approval_status, add_remark, arrayList_approval.get(pos).getInt("id"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -239,11 +287,15 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     public void custom_spinner() {
         String[] plants = new String[]{
                 "",
-                "      DATE(ASC)                \n",
-                "      DATE(DESC)               \n",
-                "      DEVIATION TIME(ASC)      \n",
-                "      DEVIATION TIME(DESC)     \n",
-                "      REMOVE FILTER            \n"
+                "      DATE(ASC)                 \n",
+                "      DATE(DESC)                \n",
+                "      DEVIATION START(ASC)      \n",
+                "      DEVIATION START(DESC)     \n",
+                "      DEVIATION END(ASC)        \n",
+                "      DEVIATION END(DESC)       \n",
+                "      DEVIATION TIME(ASC)       \n",
+                "      DEVIATION TIME(DESC)      \n",
+                "      REMOVE FILTER             \n"
         };
 
 
@@ -280,18 +332,50 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                 System.out.println("spinner pos=======>>>" + position);
                 selected_pos = position;
                 if (position == 1) {
-                   /* field_name = "sort_name";
+                    field_name = "date";
                     order_by = "asc";
                     page = 1;
-                    get_vms_visit_list();*/
+                    get_e_task_attendance_approval_list();
                 } else if (position == 2) {
-
+                    field_name = "date";
+                    order_by = "desc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
                 } else if (position == 3) {
-
+                    field_name = "duration_start";
+                    order_by = "asc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
                 } else if (position == 4) {
-
+                    field_name = "duration_start";
+                    order_by = "desc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
                 } else if (position == 5) {
-
+                    field_name = "duration_end";
+                    order_by = "asc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
+                } else if (position == 6) {
+                    field_name = "duration_end";
+                    order_by = "desc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
+                } else if (position == 7) {
+                    field_name = "duration";
+                    order_by = "asc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
+                } else if (position == 8) {
+                    field_name = "duration";
+                    order_by = "desc";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
+                } else if (position == 9) {
+                    field_name = "";
+                    order_by = "";
+                    page = 1;
+                    get_e_task_attendance_approval_list();
                 }
             }
 

@@ -1,10 +1,5 @@
 package com.sft.hrmsadmin.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,18 +17,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
-import com.sft.hrmsadmin.adapter.Adapter_conveyance_list;
 import com.sft.hrmsadmin.adapter.Adapter_leave_approval_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_conveyance;
+import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_by;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_approval;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_report;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
@@ -43,18 +41,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ConveyanceActivity extends MainActivity implements Adapter_conveyance_list.OnItemClick {
+public class LeaveApprovalListActivity extends MainActivity implements Adapter_leave_approval_list.OnItemClick {
 
     public View view;
-    Adapter_conveyance_list adapter_conveyance_list;
-    RecyclerView rv_attendance_conveyance;
-    ArrayList<JSONObject> arrayList_conveyance;
+    Adapter_leave_approval_list adapter_leave_approval_list;
+    RecyclerView rv_approval_list;
+    ArrayList<JSONObject> arrayList_leave_approval;
     LinearLayout ll_search_btn, ll_search_sort_section, ll_search_field, ll_sort_field, ll_filter_btn;
     EditText et_search_field;
     ImageView iv_search_close;
     int selected_pos = 0;
     Spinner sp_sort_items;
-    String field_name = "", order_by = "", start_date = "", end_date = "", department = "", designation = "";
+    String field_name = "", order_by = "", request_types = "";
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -67,14 +65,14 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        view = View.inflate(this, R.layout.activity_conveyance, null);
+        view = View.inflate(this, R.layout.activity_leave_approval_list, null);
         addContentView(view);
         System.out.println("className=======>>>" + getClass().getSimpleName());
-        tv_universal_header.setText("CONVEYANCE");
+        tv_universal_header.setText("LEAVE APPROVAL");
         img_topbar_menu.setVisibility(View.GONE);
         img_topbar_back.setVisibility(View.VISIBLE);
 
-        rv_attendance_conveyance = findViewById(R.id.rv_attendance_conveyance);
+        rv_approval_list = findViewById(R.id.rv_approval_list);
         ll_search_btn = findViewById(R.id.ll_search_btn);
         ll_search_sort_section = findViewById(R.id.ll_search_sort_section);
         ll_search_field = findViewById(R.id.ll_search_field);
@@ -95,30 +93,30 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
-        arrayList_conveyance = new ArrayList<JSONObject>();
-        adapter_conveyance_list = new Adapter_conveyance_list(arrayList_conveyance, this);
-        adapter_conveyance_list.setOnItemListener(this);
-        adapter_conveyance_list.paginate(new Adapter_conveyance_list.UpdateData() {
+        arrayList_leave_approval = new ArrayList<JSONObject>();
+        adapter_leave_approval_list = new Adapter_leave_approval_list(arrayList_leave_approval, this);
+        adapter_leave_approval_list.setOnItemListener(this);
+        adapter_leave_approval_list.paginate(new Adapter_leave_approval_list.UpdateData() {
             @Override
             public void get(int position) {
                 page = page + 1;
-                get_attendance_conveyance_approval_list();
+                get_admin_attendance_advance_leave_pending_list();
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        rv_attendance_conveyance.setLayoutManager(layoutManager);
-        rv_attendance_conveyance.setHasFixedSize(true);
-        rv_attendance_conveyance.setAdapter(adapter_conveyance_list);
+        rv_approval_list.setLayoutManager(layoutManager);
+        rv_approval_list.setHasFixedSize(true);
+        rv_approval_list.setAdapter(adapter_leave_approval_list);
 
 
-        rv_attendance_conveyance.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        rv_approval_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (arrayList_conveyance.size() == 0) {
-                    adapter_conveyance_list.updateAgain(false);
+                if (arrayList_leave_approval.size() == 0) {
+                    adapter_leave_approval_list.updateAgain(false);
                 } else {
-                    adapter_conveyance_list.updateAgain(true);
+                    adapter_leave_approval_list.updateAgain(true);
                 }
             }
         });
@@ -142,7 +140,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
-                get_attendance_conveyance_approval_list();
+                get_admin_attendance_advance_leave_pending_list();
             }
         });
 
@@ -154,7 +152,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
-                        get_attendance_conveyance_approval_list();
+                        get_admin_attendance_advance_leave_pending_list();
                     }
                 }
                 return false;
@@ -174,52 +172,50 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
             @Override
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
-                final Dialog_Fragment_filter_conveyance dialog_fragment_filter_conveyance = new Dialog_Fragment_filter_conveyance();
-                dialog_fragment_filter_conveyance.setOnDialogListener(new Dialog_Fragment_filter_conveyance.OnItemClickDialog() {
+                final Dialog_Fragment_filter_leave_approval dialog_fragment_filter_leave_approval = new Dialog_Fragment_filter_leave_approval();
+                dialog_fragment_filter_leave_approval.setOnDialogListener(new Dialog_Fragment_filter_leave_approval.OnItemClickDialog() {
                     @Override
-                    public void onItemClick(String from_date, String to_date, String department_id, String designation_id) {
-                        start_date = from_date;
-                        end_date = to_date;
-                        department = department_id;
-                        designation = designation_id;
+                    public void onItemClick(String request_type) {
+                        System.out.println("request_type=====>>>" + request_type);
+                        request_types = request_type;
                         page = 1;
-                        get_attendance_conveyance_approval_list();
+                        get_admin_attendance_advance_leave_pending_list();
                     }
                 });
-                dialog_fragment_filter_conveyance.show(getSupportFragmentManager(), "dialog_fragment_filter_conveyance");
+                dialog_fragment_filter_leave_approval.show(getSupportFragmentManager(), "dialog_fragment_filter_by");
             }
         });
 
 
         custom_spinner();
-        get_attendance_conveyance_approval_list();
+        get_admin_attendance_advance_leave_pending_list();
     }
 
 
-    public void get_attendance_conveyance_approval_list() {
-        adapter_conveyance_list.loader(true);
+    public void get_admin_attendance_advance_leave_pending_list() {
+        adapter_leave_approval_list.loader(true);
 
-        retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_conveyance_approval_list("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), start_date, end_date, department, designation, field_name, order_by),
+        retrofitResponse.getWebServiceResponse(serviceClient.get_admin_attendance_advance_leave_pending_list("Token " + token, "application/json", page,
+                et_search_field.getText().toString(), request_types, field_name, order_by),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
-                        adapter_conveyance_list.loader(false);
-                        adapter_conveyance_list.updateAgain(false);
+                        adapter_leave_approval_list.loader(false);
+                        adapter_leave_approval_list.updateAgain(false);
                         if (jsonObject != null) {
                             if (page == 1) {
-                                arrayList_conveyance.clear();
+                                arrayList_leave_approval.clear();
                             }
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
                                 for (int i = 0; i < results.length(); i++) {
-                                    arrayList_conveyance.add(results.getJSONObject(i));
+                                    arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
-                                adapter_conveyance_list.notifyDataSetChanged();
+                                adapter_leave_approval_list.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                adapter_conveyance_list.loader(false);
-                                adapter_conveyance_list.updateAgain(false);
+                                adapter_leave_approval_list.loader(false);
+                                adapter_leave_approval_list.updateAgain(false);
                             }
                         }
                     }
@@ -227,17 +223,17 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     }
 
 
-    public void put_attendance_conveyance_approval_list(final int position, String approval_status, String conveyance_expense, int id) {
+    public void put_admin_attendance_advance_leave_approval(final int position, String approval_status, String add_remark, int id) {
         final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
         progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
 
 
         JsonObject object = new JsonObject();
-        object.addProperty("conveyance_approval", approval_status);
-        object.addProperty("approved_expenses", conveyance_expense);
+        object.addProperty("approved_status", approval_status);
+        object.addProperty("remarks", add_remark);
         System.out.println("created jsonobject========>>" + object);
 
-        retrofitResponse.getWebServiceResponse(serviceClient.put_attendance_conveyance_approval_list("Token " + token, id, object),
+        retrofitResponse.getWebServiceResponse(serviceClient.put_admin_attendance_advance_leave_approval("Token " + token, id, object),
 
                 new RetrofitResponse.DataFetchResult() {
                     @Override
@@ -246,11 +242,11 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                             if (jsonObject != null) {
                                /* arrayList_leave_approval.remove(position);
                                 adapter_leave_approval_list.notifyDataSetChanged();*/
-                                Toast.makeText(ConveyanceActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
-                                get_attendance_conveyance_approval_list();
+                                get_admin_attendance_advance_leave_pending_list();
                             } else {
-                                Toast.makeText(ConveyanceActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
+                                Toast.makeText(LeaveApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
                             }
                             progressBarDialog.dismiss();
                         } catch (Exception e) {
@@ -264,34 +260,28 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     @Override
     public void onItemClick(int pos) {
         System.out.println("clicked=============>>>");
+        final Dialog_Fragment_conveyance_details dialog_fragment_conveyance_details = new Dialog_Fragment_conveyance_details();
+        dialog_fragment_conveyance_details.show(getSupportFragmentManager(), "dialog_fragment_conveyance_details");
     }
 
     @Override
-    public void onItemClickApproval(int pos, String approval_status, String conveyance_expense) {
+    public void onItemClickApproval(int pos, String approval_status, String add_remark) {
         try {
             System.out.println("approval_status=====>>>" + approval_status);
             if (approval_status.equalsIgnoreCase("")) {
                 showMessagePopup("Please Approve/Reject before submit");
             } else {
-                put_attendance_conveyance_approval_list(pos, approval_status, conveyance_expense, arrayList_conveyance.get(pos).getInt("id"));
+                put_admin_attendance_advance_leave_approval(pos, approval_status, add_remark, arrayList_leave_approval.get(pos).getInt("id"));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void onItemClickDetails(int pos) {
-        System.out.println("clicked=============>>>");
-        final Dialog_Fragment_conveyance_details dialog_fragment_conveyance_details = new Dialog_Fragment_conveyance_details();
-        dialog_fragment_conveyance_details.setData(arrayList_conveyance.get(pos));
-        dialog_fragment_conveyance_details.show(getSupportFragmentManager(), "dialog_fragment_conveyance_details");
-    }
-
 
     public void open_keyboard() {
         InputMethodManager inputMethodManager =
-                (InputMethodManager) ConveyanceActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) LeaveApprovalListActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInputFromWindow(
                 et_search_field.getApplicationWindowToken(),
                 InputMethodManager.SHOW_FORCED, 0);
@@ -300,7 +290,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
 
 
     public void hideKeyBoard() {
-        InputMethodManager imm = (InputMethodManager) ConveyanceActivity.this.getSystemService(
+        InputMethodManager imm = (InputMethodManager) LeaveApprovalListActivity.this.getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(et_search_field.getApplicationWindowToken(), 0);
     }
@@ -311,12 +301,10 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                 "",
                 "      DATE(ASC)                 \n",
                 "      DATE(DESC)                \n",
-                "      DEVIATION START(ASC)      \n",
-                "      DEVIATION START(DESC)     \n",
-                "      DEVIATION END(ASC)        \n",
-                "      DEVIATION END(DESC)       \n",
-                "      DEVIATION TIME(ASC)       \n",
-                "      DEVIATION TIME(DESC)      \n",
+                "      START DATE(ASC)           \n",
+                "      START DATE(DESC)          \n",
+                "      END DATE(ASC)             \n",
+                "      END DATE(DESC)            \n",
                 "      REMOVE FILTER             \n"
         };
 
@@ -354,50 +342,40 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                 System.out.println("spinner pos=======>>>" + position);
                 selected_pos = position;
                 if (position == 1) {
-                    field_name = "date";
+                    field_name = "sort_applied";
                     order_by = "asc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 2) {
-                    field_name = "date";
+                    field_name = "sort_applied";
                     order_by = "desc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 3) {
-                    field_name = "duration_start";
+                    field_name = "start_date";
                     order_by = "asc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 4) {
-                    field_name = "duration_start";
+                    field_name = "start_date";
                     order_by = "desc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 5) {
-                    field_name = "duration_end";
+                    field_name = "end_date";
                     order_by = "asc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 6) {
-                    field_name = "duration_end";
+                    field_name = "end_date";
                     order_by = "desc";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 } else if (position == 7) {
-                    field_name = "duration";
-                    order_by = "asc";
-                    page = 1;
-                    get_attendance_conveyance_approval_list();
-                } else if (position == 8) {
-                    field_name = "duration";
-                    order_by = "desc";
-                    page = 1;
-                    get_attendance_conveyance_approval_list();
-                } else if (position == 9) {
                     field_name = "";
                     order_by = "";
                     page = 1;
-                    get_attendance_conveyance_approval_list();
+                    get_admin_attendance_advance_leave_pending_list();
                 }
             }
 
@@ -416,6 +394,5 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         messageDialogPopup.setTitle(msg);
         messageDialogPopup.show();
     }
-
 
 }

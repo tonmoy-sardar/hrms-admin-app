@@ -12,7 +12,7 @@ import com.sft.hrmsadmin.R;
 public class AttendanceCategoryActivity extends MainActivity {
 
     public View view;
-    LinearLayout ll_conveyance,ll_report,ll_approval;
+    LinearLayout ll_conveyance, ll_report, ll_approval, ll_leave_approval,ll_attendance_summery,ll_conveyance_report;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,10 @@ public class AttendanceCategoryActivity extends MainActivity {
         ll_conveyance = findViewById(R.id.ll_conveyance);
         ll_report = findViewById(R.id.ll_report);
         ll_approval = findViewById(R.id.ll_approval);
+        ll_leave_approval = findViewById(R.id.ll_leave_approval);
+        ll_attendance_summery = findViewById(R.id.ll_attendance_summery);
+        ll_conveyance_report = findViewById(R.id.ll_conveyance_report);
+
 
         ll_conveyance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +53,33 @@ public class AttendanceCategoryActivity extends MainActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AttendanceCategoryActivity.this, ApprovalListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        ll_leave_approval.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AttendanceCategoryActivity.this, LeaveApprovalListActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        ll_attendance_summery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AttendanceCategoryActivity.this, AttendanceSummeryActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        ll_conveyance_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AttendanceCategoryActivity.this, ConveyanceReportActivity.class);
                 startActivity(intent);
             }
         });

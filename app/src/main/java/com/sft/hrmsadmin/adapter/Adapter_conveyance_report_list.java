@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sft.hrmsadmin.R;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 /**
  * Created by User on 8/18/2016.
  */
-public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Adapter_conveyance_report_list extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     Context context;
@@ -38,7 +39,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     ViewGroup parent;
 
 
-    public Adapter_conveyance_list(ArrayList<JSONObject> arrayList, Context context) {
+    public Adapter_conveyance_report_list(ArrayList<JSONObject> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -67,7 +68,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
         switch (viewType) {
             case NORMAL:
                 this.parent = parent;
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_conveyance_approval, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_conveyance_report, parent, false);
                 DataObjectHolder holder = new DataObjectHolder(view);
                 return holder;
             case FOOTER:
@@ -106,49 +107,22 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                 ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
 
-
-                ((DataObjectHolder) holder).rb_approve.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        approval_status = "2";
-                    }
-                });
-
-
-                ((DataObjectHolder) holder).rb_reject.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        approval_status = "1";
-                    }
-                });
-
-                ((DataObjectHolder) holder).rb_modify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        approval_status = "3";
-                    }
-                });
-
-
-                ((DataObjectHolder) holder).rb_approve.setChecked(false);
-                ((DataObjectHolder) holder).rb_reject.setChecked(false);
-                ((DataObjectHolder) holder).rb_modify.setChecked(false);
-                ((DataObjectHolder) holder).et_modified_amount.setText("");
-
-
-                ((DataObjectHolder) holder).tv_approval_submit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (itemClick != null) {
-                            if (((DataObjectHolder) holder).et_modified_amount.getText().toString().equalsIgnoreCase("")){
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).tvAmount.getText().toString());
-                            } else {
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_modified_amount.getText().toString());
-                            }
-                        }
-                    }
-                });
-
+                if (arrayList.get(position).getInt("conveyance_approval") == 0) {
+                    ((DataObjectHolder) holder).tv_approval_status.setText("Pending Approval");
+                    ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_approval_status));
+                } else if (arrayList.get(position).getInt("conveyance_approval") == 1) {
+                    ((DataObjectHolder) holder).tv_approval_status.setText("Rejected by "+arrayList.get(position).getString("conveyance_approved_by"));
+                    ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.red_color));
+                } else if (arrayList.get(position).getInt("conveyance_approval") == 2) {
+                    ((DataObjectHolder) holder).tv_approval_status.setText("Approved by "+arrayList.get(position).getString("conveyance_approved_by"));
+                    ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                } else if (arrayList.get(position).getInt("conveyance_approval") == 3) {
+                    ((DataObjectHolder) holder).tv_approval_status.setText("Modified by "+arrayList.get(position).getString("conveyance_approved_by"));
+                    ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                } else {
+                    ((DataObjectHolder) holder).tv_approval_status.setText("Pending Approval");
+                    ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_approval_status));
+                }
 
                 ((DataObjectHolder) holder).tv_details.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -195,9 +169,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     public class DataObjectHolder extends RecyclerView.ViewHolder {
 
         View viewItem;
-        TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details;
-        RadioButton rb_approve, rb_reject, rb_modify;
-        EditText et_modified_amount;
+        TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details, tv_approval_status;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -207,13 +179,10 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
             tvFrom = itemView.findViewById(R.id.tvFrom);
             tvTo = itemView.findViewById(R.id.tvTo);
             tv_approval_submit = itemView.findViewById(R.id.tv_approval_submit);
-            rb_approve = itemView.findViewById(R.id.rb_approve);
-            rb_reject = itemView.findViewById(R.id.rb_reject);
-            et_modified_amount = itemView.findViewById(R.id.et_modified_amount);
-            rb_modify = itemView.findViewById(R.id.rb_modify);
             tvEligibility = itemView.findViewById(R.id.tvEligibility);
             tvAmount = itemView.findViewById(R.id.tvAmount);
             tv_details = itemView.findViewById(R.id.tv_details);
+            tv_approval_status = itemView.findViewById(R.id.tv_approval_status);
         }
     }
 

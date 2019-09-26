@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/color_white"
-        tools:context=".activity.ConveyanceActivity">
+        tools:context=".activity.ConveyanceReportActivity">
 
     <LinearLayout
             android:layout_width="match_parent"

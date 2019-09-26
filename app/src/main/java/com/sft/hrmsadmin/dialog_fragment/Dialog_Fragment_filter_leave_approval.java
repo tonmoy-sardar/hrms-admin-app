@@ -29,7 +29,7 @@ import java.util.ArrayList;
  * Created by USER on 28-Oct-16.
  */
 
-public class Dialog_Fragment_filter_by extends DialogFragment implements Adapter_filter_by_list.OnItemClick {
+public class Dialog_Fragment_filter_leave_approval extends DialogFragment implements Adapter_filter_by_list.OnItemClick {
 
     Dialog dialog;
     View v;
@@ -103,11 +103,9 @@ public class Dialog_Fragment_filter_by extends DialogFragment implements Adapter
     public void loadFilterData() {
         try {
             arrayList_filter_by.clear();
-            arrayList_filter_by.add(new JSONObject().put("id", 1).put("filter_by", "Approve O/D").put("request_type", "OD").put("status", false));
-            arrayList_filter_by.add(new JSONObject().put("id", 2).put("filter_by", "Approve H/D").put("request_type", "HD").put("status", false));
-            arrayList_filter_by.add(new JSONObject().put("id", 3).put("filter_by", "Approve F/D").put("request_type", "FD").put("status", false));
-            arrayList_filter_by.add(new JSONObject().put("id", 4).put("filter_by", "Approve Mispunch").put("request_type", "MP").put("status", false));
-            arrayList_filter_by.add(new JSONObject().put("id", 5).put("filter_by", "Approve Grace").put("request_type", "GR").put("status", false));
+            arrayList_filter_by.add(new JSONObject().put("id", 1).put("filter_by", "Earn Leave").put("request_type", "EL").put("status", false));
+            arrayList_filter_by.add(new JSONObject().put("id", 2).put("filter_by", "Casual Leave").put("request_type", "CL").put("status", false));
+            arrayList_filter_by.add(new JSONObject().put("id", 3).put("filter_by", "Absent").put("request_type", "AB").put("status", false));
             adapter_filter_by_list.notifyDataSetChanged();
         } catch (JSONException e) {
             e.printStackTrace();

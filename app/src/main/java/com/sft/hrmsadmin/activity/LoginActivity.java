@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         serviceClient = retrofitServiceGenerator.createService(ServiceClient.class);
         retrofitResponse = new RetrofitResponse(LoginActivity.this, getSupportFragmentManager());
 
-        et_user_name.setText("arghya.mitra@shyamfuture.com");
+        et_user_name.setText("arghyamitra");
         et_password.setText("Shyam@123");
 
         mySharedPreferance = new MySharedPreferance(this);

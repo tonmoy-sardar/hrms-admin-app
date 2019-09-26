@@ -23,7 +23,7 @@ import java.util.ArrayList;
 /**
  * Created by User on 8/18/2016.
  */
-public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     Context context;
@@ -38,7 +38,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     ViewGroup parent;
 
 
-    public Adapter_conveyance_list(ArrayList<JSONObject> arrayList, Context context) {
+    public Adapter_leave_approval_list(ArrayList<JSONObject> arrayList, Context context) {
         this.arrayList = arrayList;
         this.context = context;
     }
@@ -67,7 +67,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
         switch (viewType) {
             case NORMAL:
                 this.parent = parent;
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.items_conveyance_approval, parent, false);
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.child_leave_approval_list, parent, false);
                 DataObjectHolder holder = new DataObjectHolder(view);
                 return holder;
             case FOOTER:
@@ -99,18 +99,27 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
             }
 
             try {
-                ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("name"));
-                ((DataObjectHolder) holder).tvFrom.setText(arrayList.get(position).getString("from_place"));
-                ((DataObjectHolder) holder).tvTo.setText(arrayList.get(position).getString("to_place"));
-                ((DataObjectHolder) holder).tvEligibility.setText("INR " + arrayList.get(position).getString("eligibility") + "/day");
-                ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
-                ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
+                ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("employee_name"));
+                ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("created_at")));
+                ((DataObjectHolder) holder).tv_start_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("start_date")));
+                ((DataObjectHolder) holder).tv_end_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("end_date")));
+                ((DataObjectHolder) holder).tv_leave_reason.setText(arrayList.get(position).getString("reason"));
+                ((DataObjectHolder) holder).tv_leave_type.setText(arrayList.get(position).getString("leave_type"));
+
+                ((DataObjectHolder) holder).tv_conveyance_details.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (itemClick != null) {
+                            itemClick.onItemClick(position);
+                        }
+                    }
+                });
 
 
                 ((DataObjectHolder) holder).rb_approve.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        approval_status = "2";
+                        approval_status = "approved";
                     }
                 });
 
@@ -118,43 +127,29 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                 ((DataObjectHolder) holder).rb_reject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        approval_status = "1";
+                        approval_status = "reject";
                     }
                 });
 
-                ((DataObjectHolder) holder).rb_modify.setOnClickListener(new View.OnClickListener() {
+                ((DataObjectHolder) holder).rb_free.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        approval_status = "3";
+                        approval_status = "relese";
                     }
                 });
 
 
                 ((DataObjectHolder) holder).rb_approve.setChecked(false);
                 ((DataObjectHolder) holder).rb_reject.setChecked(false);
-                ((DataObjectHolder) holder).rb_modify.setChecked(false);
-                ((DataObjectHolder) holder).et_modified_amount.setText("");
+                ((DataObjectHolder) holder).rb_free.setChecked(false);
+                ((DataObjectHolder) holder).et_add_remarks.setText("");
 
 
                 ((DataObjectHolder) holder).tv_approval_submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (itemClick != null) {
-                            if (((DataObjectHolder) holder).et_modified_amount.getText().toString().equalsIgnoreCase("")){
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).tvAmount.getText().toString());
-                            } else {
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_modified_amount.getText().toString());
-                            }
-                        }
-                    }
-                });
-
-
-                ((DataObjectHolder) holder).tv_details.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (itemClick != null) {
-                            itemClick.onItemClickDetails(position);
+                            itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_add_remarks.getText().toString());
                         }
                     }
                 });
@@ -195,25 +190,26 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     public class DataObjectHolder extends RecyclerView.ViewHolder {
 
         View viewItem;
-        TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details;
-        RadioButton rb_approve, rb_reject, rb_modify;
-        EditText et_modified_amount;
+        TextView tv_conveyance_details, tv_employee_name, tv_request_date, tv_start_date, tv_end_date, tv_leave_type,
+                tv_leave_reason, tv_approval_submit;
+        RadioButton rb_approve, rb_reject, rb_free;
+        EditText et_add_remarks;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
             viewItem = itemView;
+            tv_conveyance_details = itemView.findViewById(R.id.tv_conveyance_details);
             tv_employee_name = itemView.findViewById(R.id.tv_employee_name);
             tv_request_date = itemView.findViewById(R.id.tv_request_date);
-            tvFrom = itemView.findViewById(R.id.tvFrom);
-            tvTo = itemView.findViewById(R.id.tvTo);
+            tv_start_date = itemView.findViewById(R.id.tv_start_date);
+            tv_end_date = itemView.findViewById(R.id.tv_end_date);
+            tv_leave_type = itemView.findViewById(R.id.tv_leave_type);
+            tv_leave_reason = itemView.findViewById(R.id.tv_leave_reason);
             tv_approval_submit = itemView.findViewById(R.id.tv_approval_submit);
             rb_approve = itemView.findViewById(R.id.rb_approve);
             rb_reject = itemView.findViewById(R.id.rb_reject);
-            et_modified_amount = itemView.findViewById(R.id.et_modified_amount);
-            rb_modify = itemView.findViewById(R.id.rb_modify);
-            tvEligibility = itemView.findViewById(R.id.tvEligibility);
-            tvAmount = itemView.findViewById(R.id.tvAmount);
-            tv_details = itemView.findViewById(R.id.tv_details);
+            et_add_remarks = itemView.findViewById(R.id.et_add_remarks);
+            rb_free = itemView.findViewById(R.id.rb_free);
         }
     }
 
@@ -238,8 +234,6 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     public interface OnItemClick {
         void onItemClick(int pos);
 
-        void onItemClickApproval(int pos, String approval_status, String conveyance_expense);
-
-        void onItemClickDetails(int pos);
+        void onItemClickApproval(int pos, String approval_status, String add_remark);
     }
 }

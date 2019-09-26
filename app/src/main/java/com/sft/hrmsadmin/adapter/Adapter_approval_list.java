@@ -28,6 +28,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
     ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
     Context context;
     OnItemClick itemClick;
+    String approval_status = "";
 
     public static final int NORMAL = 1;
     public static final int FOOTER = 2;
@@ -80,7 +81,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
 
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, final int position) {
 
         if (holder instanceof FooterProgressbar) {
             if (updateLoader) {
@@ -99,7 +100,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
 
             try {
                 ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("employee_name"));
-                ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("request_date")));
+                ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
                 ((DataObjectHolder) holder).tv_deviation_start_time.setText(arrayList.get(position).getString("duration_start")
                         .substring(arrayList.get(position).getString("duration_start").indexOf("T") + 1));
                 ((DataObjectHolder) holder).tv_deviation_end_time.setText(arrayList.get(position).getString("duration_end")
@@ -136,6 +137,45 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
                     public void onClick(View view) {
                         if (itemClick != null) {
                             itemClick.onItemClick(position);
+                        }
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).rb_approve.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        approval_status = "approved";
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).rb_reject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        approval_status = "reject";
+                    }
+                });
+
+                ((DataObjectHolder) holder).rb_free.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        approval_status = "relese";
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).rb_approve.setChecked(false);
+                ((DataObjectHolder) holder).rb_reject.setChecked(false);
+                ((DataObjectHolder) holder).rb_free.setChecked(false);
+                ((DataObjectHolder) holder).et_add_remarks.setText("");
+
+
+                ((DataObjectHolder) holder).tv_approval_submit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (itemClick != null) {
+                            itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_add_remarks.getText().toString());
                         }
                     }
                 });
@@ -178,7 +218,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
         View viewItem;
         TextView tv_conveyance_details, tv_employee_name, tv_request_date, tv_deviation_start_time, tv_deviation_end_time, tv_deviation_time, tv_leave_type,
                 tv_approval_justification, tv_approval_submit;
-        RadioButton rb_approve, rb_reject;
+        RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
 
         public DataObjectHolder(View itemView) {
@@ -196,6 +236,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
             rb_approve = itemView.findViewById(R.id.rb_approve);
             rb_reject = itemView.findViewById(R.id.rb_reject);
             et_add_remarks = itemView.findViewById(R.id.et_add_remarks);
+            rb_free = itemView.findViewById(R.id.rb_free);
         }
     }
 
@@ -219,5 +260,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface OnItemClick {
         void onItemClick(int pos);
+
+        void onItemClickApproval(int pos, String approval_status, String add_remark);
     }
 }

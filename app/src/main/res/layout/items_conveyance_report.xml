@@ -203,12 +203,6 @@
         </LinearLayout>
 
 
-
-
-
-
-
-
         <com.sft.hrmsadmin.widget.GothiciBoldTextView
                 android:id="@+id/tv_conveyance_details"
                 android:layout_width="wrap_content"
@@ -221,83 +215,15 @@
                 android:visibility="gone" />
 
 
-        <LinearLayout
-                android:layout_width="match_parent"
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Approval : "
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/_12sdp" />
-
-
-            <RadioGroup
-                    android:id="@+id/rg_approve_reject"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
-
-                <RadioButton
-                        android:id="@+id/rb_approve"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Approve"
-                        android:textSize="@dimen/_12sdp" />
-
-                <RadioButton
-                        android:id="@+id/rb_reject"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Reject"
-                        android:textSize="@dimen/_12sdp" />
-                <RadioButton
-                        android:id="@+id/rb_modify"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Modify"
-                        android:textSize="@dimen/_12sdp" />
-
-            </RadioGroup>
-
-
-            <com.sft.hrmsadmin.widget.GothiciRegularEditText
-                    android:id="@+id/et_modified_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rectangle_box_black_outline"
-                    android:gravity="center_vertical"
-                    android:hint="Modified Amount..."
-                    android:imeOptions="actionDone"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:textSize="@dimen/_11sdp"
-                    android:inputType="number"
-                    />
-
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:id="@+id/tv_approval_submit"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_26sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:background="@drawable/rectangle_box_curve_solid"
-                    android:gravity="center"
-                    android:text="Submit"
-                    android:textColor="@color/color_white" />
-
-
-        </LinearLayout>
+                android:text="Pending Approval"
+                android:textColor="@color/color_approval_status"
+                android:textSize="@dimen/_12sdp"
+                android:id="@+id/tv_approval_status"
+                />
 
 
     </LinearLayout>
