@@ -21,6 +21,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
+        <activity android:name=".activity.ConveyanceDetails"></activity>
         <activity
                 android:name=".activity.AttendanceSummeryActivity"
                 android:screenOrientation="portrait"

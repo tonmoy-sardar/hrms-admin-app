@@ -17,4 +17,12 @@
     <color name="red_color">#FF0000</color>
     <color name="color_approval_status">#FF9800</color>
     <color name="color_green">#4CAF50</color>
+
+
+    <color name="pending_yellow">#FF9800</color>
+    <color name="approved_green">#008577</color>
+    <color name="green_justification">#4CAF50</color>
+    <color name="reject_red">#D81B60</color>
+
+
 </resources>

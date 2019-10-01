@@ -48,4 +48,32 @@ public class MethodUtils {
     }
 
 
+    public static String splitToTimeFromDate(String date){
+
+        String getTime = "";
+        String[] separated = date.split("T");
+
+
+        System.out.println("ola: "+date);
+
+        getTime = separated[1];
+
+
+        String[] sperated2 = getTime.split(":");
+
+        int time = Integer.parseInt(sperated2[0]);
+
+        if (time < 12){
+
+            return getTime;
+        }else {
+
+            return getTime;
+        }
+
+
+        //return getTime;
+    }
+
+
 }

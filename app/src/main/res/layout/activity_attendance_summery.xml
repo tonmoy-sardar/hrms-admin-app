@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".activity.AttendanceSummeryActivity">
+        tools:context=".activity.AttendanceSummeryActivity"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:id="@+id/tvSelectEmployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:padding="@dimen/_5sdp"
+            android:ems="10"
+            android:hint="Select Employee"
+            android:background="@drawable/rectangle_border_solid_white"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"/>
+
+    <LinearLayout
+            android:id="@+id/llDropDownEmployee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+
+
+
+    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+            android:id="@+id/tvSelectMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/rectangle_border_solid_white"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+            android:gravity="center_vertical"
+            android:hint="Select Month"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_7sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_7sdp"
+            android:visibility="gone"/>
+
+    <LinearLayout
+            android:id="@+id/llDropDown"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/_10sdp"
+            android:visibility="gone">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMonths"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSummaryList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+
+</LinearLayout>

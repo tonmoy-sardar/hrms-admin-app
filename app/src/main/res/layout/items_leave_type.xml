@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tvLeaveType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:text="Leave Type: Half - O/D">
+
+        </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="@dimen/_5sdp"
+                android:text="Duration: 134 mins">
+
+        </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/rlRemarks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:id="@+id/tvRemarksLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remarks: "
+                android:padding="@dimen/_5sdp"
+                android:textColor="@color/text_color"/>
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tvRemarks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvRemarksLabel"
+                android:text=""
+                android:padding="@dimen/_5sdp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:id="@+id/tvStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:padding="@dimen/_5sdp"
+                android:text="Approved Status"
+                android:visibility="visible"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/text_color">
+
+        </com.sft.hrmsadmin.widget.GothiciBoldTextView>
+
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvStatusLabel"
+                android:layout_gravity="right"
+                android:padding="@dimen/_5sdp"
+                android:text="Approved"
+                android:textColor="@color/colorPrimary"
+                android:visibility="visible">
+
+        </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+
+    </RelativeLayout>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/border_color"/>
+
+</LinearLayout>
