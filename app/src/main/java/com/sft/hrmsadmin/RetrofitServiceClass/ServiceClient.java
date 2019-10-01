@@ -16,6 +16,8 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+import static com.sft.hrmsadmin.RetrofitServiceClass.mServiceList.ATTENDANCE_GRACE_LEAVE_LIST;
+
 public interface ServiceClient {
 
 
@@ -119,6 +121,13 @@ public interface ServiceClient {
 
     @GET(mServiceList.employee_list_wo_pagination)
     Call<ResponseBody> get_employee_list_wo_pagination(@Header("Authorization") String Bearer);
+
+
+    @GET(ATTENDANCE_GRACE_LEAVE_LIST)
+    Call<ResponseBody> call_attendance_grace_leave_list(@Header("Authorization") String Bearer,
+                                                        @Header("Content-Type") String Content_type,
+                                                        @Query("employee_id") int employee_id,
+                                                        @Query("date") String date);
 
 
 }

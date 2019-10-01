@@ -25,8 +25,10 @@ import com.sft.hrmsadmin.adapter.EmployeeDetailAdapter;
 import com.sft.hrmsadmin.adapter.MonthsAdapter;
 import com.sft.hrmsadmin.pojo_calsses.AttendanceSummaryMonths;
 import com.sft.hrmsadmin.pojo_calsses.EmployeeDetail;
+import com.sft.hrmsadmin.pojo_calsses.attendance_grace_pojo.AttendanceGraceLeavePojo;
 import com.sft.hrmsadmin.pojo_calsses.employee_detail.EmployeeDetailsPojo;
 import com.sft.hrmsadmin.pojo_calsses.employee_detail.Result;
+import com.sft.hrmsadmin.utils.MethodUtils;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
 import org.json.JSONArray;
@@ -61,17 +63,22 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     List<AttendanceSummaryMonths> newListMonths = new ArrayList<>();
 
 
+    TextView tvGraceTime,tvCL,tvEL,tvSL,tvAbsent;
+
+
 
 
 
     TextView tvSelectEmployee,tvSelectMonth;
-    LinearLayout llDropDownEmployee,llDropDown;
+    LinearLayout llDropDownEmployee,llDropDown,llStatic;
     RecyclerView rvEmployee;
 
     int employee_id = 0;
     String year = "";
 
     MonthsAdapter monthsAdapter;
+
+    TextView tvEmpName;
 
 
     @Override
@@ -102,8 +109,19 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         tvSelectEmployee = findViewById(R.id.tvSelectEmployee);
         tvSelectMonth = findViewById(R.id.tvSelectMonth);
+        tvEmpName = findViewById(R.id.tvEmpName);
+
+
+        tvGraceTime = findViewById(R.id.tvGraceTime);
+        tvCL = findViewById(R.id.tvCL);
+        tvEL = findViewById(R.id.tvEL);
+        tvSL = findViewById(R.id.tvSL);
+        tvAbsent = findViewById(R.id.tvAbsent);
+
+
         llDropDownEmployee = findViewById(R.id.llDropDownEmployee);
         llDropDown = findViewById(R.id.llDropDown);
+        llStatic = findViewById(R.id.llStatic);
         rvEmployee = findViewById(R.id.rvEmployee);
 
 
@@ -241,6 +259,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
     public void get_attendance_admin_summary_list() {
 
+        arrayList_attendance_summery.clear();
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_admin_summary_list("Token " +
                         token, "application/json",
                 employee_id, yearInt, monthID),
@@ -255,6 +274,9 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
                                     arrayList_attendance_summery.add(results.getJSONObject(i));
                                 }
                                 attendanceSummaryAdapter.notifyDataSetChanged();
+
+
+
 
                                 //get_employee_list_wo_pagination();
                             } catch (JSONException e) {
@@ -384,17 +406,80 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     }
 
 
+    String todaysDate = "";
+
+
+    public void getGraceFirst(){
+
+
+        retrofitResponse.getWebServiceResponse(serviceClient.call_attendance_grace_leave_list("Token " + token,
+                "application/json",employee_id, MethodUtils.getTodaysDate()),
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        try {
 
 
 
+                            String responseString = jsonObject.toString();
+
+                            System.out.println("responseStringGrace: "+responseString);
+
+                            setValues(responseString);
 
 
 
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
+    }
+
+    private void setValues(String responseString) {
+
+        Gson gson = new Gson();
+        AttendanceGraceLeavePojo attendanceGraceLeavePojo;
+        attendanceGraceLeavePojo = gson.fromJson(responseString, AttendanceGraceLeavePojo.class);
+
+        llStatic.setVisibility(View.VISIBLE);
+
+        tvEmpName.setText(emp_name);
+        if (attendanceGraceLeavePojo.getResult().getMonthStart() != null && attendanceGraceLeavePojo.getResult().getMonthEnd() != null) {
+            tvGraceTime.setText("Grace Time(" + MethodUtils.profileDate(attendanceGraceLeavePojo.getResult().getMonthStart()) +
+                    " - " + MethodUtils.profileDate(attendanceGraceLeavePojo.getResult().getMonthEnd()) + ")");
+        } else {
+            tvGraceTime.setText("N/A");
+        }
+
+
+
+        if (attendanceGraceLeavePojo.getResult().getAvailedCl()!= null) {
+            tvCL.setText("Cl: " + attendanceGraceLeavePojo.getResult().getAvailedCl());
+        }
+
+        if (attendanceGraceLeavePojo.getResult().getAvailedEl()!= null){
+
+            tvEL.setText("EL: "+attendanceGraceLeavePojo.getResult().getAvailedEl());
+        }
+
+        if (attendanceGraceLeavePojo.getResult().getAvailedSl()!= null){
+
+            tvSL.setText("SL: "+attendanceGraceLeavePojo.getResult().getAvailedSl());
+        }
+
+        if (attendanceGraceLeavePojo.getResult().getAvailedAb()!= null){
+
+            tvAbsent.setText("Absent: "+attendanceGraceLeavePojo.getResult().getAvailedAb());
+        }
+
+    }
 
 
     public void get_employee_list_wo_pagination() {
 
+        resultListEmployee.clear();
         retrofitResponse.getWebServiceResponse(serviceClient.get_employee_list_wo_pagination("Token " + token),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
@@ -420,6 +505,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
                 });
     }
 
+    String emp_name = "";
     @Override
     public void OnItemClick(Integer id, String name) {
 
@@ -431,11 +517,20 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         llDropDownEmployee.setVisibility(View.GONE);
         tvSelectMonth.setVisibility(View.VISIBLE);
+
+        tvSelectMonth.setText("");
+        monthID = 0;
+        yearInt = 0;
+
+        emp_name = name;
+
+        getGraceFirst();
+
     }
 
 
-    int monthID;
-    int yearInt;
+    int monthID = 0;
+    int yearInt = 0;
 
     @Override
     public void OnItemClick(String id, String month, String year) {

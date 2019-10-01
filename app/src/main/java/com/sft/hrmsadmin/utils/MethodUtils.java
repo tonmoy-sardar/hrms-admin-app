@@ -12,6 +12,7 @@ import com.sft.hrmsadmin.R;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class MethodUtils {
@@ -73,6 +74,15 @@ public class MethodUtils {
 
 
         //return getTime;
+    }
+
+
+    public static String getTodaysDate() {
+        Date c = Calendar.getInstance().getTime();
+
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = df.format(c);
+        return formattedDate;
     }
 
 
