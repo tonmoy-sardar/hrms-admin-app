@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,12 @@ import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
-import com.sft.hrmsadmin.adapter.Adapter_leave_approval_list;
+import com.sft.hrmsadmin.adapter.Adapter_leave_report_list;
+import com.sft.hrmsadmin.adapter.Adapter_leave_report_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
+import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_conveyance;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_approval;
+import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_report;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
@@ -39,10 +43,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class LeaveReportListActivity extends MainActivity implements Adapter_leave_approval_list.OnItemClick {
+public class LeaveReportListActivity extends MainActivity implements Adapter_leave_report_list.OnItemClick {
 
     public View view;
-    Adapter_leave_approval_list adapter_leave_approval_list;
+    Adapter_leave_report_list adapter_leave_report_list;
     RecyclerView rv_approval_list;
     ArrayList<JSONObject> arrayList_leave_approval;
     LinearLayout ll_search_btn, ll_search_sort_section, ll_search_field, ll_sort_field, ll_filter_btn;
@@ -50,7 +54,11 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
     ImageView iv_search_close;
     int selected_pos = 0;
     Spinner sp_sort_items;
-    String field_name = "", order_by = "", request_types = "";
+    String field_name = "", order_by = "", request_types = "", start_date = "", end_date = "", approval_filter = "";
+    int select_type = 1; //1= advance leave, 2 = normal leave
+    RelativeLayout rl_advance_leave, rl_normal_leave;
+    TextView tv_advance_leave, tv_normal_leave;
+    View v_advance_leave, v_normal_leave;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -79,6 +87,12 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
         sp_sort_items = findViewById(R.id.sp_sort_items);
         ll_sort_field = findViewById(R.id.ll_sort_field);
         ll_filter_btn = findViewById(R.id.ll_filter_btn);
+        rl_advance_leave = findViewById(R.id.rl_advance_leave);
+        rl_normal_leave = findViewById(R.id.rl_normal_leave);
+        tv_advance_leave = findViewById(R.id.tv_advance_leave);
+        tv_normal_leave = findViewById(R.id.tv_normal_leave);
+        v_advance_leave = findViewById(R.id.v_advance_leave);
+        v_normal_leave = findViewById(R.id.v_normal_leave);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
@@ -87,24 +101,28 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
         //retrofitResponse = new RetrofitResponse(getApplicationContext(), getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_leave_approval = new ArrayList<JSONObject>();
-        adapter_leave_approval_list = new Adapter_leave_approval_list(arrayList_leave_approval, this);
-        adapter_leave_approval_list.setOnItemListener(this);
-        adapter_leave_approval_list.paginate(new Adapter_leave_approval_list.UpdateData() {
+        adapter_leave_report_list = new Adapter_leave_report_list(arrayList_leave_approval, this);
+        adapter_leave_report_list.setOnItemListener(this);
+        adapter_leave_report_list.paginate(new Adapter_leave_report_list.UpdateData() {
             @Override
             public void get(int position) {
                 page = page + 1;
-                get_admin_attendance_advance_leave_pending_list();
+                if (select_type == 1) {
+                    get_attendance_advance_leave_report();
+                } else {
+                    get_attendance_normal_leave_report();
+                }
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rv_approval_list.setLayoutManager(layoutManager);
         rv_approval_list.setHasFixedSize(true);
-        rv_approval_list.setAdapter(adapter_leave_approval_list);
+        rv_approval_list.setAdapter(adapter_leave_report_list);
 
 
         rv_approval_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -112,10 +130,43 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (arrayList_leave_approval.size() == 0) {
-                    adapter_leave_approval_list.updateAgain(false);
+                    adapter_leave_report_list.updateAgain(false);
                 } else {
-                    adapter_leave_approval_list.updateAgain(true);
+                    adapter_leave_report_list.updateAgain(true);
                 }
+            }
+        });
+
+
+        rl_advance_leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_advance_leave.setTextColor(ContextCompat.getColor(LeaveReportListActivity.this, R.color.color_black));
+                tv_normal_leave.setTextColor(ContextCompat.getColor(LeaveReportListActivity.this, R.color.light_text_color));
+
+                v_advance_leave.setVisibility(View.VISIBLE);
+                v_normal_leave.setVisibility(View.GONE);
+
+                select_type = 1;
+                clear_local_value();
+                get_attendance_advance_leave_report();
+
+            }
+        });
+
+
+        rl_normal_leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_advance_leave.setTextColor(ContextCompat.getColor(LeaveReportListActivity.this, R.color.light_text_color));
+                tv_normal_leave.setTextColor(ContextCompat.getColor(LeaveReportListActivity.this, R.color.color_black));
+
+                v_advance_leave.setVisibility(View.GONE);
+                v_normal_leave.setVisibility(View.VISIBLE);
+
+                select_type = 2;
+                clear_local_value();
+                get_attendance_normal_leave_report();
             }
         });
 
@@ -138,7 +189,11 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
-                get_admin_attendance_advance_leave_pending_list();
+                if (select_type == 1) {
+                    get_attendance_advance_leave_report();
+                } else {
+                    get_attendance_normal_leave_report();
+                }
             }
         });
 
@@ -150,7 +205,11 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
-                        get_admin_attendance_advance_leave_pending_list();
+                        if (select_type == 1) {
+                            get_attendance_advance_leave_report();
+                        } else {
+                            get_attendance_normal_leave_report();
+                        }
                     }
                 }
                 return false;
@@ -170,50 +229,93 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
             @Override
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
-                final Dialog_Fragment_filter_leave_approval dialog_fragment_filter_leave_approval = new Dialog_Fragment_filter_leave_approval();
-                dialog_fragment_filter_leave_approval.setOnDialogListener(new Dialog_Fragment_filter_leave_approval.OnItemClickDialog() {
+                final Dialog_Fragment_filter_leave_report dialog_fragment_filter_leave_report = new Dialog_Fragment_filter_leave_report();
+                dialog_fragment_filter_leave_report.setOnDialogListener(new Dialog_Fragment_filter_leave_report.OnItemClickDialog() {
                     @Override
-                    public void onItemClick(String request_type) {
-                        System.out.println("request_type=====>>>" + request_type);
-                        request_types = request_type;
+                    public void onItemClick(String from_date, String to_date, String leave_type, String approved_type) {
+                        start_date = from_date;
+                        end_date = to_date;
+                        request_types = leave_type;
+                        approval_filter = approved_type;
                         page = 1;
-                        get_admin_attendance_advance_leave_pending_list();
+                        if (select_type == 1) {
+                            get_attendance_advance_leave_report();
+                        } else {
+                            get_attendance_normal_leave_report();
+                        }
                     }
                 });
-                dialog_fragment_filter_leave_approval.show(getSupportFragmentManager(), "dialog_fragment_filter_by");
+                dialog_fragment_filter_leave_report.show(getSupportFragmentManager(), "dialog_fragment_filter_conveyance");
             }
         });
 
 
         custom_spinner();
-        get_admin_attendance_advance_leave_pending_list();
+        if (select_type == 1) {
+            get_attendance_advance_leave_report();
+        } else {
+            get_attendance_normal_leave_report();
+        }
     }
 
 
-    public void get_admin_attendance_advance_leave_pending_list() {
-        adapter_leave_approval_list.loader(true);
+    public void get_attendance_advance_leave_report() {
+        adapter_leave_report_list.loader(true);
 
-        retrofitResponse.getWebServiceResponse(serviceClient.get_admin_attendance_advance_leave_pending_list("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), request_types, field_name, order_by),
+        retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_advance_leave_report("Token " + token, "application/json", page,
+                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
-                        adapter_leave_approval_list.loader(false);
-                        adapter_leave_approval_list.updateAgain(false);
+                        adapter_leave_report_list.loader(false);
+                        adapter_leave_report_list.updateAgain(false);
                         if (jsonObject != null) {
                             if (page == 1) {
                                 arrayList_leave_approval.clear();
+                                adapter_leave_report_list.notifyDataSetChanged();
                             }
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
                                 for (int i = 0; i < results.length(); i++) {
                                     arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
-                                adapter_leave_approval_list.notifyDataSetChanged();
+                                adapter_leave_report_list.notifyDataSetChanged();
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                adapter_leave_approval_list.loader(false);
-                                adapter_leave_approval_list.updateAgain(false);
+                                adapter_leave_report_list.loader(false);
+                                adapter_leave_report_list.updateAgain(false);
+                            }
+                        }
+                    }
+                });
+    }
+
+
+    public void get_attendance_normal_leave_report() {
+        adapter_leave_report_list.loader(true);
+
+        retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_approval_report("Token " + token, "application/json", page,
+                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by),
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        adapter_leave_report_list.loader(false);
+                        adapter_leave_report_list.updateAgain(false);
+                        if (jsonObject != null) {
+                            if (page == 1) {
+                                arrayList_leave_approval.clear();
+                                adapter_leave_report_list.notifyDataSetChanged();
+                            }
+                            try {
+                                JSONArray results = jsonObject.getJSONArray("results");
+                                for (int i = 0; i < results.length(); i++) {
+                                    arrayList_leave_approval.add(results.getJSONObject(i));
+                                }
+                                adapter_leave_report_list.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                adapter_leave_report_list.loader(false);
+                                adapter_leave_report_list.updateAgain(false);
                             }
                         }
                     }
@@ -239,10 +341,14 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                         try {
                             if (jsonObject != null) {
                                /* arrayList_leave_approval.remove(position);
-                                adapter_leave_approval_list.notifyDataSetChanged();*/
+                                adapter_leave_report_list.notifyDataSetChanged();*/
                                 Toast.makeText(LeaveReportListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
-                                get_admin_attendance_advance_leave_pending_list();
+                                if (select_type == 1) {
+                                    get_attendance_advance_leave_report();
+                                } else {
+                                    get_attendance_normal_leave_report();
+                                }
                             } else {
                                 Toast.makeText(LeaveReportListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
                             }
@@ -340,40 +446,68 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                 System.out.println("spinner pos=======>>>" + position);
                 selected_pos = position;
                 if (position == 1) {
-                    field_name = "sort_applied";
+                    field_name = "date_of_application";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 2) {
-                    field_name = "sort_applied";
+                    field_name = "date_of_application";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 3) {
                     field_name = "start_date";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 4) {
                     field_name = "start_date";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 5) {
                     field_name = "end_date";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 6) {
                     field_name = "end_date";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 } else if (position == 7) {
                     field_name = "";
                     order_by = "";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type == 1) {
+                        get_attendance_advance_leave_report();
+                    } else {
+                        get_attendance_normal_leave_report();
+                    }
                 }
             }
 
@@ -382,6 +516,17 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
 
             }
         });
+    }
+
+
+    public void clear_local_value() {
+        et_search_field.setText("");
+        start_date = "";
+        end_date = "";
+        request_types = "";
+        approval_filter = "";
+        field_name = "";
+        order_by = "";
     }
 
 

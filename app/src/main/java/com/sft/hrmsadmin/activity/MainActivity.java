@@ -21,6 +21,9 @@ import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.RetrofitServiceClass.mServiceList;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView tvAccount, tv_universal_header, tv_user_name, tv_logout;
     RelativeLayout rl_menu;
     MySharedPreferance mySharedPreferance;
+    JSONObject jsonObject;
 
 
     @Override
@@ -53,17 +57,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rl_menu = findViewById(R.id.rl_menu);
         img_topbar_back = findViewById(R.id.img_topbar_back);
 
-        tvAccount = findViewById(R.id.tvAccount);
+        //tvAccount = findViewById(R.id.tvAccount);
         tv_user_name = findViewById(R.id.tv_user_name);
         tv_logout = findViewById(R.id.tv_logout);
 
         mySharedPreferance = new MySharedPreferance(this);
+        try {
+            jsonObject = new JSONObject(mySharedPreferance.getPreferancceString(mySharedPreferance.login_response));
+            tv_user_name.setText(jsonObject.getString("first_name") + " " + jsonObject.getString("last_name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
 
         initializeDrawer();
 
         clickEvent();
 
-        System.out.println("token: "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
+        System.out.println("token: " + mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
 
 
         img_topbar_back.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         img_topbar_menu.setOnClickListener(this);
         iv_cross.setOnClickListener(this);
-        tvAccount.setOnClickListener(this);
+        //tvAccount.setOnClickListener(this);
         rl_menu.setOnClickListener(this);
         tv_logout.setOnClickListener(this);
     }
@@ -149,12 +160,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
-            case R.id.tvAccount:
+           /* case R.id.tvAccount:
                 if (isDrawerOpen()) {
                     mDrawerLayout.closeDrawers();
                 }
 
-                break;
+                break;*/
             case R.id.tv_logout:
                 if (isDrawerOpen()) {
                     mDrawerLayout.closeDrawers();
@@ -168,17 +179,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void callLogOutApi() {
 
 
-        System.out.println("tokenLogOut: "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
+        System.out.println("tokenLogOut: " + mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
 
         Retrofit retrofit = AppConfig.getRetrofit(mServiceList.Base_URL);
         ServiceClient apiInterface = retrofit.create(ServiceClient.class);
 
-        final Call<ResponseBody> register = apiInterface.call_logoutApi("Token "+mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
+        final Call<ResponseBody> register = apiInterface.call_logoutApi("Token " + mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
         register.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                System.out.println("url: " + response.raw().request().url()+" "+response.code());
+                System.out.println("url: " + response.raw().request().url() + " " + response.code());
                 if (response.code() == 200 || response.code() == 201) {
                     navigateToLogin();
                 }

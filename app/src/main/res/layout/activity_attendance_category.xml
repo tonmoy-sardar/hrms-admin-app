@@ -54,7 +54,7 @@
                             android:id="@+id/iv_item"
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/reports_icon" />
+                            android:background="@drawable/ic_attendance_approval" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -62,7 +62,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_6sdp"
                             android:gravity="center"
-                            android:text="attedance\napproval"
+                            android:text="attendance\napproval"
                             android:textSize="@dimen/_11sdp"
                             app:textAllCaps="true" />
 
@@ -84,7 +84,7 @@
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/approvals_icon" />
+                            android:background="@drawable/ic_applyadvanceleave" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -109,7 +109,9 @@
                     android:layout_marginLeft="@dimen/_7sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_7sdp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    >
 
 
                 <LinearLayout
@@ -126,7 +128,7 @@
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/conveyance_icon" />
+                            android:background="@drawable/ic_conveyanceapproval" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -208,7 +210,7 @@
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/reports_icon" />
+                            android:background="@drawable/ic_dailyattendance" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -216,7 +218,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_6sdp"
                             android:gravity="center"
-                            android:text="daily\nattedance"
+                            android:text="daily\nattendance"
                             android:textSize="@dimen/_11sdp"
                             app:textAllCaps="true" />
 
@@ -225,21 +227,20 @@
 
 
                 <LinearLayout
+                        android:id="@+id/ll_attendance_summery"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
                         android:layout_marginLeft="@dimen/_4sdp"
                         android:layout_weight="1"
                         android:background="@drawable/rectangle_box_background"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:id="@+id/ll_attendance_summery"
-                        >
+                        android:orientation="vertical">
 
 
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/approvals_icon" />
+                            android:background="@drawable/ic_attendancesummary" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -247,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_6sdp"
                             android:gravity="center"
-                            android:text="attedance\nsummary"
+                            android:text="attendance\nsummary"
                             android:textSize="@dimen/_11sdp"
                             app:textAllCaps="true" />
 
@@ -269,6 +270,7 @@
 
 
                 <LinearLayout
+                        android:id="@+id/ll_leave_report"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
                         android:layout_marginRight="@dimen/_4sdp"
@@ -281,7 +283,7 @@
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/conveyance_icon" />
+                            android:background="@drawable/ic_leavehistory" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView
@@ -298,21 +300,20 @@
 
 
                 <LinearLayout
+                        android:id="@+id/ll_conveyance_report"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
                         android:layout_marginLeft="@dimen/_4sdp"
                         android:layout_weight="1"
                         android:background="@drawable/rectangle_box_background"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        android:id="@+id/ll_conveyance_report"
-                        >
+                        android:orientation="vertical">
 
 
                     <ImageView
                             android:layout_width="@dimen/_50sdp"
                             android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/attendance" />
+                            android:background="@drawable/ic_conveyance" />
 
 
                     <com.sft.hrmsadmin.widget.GothiciBoldTextView

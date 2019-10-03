@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HRMS Admin</string>
-    <string name="login_hint">Email</string>
+    <string name="login_hint">Username</string>
     <string name="password_hint">Password</string>
     <string name="password_old">Old Password</string>
     <string name="password_new">New Password</string>

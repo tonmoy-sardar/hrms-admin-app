@@ -244,7 +244,7 @@
                     android:orientation="horizontal"
                     android:weightSum="3">
 
-                <RadioButton
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                         android:id="@+id/rb_approve"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -252,14 +252,15 @@
                         android:text="Approve"
                         android:textSize="@dimen/_12sdp" />
 
-                <RadioButton
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                         android:id="@+id/rb_reject"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Reject"
                         android:textSize="@dimen/_12sdp" />
-                <RadioButton
+
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                         android:id="@+id/rb_modify"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

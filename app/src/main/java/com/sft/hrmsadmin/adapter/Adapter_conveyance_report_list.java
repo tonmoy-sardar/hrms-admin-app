@@ -104,7 +104,13 @@ public class Adapter_conveyance_report_list extends RecyclerView.Adapter<Recycle
                 ((DataObjectHolder) holder).tvFrom.setText(arrayList.get(position).getString("from_place"));
                 ((DataObjectHolder) holder).tvTo.setText(arrayList.get(position).getString("to_place"));
                 ((DataObjectHolder) holder).tvEligibility.setText("INR " + arrayList.get(position).getString("eligibility") + "/day");
-                ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
+
+                if (arrayList.get(position).getString("approved_expenses").equalsIgnoreCase("null")){
+                    ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
+                } else {
+                    ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("approved_expenses"));
+                }
+
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
 
                 if (arrayList.get(position).getInt("conveyance_approval") == 0) {

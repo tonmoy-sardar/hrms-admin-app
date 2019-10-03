@@ -1,12 +1,17 @@
 package com.sft.hrmsadmin.RetrofitServiceClass;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.sft.hrmsadmin.activity.LoginActivity;
+import com.sft.hrmsadmin.utils.MessageDialog;
+import com.sft.hrmsadmin.utils.MySharedPreferance;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +29,7 @@ public class RetrofitResponse {
     private ProgressBarDialog progressBarDialog;
     private View view;
     private FragmentManager fragmentManager;
+    MySharedPreferance mySharedPreferance;
 
 
     public RetrofitResponse(Context context) {
@@ -77,6 +83,23 @@ public class RetrofitResponse {
                     Print.makePrint("Service URL==>" + response.raw().request().url());
                     try {
                         Print.makePrint("before Service Response ==>" + response.body());
+                        if (response.code() == 401) {
+                            showMessagePopup("Your Token is Invalid! PLease Log In again");
+                            messageDialogPopup.bt_dialogOK.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mySharedPreferance = new MySharedPreferance(context);
+                                    mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_token);
+                                    mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_response);
+                                    mySharedPreferance.deletePreferenceValue(mySharedPreferance.remember_user_name);
+                                    mySharedPreferance.deletePreferenceValue(mySharedPreferance.remember_password);
+                                    messageDialogPopup.dismiss();
+                                    Intent logIntent = new Intent(context, LoginActivity.class);
+                                    logIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    context.startActivity(logIntent);
+                                }
+                            });
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -125,5 +148,14 @@ public class RetrofitResponse {
 
     public interface DataFetchResult {
         void onDataFetchComplete(JSONObject jsonResponse);
+    }
+
+
+    MessageDialog messageDialogPopup;
+
+    public void showMessagePopup(String msg) {
+        messageDialogPopup = new MessageDialog((Activity) context);
+        messageDialogPopup.setTitle(msg);
+        messageDialogPopup.show();
     }
 }

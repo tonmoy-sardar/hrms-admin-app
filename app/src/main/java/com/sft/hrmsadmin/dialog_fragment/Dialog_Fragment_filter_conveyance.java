@@ -102,8 +102,8 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
         retrofitResponse = new RetrofitResponse(getActivity(), getActivity().getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(getActivity());
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_department = new ArrayList<JSONObject>();

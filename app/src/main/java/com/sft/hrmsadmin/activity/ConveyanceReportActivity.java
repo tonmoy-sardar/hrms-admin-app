@@ -87,8 +87,8 @@ public class ConveyanceReportActivity extends MainActivity implements Adapter_co
         //retrofitResponse = new RetrofitResponse(getApplicationContext(), getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_conveyance = new ArrayList<JSONObject>();

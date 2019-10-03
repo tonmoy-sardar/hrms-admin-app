@@ -260,7 +260,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 >
 
-                <RadioButton
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                     android:id="@+id/rb_approve"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
                     android:layout_weight="1"
                     />
 
-                <RadioButton
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Reject"
@@ -279,7 +279,7 @@
                     />
 
 
-                <RadioButton
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Free"
@@ -305,6 +305,7 @@
                 android:textSize="@dimen/_12sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:id="@+id/et_add_remarks"
+                    android:inputType="text"
                 />
 
 

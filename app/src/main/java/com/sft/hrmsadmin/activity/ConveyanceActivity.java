@@ -70,7 +70,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         view = View.inflate(this, R.layout.activity_conveyance, null);
         addContentView(view);
         System.out.println("className=======>>>" + getClass().getSimpleName());
-        tv_universal_header.setText("CONVEYANCE");
+        tv_universal_header.setText("CONVEYANCE APPROVAL");
         img_topbar_menu.setVisibility(View.GONE);
         img_topbar_back.setVisibility(View.VISIBLE);
 
@@ -91,8 +91,8 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         //retrofitResponse = new RetrofitResponse(getApplicationContext(), getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_conveyance = new ArrayList<JSONObject>();

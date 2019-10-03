@@ -101,10 +101,34 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
             try {
                 ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("employee_name"));
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("created_at")));
-                ((DataObjectHolder) holder).tv_start_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("start_date")));
-                ((DataObjectHolder) holder).tv_end_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("end_date")));
-                ((DataObjectHolder) holder).tv_leave_reason.setText(arrayList.get(position).getString("reason"));
+
+                if (arrayList.get(position).has("start_date")) {
+                    ((DataObjectHolder) holder).tv_start_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).optString("start_date")));
+                    ((DataObjectHolder) holder).tv_start_title.setText("Start Date : ");
+                } else {
+                    ((DataObjectHolder) holder).tv_start_date.setText(arrayList.get(position).getString("duration_start")
+                            .substring(arrayList.get(position).getString("duration_start").indexOf("T") + 1));
+                    ((DataObjectHolder) holder).tv_start_title.setText("Deviation Start : ");
+                }
+
+                if (arrayList.get(position).has("end_date")) {
+                    ((DataObjectHolder) holder).tv_end_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).optString("end_date")));
+                    ((DataObjectHolder) holder).tv_end_title.setText("End Date : ");
+                } else {
+                    ((DataObjectHolder) holder).tv_end_date.setText(arrayList.get(position).getString("duration_end")
+                            .substring(arrayList.get(position).getString("duration_end").indexOf("T") + 1));
+                    ((DataObjectHolder) holder).tv_end_title.setText("Deviation End : ");
+                }
+
+                if (arrayList.get(position).has("reason")) {
+                    ((DataObjectHolder) holder).tv_leave_reason.setText(arrayList.get(position).optString("reason"));
+                } else {
+                    ((DataObjectHolder) holder).tv_leave_reason.setText(arrayList.get(position).optString("justification"));
+                }
+
+
                 ((DataObjectHolder) holder).tv_leave_type.setText(arrayList.get(position).getString("leave_type"));
+
 
                 ((DataObjectHolder) holder).tv_conveyance_details.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -191,7 +215,7 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
 
         View viewItem;
         TextView tv_conveyance_details, tv_employee_name, tv_request_date, tv_start_date, tv_end_date, tv_leave_type,
-                tv_leave_reason, tv_approval_submit;
+                tv_leave_reason, tv_approval_submit,tv_start_title,tv_end_title;
         RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
 
@@ -210,6 +234,8 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
             rb_reject = itemView.findViewById(R.id.rb_reject);
             et_add_remarks = itemView.findViewById(R.id.et_add_remarks);
             rb_free = itemView.findViewById(R.id.rb_free);
+            tv_start_title = itemView.findViewById(R.id.tv_start_title);
+            tv_end_title = itemView.findViewById(R.id.tv_end_title);
         }
     }
 

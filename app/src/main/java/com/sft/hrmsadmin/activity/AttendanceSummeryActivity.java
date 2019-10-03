@@ -102,9 +102,9 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         retrofitResponse = new RetrofitResponse(this, getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
         //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
-        token = "887e7ebcd525674733e8496ef2a991234d63b1e2";
+        //token = "887e7ebcd525674733e8496ef2a991234d63b1e2";
 
 
         tvSelectEmployee = findViewById(R.id.tvSelectEmployee);

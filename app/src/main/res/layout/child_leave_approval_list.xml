@@ -1,308 +1,292 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_10sdp"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingBottom="@dimen/_15sdp">
+        android:orientation="vertical">
 
-
-        <LinearLayout
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
-
-
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_employee_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Jhon deo"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp"
-                />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginTop="@dimen/_5sdp"
-            >
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Date : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
-
-
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_request_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="11.08.2019"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
             android:layout_weight="1"
-            >
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_15sdp">
+
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Start Date : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_start_date"
+                    android:id="@+id/tv_employee_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Jhon deo"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="11.00 AM"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                    android:id="@+id/tv_request_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="11.08.2019"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="End Date : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                    android:id="@+id/tv_start_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start Date : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2.00 PM"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_end_date"
-                />
+                    android:id="@+id/tv_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="11.00 AM"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            >
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Leave Type : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Date : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:id="@+id/tv_end_title"
+                    />
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Full day leave"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_leave_type"
-                />
+                    android:id="@+id/tv_end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2.00 PM"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reason for Leave : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leave Type : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                    android:id="@+id/tv_leave_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Full day leave"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Family emergency"
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp"
-                android:id="@+id/tv_leave_reason"
-                />
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="vertical">
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reason for Leave : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
+
+
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                    android:id="@+id/tv_leave_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:text="Family emergency emergency emergency"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
         </LinearLayout>
 
 
         <com.sft.hrmsadmin.widget.GothiciBoldTextView
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_26sdp"
-            android:textColor="@color/color_white"
-            android:background="@drawable/rectangle_box_curve_solid"
-            android:text="Conveyance Applied"
-            android:gravity="center"
-            android:id="@+id/tv_conveyance_details"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:visibility="gone"
-            />
-
+                android:id="@+id/tv_conveyance_details"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rectangle_box_curve_solid"
+                android:gravity="center"
+                android:text="Conveyance Applied"
+                android:textColor="@color/color_white"
+                android:visibility="gone" />
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Approval : "
-                android:textColor="@color/color_black"
-                android:textSize="@dimen/_12sdp" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Approval : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
 
             <RadioGroup
-                android:id="@+id/rg_approve_reject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/_5sdp"
-                >
-
-                <RadioButton
-                    android:id="@+id/rb_approve"
+                    android:id="@+id/rg_approve_reject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Approve"
-                    android:textSize="@dimen/_12sdp"
-                    android:layout_weight="1"
-                    />
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reject"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/_12sdp"
-                    android:id="@+id/rb_reject"
-                    />
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_approve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Approve"
+                        android:textSize="@dimen/_12sdp" />
+
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_reject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reject"
+                        android:textSize="@dimen/_12sdp" />
 
 
-                <RadioButton
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Free"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/_12sdp"
-                    android:id="@+id/rb_free"
-                    android:visibility="invisible"
-                    />
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_free"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Free"
+                        android:textSize="@dimen/_12sdp"
+                        android:visibility="invisible" />
 
             </RadioGroup>
 
 
             <com.sft.hrmsadmin.widget.GothiciRegularEditText
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:layout_weight="1"
-                android:background="@drawable/rectangle_box_black_outline"
-                android:gravity="start"
-                android:hint="Add Remarks..."
-                android:imeOptions="actionDone"
-                android:padding="@dimen/_7sdp"
-                android:paddingLeft="@dimen/_10sdp"
-                android:paddingRight="@dimen/_5sdp"
-                android:textSize="@dimen/_12sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:id="@+id/et_add_remarks"
-                />
+                    android:id="@+id/et_add_remarks"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_box_black_outline"
+                    android:gravity="start"
+                    android:hint="Add Remarks..."
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:padding="@dimen/_7sdp"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:textSize="@dimen/_12sdp" />
 
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="@dimen/_26sdp"
-                android:textColor="@color/color_white"
-                android:background="@drawable/rectangle_box_curve_solid"
-                android:text="Submit"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:id="@+id/tv_approval_submit"
-                />
+                    android:id="@+id/tv_approval_submit"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/rectangle_box_curve_solid"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:textColor="@color/color_white" />
 
 
         </LinearLayout>
-
-
-
 
 
     </LinearLayout>
 
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/color_black"
-        />
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/color_black" />
 
 </LinearLayout>

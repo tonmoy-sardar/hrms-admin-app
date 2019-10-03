@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,6 +54,10 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
     int selected_pos = 0;
     Spinner sp_sort_items;
     String field_name = "", order_by = "", request_types = "";
+    int select_type = 1; //1= advance leave, 2 = normal leave
+    RelativeLayout rl_advance_leave, rl_normal_leave;
+    TextView tv_advance_leave, tv_normal_leave;
+    View v_advance_leave, v_normal_leave;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -81,6 +86,12 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
         sp_sort_items = findViewById(R.id.sp_sort_items);
         ll_sort_field = findViewById(R.id.ll_sort_field);
         ll_filter_btn = findViewById(R.id.ll_filter_btn);
+        rl_advance_leave = findViewById(R.id.rl_advance_leave);
+        rl_normal_leave = findViewById(R.id.rl_normal_leave);
+        tv_advance_leave = findViewById(R.id.tv_advance_leave);
+        tv_normal_leave = findViewById(R.id.tv_normal_leave);
+        v_advance_leave = findViewById(R.id.v_advance_leave);
+        v_normal_leave = findViewById(R.id.v_normal_leave);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
@@ -89,8 +100,8 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
         //retrofitResponse = new RetrofitResponse(getApplicationContext(), getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_leave_approval = new ArrayList<JSONObject>();
@@ -100,7 +111,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
             @Override
             public void get(int position) {
                 page = page + 1;
-                get_admin_attendance_advance_leave_pending_list();
+                if (select_type ==1){
+                    get_admin_attendance_advance_leave_pending_list();
+                } else {
+                    get_attendance_leave_approval_list();
+                }
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -118,6 +133,36 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 } else {
                     adapter_leave_approval_list.updateAgain(true);
                 }
+            }
+        });
+
+
+        rl_advance_leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_advance_leave.setTextColor(ContextCompat.getColor(LeaveApprovalListActivity.this, R.color.color_black));
+                tv_normal_leave.setTextColor(ContextCompat.getColor(LeaveApprovalListActivity.this, R.color.light_text_color));
+
+                v_advance_leave.setVisibility(View.VISIBLE);
+                v_normal_leave.setVisibility(View.GONE);
+
+                select_type = 1;
+                get_admin_attendance_advance_leave_pending_list();
+            }
+        });
+
+
+        rl_normal_leave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_advance_leave.setTextColor(ContextCompat.getColor(LeaveApprovalListActivity.this, R.color.light_text_color));
+                tv_normal_leave.setTextColor(ContextCompat.getColor(LeaveApprovalListActivity.this, R.color.color_black));
+
+                v_advance_leave.setVisibility(View.GONE);
+                v_normal_leave.setVisibility(View.VISIBLE);
+
+                select_type = 2;
+                get_attendance_leave_approval_list();
             }
         });
 
@@ -140,7 +185,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
-                get_admin_attendance_advance_leave_pending_list();
+                if (select_type ==1){
+                    get_admin_attendance_advance_leave_pending_list();
+                } else {
+                    get_attendance_leave_approval_list();
+                }
             }
         });
 
@@ -152,7 +201,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
-                        get_admin_attendance_advance_leave_pending_list();
+                        if (select_type ==1){
+                            get_admin_attendance_advance_leave_pending_list();
+                        } else {
+                            get_attendance_leave_approval_list();
+                        }
                     }
                 }
                 return false;
@@ -179,7 +232,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                         System.out.println("request_type=====>>>" + request_type);
                         request_types = request_type;
                         page = 1;
-                        get_admin_attendance_advance_leave_pending_list();
+                        if (select_type ==1){
+                            get_admin_attendance_advance_leave_pending_list();
+                        } else {
+                            get_attendance_leave_approval_list();
+                        }
                     }
                 });
                 dialog_fragment_filter_leave_approval.show(getSupportFragmentManager(), "dialog_fragment_filter_by");
@@ -188,7 +245,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
 
 
         custom_spinner();
-        get_admin_attendance_advance_leave_pending_list();
+        if (select_type ==1){
+            get_admin_attendance_advance_leave_pending_list();
+        } else {
+            get_attendance_leave_approval_list();
+        }
     }
 
 
@@ -205,6 +266,39 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                         if (jsonObject != null) {
                             if (page == 1) {
                                 arrayList_leave_approval.clear();
+                                adapter_leave_approval_list.notifyDataSetChanged();
+                            }
+                            try {
+                                JSONArray results = jsonObject.getJSONArray("results");
+                                for (int i = 0; i < results.length(); i++) {
+                                    arrayList_leave_approval.add(results.getJSONObject(i));
+                                }
+                                adapter_leave_approval_list.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                adapter_leave_approval_list.loader(false);
+                                adapter_leave_approval_list.updateAgain(false);
+                            }
+                        }
+                    }
+                });
+    }
+
+
+    public void get_attendance_leave_approval_list() {
+        adapter_leave_approval_list.loader(true);
+
+        retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_leave_approval_list("Token " + token, "application/json", page,
+                et_search_field.getText().toString(), request_types, field_name, order_by),
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        adapter_leave_approval_list.loader(false);
+                        adapter_leave_approval_list.updateAgain(false);
+                        if (jsonObject != null) {
+                            if (page == 1) {
+                                arrayList_leave_approval.clear();
+                                adapter_leave_approval_list.notifyDataSetChanged();
                             }
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
@@ -244,7 +338,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                 adapter_leave_approval_list.notifyDataSetChanged();*/
                                 Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
-                                get_admin_attendance_advance_leave_pending_list();
+                                if (select_type ==1){
+                                    get_admin_attendance_advance_leave_pending_list();
+                                } else {
+                                    get_attendance_leave_approval_list();
+                                }
                             } else {
                                 Toast.makeText(LeaveApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
                             }
@@ -345,37 +443,65 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "sort_applied";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 2) {
                     field_name = "sort_applied";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 3) {
                     field_name = "start_date";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 4) {
                     field_name = "start_date";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 5) {
                     field_name = "end_date";
                     order_by = "asc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 6) {
                     field_name = "end_date";
                     order_by = "desc";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 } else if (position == 7) {
                     field_name = "";
                     order_by = "";
                     page = 1;
-                    get_admin_attendance_advance_leave_pending_list();
+                    if (select_type ==1){
+                        get_admin_attendance_advance_leave_pending_list();
+                    } else {
+                        get_attendance_leave_approval_list();
+                    }
                 }
             }
 

@@ -23,12 +23,14 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
+import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_approval_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_by;
+import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
 import org.json.JSONArray;
@@ -64,7 +66,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         view = View.inflate(this, R.layout.activity_approval_list, null);
         addContentView(view);
         System.out.println("className=======>>>" + getClass().getSimpleName());
-        tv_universal_header.setText("APPROVAL");
+        tv_universal_header.setText("Attendance APPROVAL");
         img_topbar_menu.setVisibility(View.GONE);
         img_topbar_back.setVisibility(View.VISIBLE);
 
@@ -84,8 +86,8 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         retrofitResponse = new RetrofitResponse(this);
 
         mySharedPreferance = new MySharedPreferance(this);
-        //token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
+        token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
+        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
         arrayList_approval = new ArrayList<JSONObject>();
@@ -220,8 +222,8 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
 
 
     public void put_e_task_attendance_approval(final int position, String approval_status, String add_remark, int id) {
-       /* retrofitResponse = new RetrofitResponse(ApprovalListActivity.this, getSupportFragmentManager());
-        retrofitResponse.showProgressDialog();*/
+        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
+        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
 
         JsonObject object = new JsonObject();
         object.addProperty("approved_status", approval_status);
@@ -242,6 +244,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                             } else {
                                 Toast.makeText(ApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
                             }
+                            progressBarDialog.dismiss();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -260,7 +263,12 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     @Override
     public void onItemClickApproval(int pos, String approval_status, String add_remark) {
         try {
-            put_e_task_attendance_approval(pos, approval_status, add_remark, arrayList_approval.get(pos).getInt("id"));
+            System.out.println("approval_status=====>>>" + approval_status);
+            if (approval_status.equalsIgnoreCase("")) {
+                showMessagePopup("Please Approve/Reject before submit");
+            } else {
+                put_e_task_attendance_approval(pos, approval_status, add_remark, arrayList_approval.get(pos).getInt("id"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -384,5 +392,14 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
 
             }
         });
+    }
+
+
+    MessageDialog messageDialogPopup;
+
+    public void showMessagePopup(String msg) {
+        messageDialogPopup = new MessageDialog(this);
+        messageDialogPopup.setTitle(msg);
+        messageDialogPopup.show();
     }
 }
