@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sft.hrmsadmin.R;
@@ -158,6 +159,48 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                         }
                     }
                 });
+
+
+                if (arrayList.get(position).getBoolean("is_selected") == false) {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.GONE);
+                } else {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.VISIBLE);
+                }
+
+
+                ((DataObjectHolder) holder).cv_total.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",true);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).v_selection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",false);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -198,6 +241,8 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
         TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details;
         RadioButton rb_approve, rb_reject, rb_modify;
         EditText et_modified_amount;
+        View v_selection;
+        CardView cv_total;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -214,6 +259,8 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
             tvEligibility = itemView.findViewById(R.id.tvEligibility);
             tvAmount = itemView.findViewById(R.id.tvAmount);
             tv_details = itemView.findViewById(R.id.tv_details);
+            v_selection = itemView.findViewById(R.id.v_selection);
+            cv_total = itemView.findViewById(R.id.cv_total);
         }
     }
 
@@ -237,7 +284,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
 
     public interface OnItemClick {
         void onItemClick(int pos);
-
+        void onItemClickSelectedView(int pos);
         void onItemClickApproval(int pos, String approval_status, String conveyance_expense);
 
         void onItemClickDetails(int pos);

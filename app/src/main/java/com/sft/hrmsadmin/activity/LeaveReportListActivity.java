@@ -149,6 +149,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
 
                 select_type = 1;
                 clear_local_value();
+                arrayList_leave_approval.clear();
+                adapter_leave_report_list.notifyDataSetChanged();
                 get_attendance_advance_leave_report();
 
             }
@@ -166,6 +168,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
 
                 select_type = 2;
                 clear_local_value();
+                arrayList_leave_approval.clear();
+                adapter_leave_report_list.notifyDataSetChanged();
                 get_attendance_normal_leave_report();
             }
         });
@@ -263,7 +267,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
         adapter_leave_report_list.loader(true);
 
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_advance_leave_report("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by),
+                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by,1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
@@ -271,8 +275,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                         adapter_leave_report_list.updateAgain(false);
                         if (jsonObject != null) {
                             if (page == 1) {
-                                arrayList_leave_approval.clear();
-                                adapter_leave_report_list.notifyDataSetChanged();
+                                rv_approval_list.scrollToPosition(0);
                             }
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
@@ -295,7 +298,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
         adapter_leave_report_list.loader(true);
 
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_approval_report("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by),
+                et_search_field.getText().toString(), start_date, end_date, request_types, approval_filter, field_name, order_by,1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
@@ -323,43 +326,6 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
     }
 
 
-    public void put_admin_attendance_advance_leave_approval(final int position, String approval_status, String add_remark, int id) {
-        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
-        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
-
-
-        JsonObject object = new JsonObject();
-        object.addProperty("approved_status", approval_status);
-        object.addProperty("remarks", add_remark);
-        System.out.println("created jsonobject========>>" + object);
-
-        retrofitResponse.getWebServiceResponse(serviceClient.put_admin_attendance_advance_leave_approval("Token " + token, id, object),
-
-                new RetrofitResponse.DataFetchResult() {
-                    @Override
-                    public void onDataFetchComplete(JSONObject jsonObject) {
-                        try {
-                            if (jsonObject != null) {
-                               /* arrayList_leave_approval.remove(position);
-                                adapter_leave_report_list.notifyDataSetChanged();*/
-                                Toast.makeText(LeaveReportListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
-                                page = 1;
-                                if (select_type == 1) {
-                                    get_attendance_advance_leave_report();
-                                } else {
-                                    get_attendance_normal_leave_report();
-                                }
-                            } else {
-                                Toast.makeText(LeaveReportListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
-                            }
-                            progressBarDialog.dismiss();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
 
     @Override
     public void onItemClick(int pos) {
@@ -370,16 +336,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
 
     @Override
     public void onItemClickApproval(int pos, String approval_status, String add_remark) {
-        try {
-            System.out.println("approval_status=====>>>" + approval_status);
-            if (approval_status.equalsIgnoreCase("")) {
-                showMessagePopup("Please Approve/Reject before submit");
-            } else {
-                put_admin_attendance_advance_leave_approval(pos, approval_status, add_remark, arrayList_leave_approval.get(pos).getInt("id"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
     }
 
 

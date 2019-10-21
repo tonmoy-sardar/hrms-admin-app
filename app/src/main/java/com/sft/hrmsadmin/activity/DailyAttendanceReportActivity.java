@@ -198,7 +198,7 @@ public class DailyAttendanceReportActivity extends MainActivity implements Adapt
         adapter_daily_attendance_report_list.loader(true);
 
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_admin_daily_list("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), start_date, end_date, department, designation, field_name, order_by),
+                et_search_field.getText().toString(), start_date, end_date, department, designation, field_name, order_by,1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
@@ -225,40 +225,6 @@ public class DailyAttendanceReportActivity extends MainActivity implements Adapt
     }
 
 
-    public void put_attendance_conveyance_approval_list(final int position, String approval_status, String conveyance_expense, int id) {
-        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
-        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
-
-
-        JsonObject object = new JsonObject();
-        object.addProperty("conveyance_approval", approval_status);
-        object.addProperty("approved_expenses", conveyance_expense);
-        System.out.println("created jsonobject========>>" + object);
-
-        retrofitResponse.getWebServiceResponse(serviceClient.put_attendance_conveyance_approval_list("Token " + token, id, object),
-
-                new RetrofitResponse.DataFetchResult() {
-                    @Override
-                    public void onDataFetchComplete(JSONObject jsonObject) {
-                        try {
-                            if (jsonObject != null) {
-                               /* arrayList_leave_approval.remove(position);
-                                adapter_leave_approval_list.notifyDataSetChanged();*/
-                                Toast.makeText(DailyAttendanceReportActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
-                                page = 1;
-                                get_attendance_admin_daily_list();
-                            } else {
-                                Toast.makeText(DailyAttendanceReportActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
-                            }
-                            progressBarDialog.dismiss();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-    }
-
-
     @Override
     public void onItemClick(JSONObject pos_obj) {
         System.out.println("clicked=============>>>");
@@ -269,16 +235,7 @@ public class DailyAttendanceReportActivity extends MainActivity implements Adapt
 
     @Override
     public void onItemClickApproval(int pos, String approval_status, String conveyance_expense) {
-        try {
-            System.out.println("approval_status=====>>>" + approval_status);
-            if (approval_status.equalsIgnoreCase("")) {
-                showMessagePopup("Please Approve/Reject before submit");
-            } else {
-                put_attendance_conveyance_approval_list(pos, approval_status, conveyance_expense, arrayList_daily_attendance.get(pos).getInt("id"));
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override

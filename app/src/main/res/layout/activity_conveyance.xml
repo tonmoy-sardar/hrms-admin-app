@@ -49,36 +49,38 @@
 
 
         <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:id="@+id/ll_search_sort_section"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_38sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 >
 
 
             <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/ll_select_all"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
                     android:gravity="center"
-                    android:id="@+id/ll_search_btn"
+                    android:orientation="horizontal"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingLeft="@dimen/_5sdp"
                     >
 
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_search"
+                <CheckBox
+                        android:id="@+id/chkbxSelectApproval"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:clickable="false"
                         />
 
                 <com.sft.hrmsadmin.widget.GothiciRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Search"
+                        android:text="Select All"
                         android:textColor="@color/color_black"
-                        android:textSize="20dp"
-                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/_13sdp"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         />
 
 
@@ -88,15 +90,48 @@
             <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/color_black"
-                    />
+                    android:background="@color/color_black" />
+
+
+            <LinearLayout
+                    android:id="@+id/ll_search_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    >
+
+                <ImageView
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/ic_search" />
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Search"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_13sdp"
+                        />
+
+
+            </LinearLayout>
+
+
+            <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_black" />
 
 
             <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:gravity="center"
+                    android:layout_weight="1"
                     >
 
                 <Spinner
@@ -105,34 +140,30 @@
                         android:layout_height="match_parent"
                         android:spinnerMode="dropdown"
                         android:textColor="@color/color_black"
-                        android:visibility="visible"
-                        />
-
+                        android:visibility="visible" />
 
 
                 <LinearLayout
+                        android:id="@+id/ll_sort_field"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/color_white"
-                        android:orientation="horizontal"
                         android:gravity="center"
-                        android:id="@+id/ll_sort_field"
-                        >
+                        android:orientation="horizontal">
 
 
                     <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_sort_down_arrow"
-                            />
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:src="@drawable/ic_sort_down_arrow" />
 
                     <com.sft.hrmsadmin.widget.GothiciRegularTextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="Sort"
                             android:textColor="@color/color_black"
-                            android:textSize="20dp"
-                            android:layout_marginLeft="5dp"
+                            android:textSize="@dimen/_13sdp"
                             />
 
 
@@ -145,32 +176,30 @@
             <View
                     android:layout_width="0.5dp"
                     android:layout_height="match_parent"
-                    android:background="@color/color_black"
-                    />
+                    android:background="@color/color_black" />
 
 
             <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:gravity="center"
                     android:id="@+id/ll_filter_btn"
-                    >
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:orientation="horizontal">
 
                 <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_filter"
-                        />
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:src="@drawable/ic_filter" />
 
                 <com.sft.hrmsadmin.widget.GothiciRegularTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
                         android:text="Filter"
                         android:textColor="@color/color_black"
-                        android:textSize="20dp"
-                        android:layout_marginLeft="5dp"
+                        android:textSize="@dimen/_13sdp"
                         />
 
 
@@ -186,6 +215,78 @@
                 android:background="@color/color_black"
                 />
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:id="@+id/ll_approval_section"
+                android:visibility="gone"
+                >
+
+
+            <RadioGroup
+                    android:id="@+id/rg_approve_reject"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_5sdp"
+                    android:paddingBottom="@dimen/_5sdp"
+                    >
+
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_approve"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Approve"
+                        android:textSize="@dimen/_12sdp" />
+
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_reject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Reject"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
+                        android:id="@+id/rb_free"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Free"
+                        android:textSize="@dimen/_12sdp"
+                        android:visibility="invisible"
+                        />
+
+            </RadioGroup>
+
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:id="@+id/tv_approval_submit"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_26sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:background="@drawable/rectangle_box_curve_solid"
+                    android:gravity="center"
+                    android:text="Submit"
+                    android:textColor="@color/color_white" />
+
+
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/color_black" />
+
+
+        </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView

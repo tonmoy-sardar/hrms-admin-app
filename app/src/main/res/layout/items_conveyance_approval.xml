@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:elevation="@dimen/_10sdp"
+        android:id="@+id/cv_total"
+        >
+
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_280sdp">
 
     <LinearLayout
             android:layout_width="match_parent"
@@ -13,9 +25,6 @@
             android:paddingTop="@dimen/_10sdp"
             android:paddingRight="@dimen/_10sdp"
             android:paddingBottom="@dimen/_15sdp">
-
-
-
 
 
             <LinearLayout
@@ -89,7 +98,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -118,7 +126,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -146,66 +153,53 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                >
 
-            <LinearLayout
-                    android:layout_width="match_parent"
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:text="Eligibility : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Eligibility : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvEligibility"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:text="122"
-                        />
-
-            </LinearLayout>
-
-            <LinearLayout
-                    android:layout_width="match_parent"
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                    android:id="@+id/tvEligibility"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="122"
+                    />
 
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Amount : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvAmount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:text="INR 111"
-                        />
-
-            </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal"
+                >
 
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amount : "
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
+            <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="INR 111"
+                    />
 
-
+        </LinearLayout>
 
 
 
@@ -276,7 +270,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
                     android:background="@drawable/rectangle_box_black_outline"
                     android:gravity="center_vertical"
                     android:hint="Modified Amount..."
@@ -303,10 +296,14 @@
 
     </LinearLayout>
 
-
     <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_black" />
+            android:layout_height="@dimen/_280sdp"
+            android:background="@color/tranparent_selection"
+            android:id="@+id/v_selection"
+            android:visibility="gone"
+            />
 
-</LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

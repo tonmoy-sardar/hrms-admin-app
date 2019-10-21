@@ -84,7 +84,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/_10sdp"
-            android:src="@mipmap/bell_icon" />
+            android:src="@mipmap/bell_icon"
+                android:visibility="gone"
+                />
 
     </RelativeLayout>
 

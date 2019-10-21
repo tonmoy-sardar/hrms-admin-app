@@ -15,13 +15,15 @@ public class mServiceList {
     public static final String attendance_advance_leave_report = "attendance_advance_leave_report/?";
     public static final String attendance_approval_report = "attendance_approval_report/?";
     public static final String attendance_admin_summary_list = "attendance_admin_summary_list/?";
-    public static final String e_task_attendance_approval = "e_task_attendance_approval/{id}/";
-    public static final String admin_attendance_advance_leave_approval = "admin_attendance_advance_leave_approval/{id}/";
+    public static final String e_task_attendance_approval = "e_task_attendance_approval/";
+    public static final String admin_attendance_advance_leave_approval = "admin_attendance_advance_leave_approval/";
     public static final String post_login = "login/";
     public static final String get_logout = "logout/";
     public static final String t_core_designation_add = "t_core_designation_add/";
     public static final String t_core_department_add = "t_core_department_add/";
     public static final String employee_list_wo_pagination = "employee_list_wo_pagination/";
     public static final String ATTENDANCE_GRACE_LEAVE_LIST = "attendance_grace_leave_list_first/?";
+    public static final String get_app_version = "get_app_version/?";
+    public static final String CHANGE_PWD = "change_password/";
 
 }

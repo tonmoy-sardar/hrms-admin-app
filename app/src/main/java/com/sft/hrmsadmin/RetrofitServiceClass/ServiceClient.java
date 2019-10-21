@@ -37,7 +37,8 @@ public interface ServiceClient {
                                                            @Query("search") String search,
                                                            @Query("request_type") String request_type,
                                                            @Query("field_name") String field_name,
-                                                           @Query("order_by") String order_by);
+                                                           @Query("order_by") String order_by,
+                                                           @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.admin_attendance_advance_leave_pending_list)
@@ -47,17 +48,19 @@ public interface ServiceClient {
                                                                        @Query("search") String search,
                                                                        @Query("leave_type") String leave_type,
                                                                        @Query("field_name") String field_name,
-                                                                       @Query("order_by") String order_by);
+                                                                       @Query("order_by") String order_by,
+                                                                       @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_leave_approval_list)
     Call<ResponseBody> get_attendance_leave_approval_list(@Header("Authorization") String Bearer,
-                                                                       @Header("Content-Type") String Content_type,
-                                                                       @Query("page") int page,
-                                                                       @Query("search") String search,
-                                                                       @Query("leave_type") String leave_type,
-                                                                       @Query("field_name") String field_name,
-                                                                       @Query("order_by") String order_by);
+                                                          @Header("Content-Type") String Content_type,
+                                                          @Query("page") int page,
+                                                          @Query("search") String search,
+                                                          @Query("leave_type") String leave_type,
+                                                          @Query("field_name") String field_name,
+                                                          @Query("order_by") String order_by,
+                                                          @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_advance_leave_report)
@@ -70,20 +73,22 @@ public interface ServiceClient {
                                                            @Query("leave_type") String leave_type,
                                                            @Query("approved_type") String approved_type,
                                                            @Query("field_name") String field_name,
-                                                           @Query("order_by") String order_by);
+                                                           @Query("order_by") String order_by,
+                                                           @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_approval_report)
     Call<ResponseBody> get_attendance_approval_report(@Header("Authorization") String Bearer,
-                                                           @Header("Content-Type") String Content_type,
-                                                           @Query("page") int page,
-                                                           @Query("search") String search,
-                                                           @Query("from_date") String from_date,
-                                                           @Query("to_date") String to_date,
-                                                           @Query("leave_type") String leave_type,
-                                                           @Query("approved_type") String approved_type,
-                                                           @Query("field_name") String field_name,
-                                                           @Query("order_by") String order_by);
+                                                      @Header("Content-Type") String Content_type,
+                                                      @Query("page") int page,
+                                                      @Query("search") String search,
+                                                      @Query("from_date") String from_date,
+                                                      @Query("to_date") String to_date,
+                                                      @Query("leave_type") String leave_type,
+                                                      @Query("approved_type") String approved_type,
+                                                      @Query("field_name") String field_name,
+                                                      @Query("order_by") String order_by,
+                                                      @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_conveyance_approval_list)
@@ -96,7 +101,8 @@ public interface ServiceClient {
                                                                @Query("department") String department,
                                                                @Query("designation") String designation,
                                                                @Query("field_name") String field_name,
-                                                               @Query("order_by") String order_by);
+                                                               @Query("order_by") String order_by,
+                                                               @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_conveyance_report_list)
@@ -109,20 +115,22 @@ public interface ServiceClient {
                                                              @Query("department") String department,
                                                              @Query("designation") String designation,
                                                              @Query("field_name") String field_name,
-                                                             @Query("order_by") String order_by);
+                                                             @Query("order_by") String order_by,
+                                                             @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_admin_daily_list)
     Call<ResponseBody> get_attendance_admin_daily_list(@Header("Authorization") String Bearer,
-                                                             @Header("Content-Type") String Content_type,
-                                                             @Query("page") int page,
-                                                             @Query("search") String search,
-                                                             @Query("start_date") String start_date,
-                                                             @Query("end_date") String end_date,
-                                                             @Query("department") String department,
-                                                             @Query("designation") String designation,
-                                                             @Query("field_name") String field_name,
-                                                             @Query("order_by") String order_by);
+                                                       @Header("Content-Type") String Content_type,
+                                                       @Query("page") int page,
+                                                       @Query("search") String search,
+                                                       @Query("start_date") String start_date,
+                                                       @Query("end_date") String end_date,
+                                                       @Query("department") String department,
+                                                       @Query("designation") String designation,
+                                                       @Query("field_name") String field_name,
+                                                       @Query("order_by") String order_by,
+                                                       @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(mServiceList.attendance_admin_summary_list)
@@ -130,23 +138,24 @@ public interface ServiceClient {
                                                          @Header("Content-Type") String Content_type,
                                                          @Query("emp_id") int emp_id,
                                                          @Query("year") int year,
-                                                         @Query("month") int month);
+                                                         @Query("month") int month,
+                                                         @Query("team_approval_flag") int team_approval_flag);
 
-    @PUT(mServiceList.e_task_attendance_approval)
+    @POST(mServiceList.e_task_attendance_approval)
     Call<ResponseBody> put_e_task_attendance_approval(@Header("Authorization") String Bearer,
-                                                      @Path("id") int id,
+                                                      /*@Path("id") int id,*/
                                                       @Body JsonObject object);
 
 
-    @PUT(mServiceList.admin_attendance_advance_leave_approval)
+    @POST(mServiceList.admin_attendance_advance_leave_approval)
     Call<ResponseBody> put_admin_attendance_advance_leave_approval(@Header("Authorization") String Bearer,
-                                                                   @Path("id") int id,
+                                                                  /* @Path("id") int id,*/
                                                                    @Body JsonObject object);
 
 
-    @PUT(mServiceList.attendance_conveyance_approval_list)
-    Call<ResponseBody> put_attendance_conveyance_approval_list(@Header("Authorization") String Bearer,
-                                                               @Query("req_id") int req_id,
+    @POST(mServiceList.attendance_conveyance_approval_list)
+    Call<ResponseBody> put_attendance_conveyance_approval(@Header("Authorization") String Bearer,
+                                                               /*@Query("req_id") int req_id,*/
                                                                @Body JsonObject object);
 
 
@@ -159,7 +168,8 @@ public interface ServiceClient {
 
 
     @GET(mServiceList.employee_list_wo_pagination)
-    Call<ResponseBody> get_employee_list_wo_pagination(@Header("Authorization") String Bearer);
+    Call<ResponseBody> get_employee_list_wo_pagination(@Header("Authorization") String Bearer,
+                                                       @Query("team_approval_flag") int team_approval_flag);
 
 
     @GET(ATTENDANCE_GRACE_LEAVE_LIST)
@@ -167,6 +177,19 @@ public interface ServiceClient {
                                                         @Header("Content-Type") String Content_type,
                                                         @Query("employee_id") int employee_id,
                                                         @Query("date") String date);
+
+
+    @GET(mServiceList.get_app_version)
+    Call<ResponseBody> get_app_version(@Header("Authorization") String Bearer,
+                                       @Header("Content-Type") String Content_type,
+                                       @Query("app_name") String app_name,
+                                       @Query("current_app_version") int current_app_version);
+
+
+    @PUT(mServiceList.CHANGE_PWD)
+    Call<ResponseBody> put_change_pwd(@Header("Authorization") String Bearer,
+                                          @Header("Content-Type") String Content_type,
+                                          @Body JsonObject object);
 
 
 }

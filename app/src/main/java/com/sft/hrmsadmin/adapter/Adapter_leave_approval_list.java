@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sft.hrmsadmin.R;
@@ -177,6 +178,47 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
                         }
                     }
                 });
+
+
+                if (arrayList.get(position).getBoolean("is_selected") == false) {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.GONE);
+                } else {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.VISIBLE);
+                }
+
+
+                ((DataObjectHolder) holder).cv_total.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",true);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).v_selection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",false);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -218,6 +260,8 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
                 tv_leave_reason, tv_approval_submit,tv_start_title,tv_end_title;
         RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
+        View v_selection;
+        CardView cv_total;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -236,6 +280,8 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
             rb_free = itemView.findViewById(R.id.rb_free);
             tv_start_title = itemView.findViewById(R.id.tv_start_title);
             tv_end_title = itemView.findViewById(R.id.tv_end_title);
+            v_selection = itemView.findViewById(R.id.v_selection);
+            cv_total = itemView.findViewById(R.id.cv_total);
         }
     }
 
@@ -259,7 +305,7 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
 
     public interface OnItemClick {
         void onItemClick(int pos);
-
+        void onItemClickSelectedView(int pos);
         void onItemClickApproval(int pos, String approval_status, String add_remark);
     }
 }

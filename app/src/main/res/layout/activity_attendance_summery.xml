@@ -114,17 +114,18 @@
     </LinearLayout>
 
 
-    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+    <com.sft.hrmsadmin.widget.GothiciRegularEditText
             android:id="@+id/tvSelectEmployee"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_margin="@dimen/_5sdp"
             android:background="@drawable/rectangle_border_solid_white"
-            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
             android:ems="10"
-            android:hint="Select Employee"
-            android:padding="@dimen/_5sdp" />
+            android:hint="Search By Employee"
+            android:padding="@dimen/_5sdp"
+            android:textSize="@dimen/_11sdp"
+            />
 
     <LinearLayout
             android:id="@+id/llDropDownEmployee"
@@ -132,7 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_5sdp"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="gone"
+           >
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvEmployee"

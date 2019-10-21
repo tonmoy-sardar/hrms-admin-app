@@ -13,19 +13,27 @@ import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.activity.AttendanceSummeryActivity;
 import com.sft.hrmsadmin.pojo_calsses.employee_detail.Result;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAdapter.MyViewHolder> {
 
     Activity activity;
-    List<Result> resultListEmployee;
+    // List<Result> resultListEmployee;
+    ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
+    ArrayList<JSONObject> arrayList_Backup;
 
     OnItemClickListenerEmployee itemClickListener;
 
-    public EmployeeDetailAdapter(Activity activity, List<Result> resultListEmployee) {
+    public EmployeeDetailAdapter(Activity activity, ArrayList<JSONObject> arrayList) {
 
         this.activity = activity;
-        this.resultListEmployee = resultListEmployee;
+        //this.resultListEmployee = resultListEmployee;
+        this.arrayList = arrayList;
+        arrayList_Backup = new ArrayList<>();
     }
 
     @NonNull
@@ -40,7 +48,11 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, final int position) {
 
-        holder.tvEmployee.setText(resultListEmployee.get(position).getFirstName()+" "+resultListEmployee.get(position).getLastName());
+        try {
+            holder.tvEmployee.setText(arrayList.get(position).getString("first_name") + " " + arrayList.get(position).getString("last_name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         holder.tvEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,11 +61,11 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
                 try {
 
                     if (itemClickListener != null) {
-                        itemClickListener.OnItemClick(resultListEmployee.get(position).getId(),
-                                resultListEmployee.get(position).getFirstName()+" "+resultListEmployee.get(position).getLastName());
+                        itemClickListener.OnItemClick(arrayList.get(position).getInt("cu_user"),
+                                arrayList.get(position).getString("first_name") + " " + arrayList.get(position).getString("last_name"));
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
 
                     e.printStackTrace();
                 }
@@ -65,7 +77,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
 
     @Override
     public int getItemCount() {
-        return resultListEmployee.size();
+        return arrayList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -80,7 +92,6 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
     }
 
 
-
     public void setOnItemClickListenerEmployee(OnItemClickListenerEmployee itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
@@ -88,6 +99,36 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
     public interface OnItemClickListenerEmployee {
 
         void OnItemClick(Integer id, String name);
+    }
+
+
+    public void refreshBackup(ArrayList<JSONObject> arrayList) {
+        arrayList_Backup.clear();
+        this.arrayList_Backup.addAll(arrayList);
+    }
+
+    public void Filter(String query) {
+        System.out.println("Filter With===>>>" + query);
+        arrayList.clear();
+        try {
+            if (query.length() > 0) {
+                query = query.toString().toLowerCase();
+
+                for (int i = 0; i < arrayList_Backup.size(); i++) {
+                    String event_title = arrayList_Backup.get(i).getString("first_name")+" "+arrayList_Backup.get(i).getString("last_name");
+                    System.out.println("==============>" + event_title);
+                    String text = event_title.toLowerCase();
+                    if (text.contains(query)) {
+                        arrayList.add(arrayList_Backup.get(i));
+                    }
+                }
+            } else {
+                arrayList.addAll(arrayList_Backup);
+            }
+            notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

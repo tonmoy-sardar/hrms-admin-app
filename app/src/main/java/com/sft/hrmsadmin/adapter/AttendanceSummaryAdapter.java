@@ -62,44 +62,52 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
             holder.tvDate.setText(MethodUtils.profileDate(arrayList_attendance_summery.get(position).getString("date")));
 
 
-            if (arrayList_attendance_summery.get(position).getString("login_time")!= null &&
-                    arrayList_attendance_summery.get(position).getString("logout_time")!= null) {
+
+
+
+
+            if (!arrayList_attendance_summery.get(position).getString("login_time").equalsIgnoreCase("null")){
 
                 holder.tvLoginTime.setText(Html.fromHtml("<b>" + "Log In: " + "</b>" +arrayList_attendance_summery.get(position).getString("login_time")
                         .substring(arrayList_attendance_summery.get(position).getString("login_time").indexOf("T") + 1)));
-
-                holder.tvLogoutTime.setText(Html.fromHtml("<b>" + "Log Out: " + "</b>" +arrayList_attendance_summery.get(position).getString("logout_time")
-                        .substring(arrayList_attendance_summery.get(position).getString("logout_time").indexOf("T") + 1)));
+            }else {
 
 
             }
 
 
-            if (arrayList_attendance_summery.get(position).getString("day_remarks")!= null) {
+            if (!arrayList_attendance_summery.get(position).getString("logout_time").equalsIgnoreCase("null")){
+                holder.tvLogoutTime.setText(Html.fromHtml("<b>" + "Log Out: " + "</b>" +arrayList_attendance_summery.get(position).getString("logout_time")
+                        .substring(arrayList_attendance_summery.get(position).getString("logout_time").indexOf("T") + 1)));
+
+            }
+
+
+            if (!arrayList_attendance_summery.get(position).getString("day_remarks").equalsIgnoreCase("null")) {
                 holder.tvRemarks.setText(Html.fromHtml("<b>" + "Remarks: " + "</b>" + arrayList_attendance_summery.get(position).getString("day_remarks")));
             }
 
 
 
-            if (arrayList_attendance_summery.get(position).getString("daily_leave_type")!= null) {
+            if (!arrayList_attendance_summery.get(position).getString("daily_leave_type").equalsIgnoreCase("null")) {
                 if (arrayList_attendance_summery.get(position).getString("daily_leave_type").equalsIgnoreCase("cl")) {
 
-                    if (arrayList_attendance_summery.get(position).getString("daily_leave_period")!= null) {
+                    if (!arrayList_attendance_summery.get(position).getString("daily_leave_period").equalsIgnoreCase("null")) {
                         holder.tvCL.setText("CL: " + String.valueOf(arrayList_attendance_summery.get(position).getString("daily_leave_period")));
                     }
 
                 } else if (arrayList_attendance_summery.get(position).getString("daily_leave_type").equalsIgnoreCase("el")) {
-                    if (arrayList_attendance_summery.get(position).getString("daily_leave_period")!= null) {
+                    if (!arrayList_attendance_summery.get(position).getString("daily_leave_period").equalsIgnoreCase("null")) {
                         holder.tvEL.setText("EL: " + String.valueOf(arrayList_attendance_summery.get(position).getString("daily_leave_period")));
                     }
 
                 } else if (arrayList_attendance_summery.get(position).getString("daily_leave_type").equalsIgnoreCase("sl")) {
-                    if (arrayList_attendance_summery.get(position).getString("daily_leave_period")!= null) {
+                    if (!arrayList_attendance_summery.get(position).getString("daily_leave_period").equalsIgnoreCase("null")) {
                         holder.tvSL.setText("SL: " + String.valueOf(arrayList_attendance_summery.get(position).getString("daily_leave_period")));
                     }
 
                 } else if (arrayList_attendance_summery.get(position).getString("daily_leave_type").equalsIgnoreCase("ab")) {
-                    if (arrayList_attendance_summery.get(position).getString("daily_leave_period")!= null) {
+                    if (!arrayList_attendance_summery.get(position).getString("daily_leave_period").equalsIgnoreCase("null")) {
                         holder.tvAbsent.setText("Absent: " + String.valueOf(arrayList_attendance_summery.get(position).getString("daily_leave_period")));
                     }
                 }
@@ -245,4 +253,7 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
             llLeaveDetails = itemView.findViewById(R.id.llLeaveDetails);
         }
     }
+
+
+
 }

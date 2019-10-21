@@ -2,6 +2,7 @@ package com.sft.hrmsadmin.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,7 @@ import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.RetrofitServiceClass.mServiceList;
+import com.sft.hrmsadmin.dialog_fragment.ChangePwdDialog;
 import com.sft.hrmsadmin.utils.MethodUtils;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
@@ -122,11 +124,33 @@ public class LoginActivity extends AppCompatActivity {
                                 mySharedPreferance.savePreferancce(mySharedPreferance.remember_user_name, et_user_name.getText().toString().trim());
                                 mySharedPreferance.savePreferancce(mySharedPreferance.remember_password, et_password.getText().toString().trim());
                                 mySharedPreferance.savePreferancce(mySharedPreferance.login_response, jsonObject.toString());
-                                Toast.makeText(LoginActivity.this, jsonObject.optString("msg"), Toast.LENGTH_LONG).show();
 
+                                if (jsonObject.getBoolean("cu_change_pass")){
+                                    ChangePwdDialog changePwdDialog = new ChangePwdDialog(LoginActivity.this);
+                                    changePwdDialog.setItemResponseListner(new ChangePwdDialog.ChangePwdListner() {
+                                        @Override
+                                        public void onClick(int request_status, String msg) {
+                                            if (request_status == 0){
+                                                et_user_name.setText("");
+                                                et_password.setText("");
+                                                Toast.makeText(getApplicationContext(),msg,Toast.LENGTH_SHORT).show();
+                                                retrofitResponse.hideProgressDialog();
+                                            }
+                                        }
+                                    });
+                                    changePwdDialog.show();
+
+                                }else {
+                                    Toast.makeText(LoginActivity.this, jsonObject.optString("msg"), Toast.LENGTH_LONG).show();
+                                    Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+
+                             /*   Toast.makeText(LoginActivity.this, jsonObject.optString("msg"), Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(LoginActivity.this, DashboardActivity.class);
                                 startActivity(intent);
-                                finish();
+                                finish();*/
                             } else if (jsonObject.optInt("request_status") == 0) {
                                 Toast.makeText(LoginActivity.this, jsonObject.optString("msg"), Toast.LENGTH_LONG).show();
                             } else {

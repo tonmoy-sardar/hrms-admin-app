@@ -8,8 +8,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sft.hrmsadmin.R;
@@ -179,6 +181,63 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
                         }
                     }
                 });
+
+                if (arrayList.get(position).getBoolean("is_selected") == false) {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.GONE);
+                } else {
+                    ((DataObjectHolder) holder).v_selection.setVisibility(View.VISIBLE);
+                }
+
+
+                ((DataObjectHolder) holder).cv_total.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",true);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+                ((DataObjectHolder) holder).v_selection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            arrayList.get(position).put("is_selected",false);
+                            notifyDataSetChanged();
+
+                            if (itemClick != null) {
+                                itemClick.onItemClickSelectedView(position);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+
+              /*  ((DataObjectHolder) holder).viewItem.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View view) {
+                        int p = position;
+                        System.out.println("LongClick: " + p);
+                        if (((DataObjectHolder) holder).v_selection.getVisibility() == View.VISIBLE) {
+                            ((DataObjectHolder) holder).v_selection.setVisibility(View.GONE);
+                        } else {
+                            ((DataObjectHolder) holder).v_selection.setVisibility(View.VISIBLE);
+                        }
+                        return true;// returning true instead of false, works for me
+                    }
+                });*/
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -220,6 +279,8 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
                 tv_approval_justification, tv_approval_submit;
         RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
+        View v_selection;
+        CardView cv_total;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -237,6 +298,8 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
             rb_reject = itemView.findViewById(R.id.rb_reject);
             et_add_remarks = itemView.findViewById(R.id.et_add_remarks);
             rb_free = itemView.findViewById(R.id.rb_free);
+            v_selection = itemView.findViewById(R.id.v_selection);
+            cv_total = itemView.findViewById(R.id.cv_total);
         }
     }
 
@@ -260,6 +323,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface OnItemClick {
         void onItemClick(int pos);
+        void onItemClickSelectedView(int pos);
 
         void onItemClickApproval(int pos, String approval_status, String add_remark);
     }

@@ -15,13 +15,16 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
@@ -30,6 +33,7 @@ import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_conveyance_list;
 import com.sft.hrmsadmin.adapter.Adapter_leave_approval_list;
+import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_add_remarks;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_conveyance;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_approval;
@@ -49,12 +53,16 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     Adapter_conveyance_list adapter_conveyance_list;
     RecyclerView rv_attendance_conveyance;
     ArrayList<JSONObject> arrayList_conveyance;
-    LinearLayout ll_search_btn, ll_search_sort_section, ll_search_field, ll_sort_field, ll_filter_btn;
+    LinearLayout ll_search_btn, ll_search_sort_section, ll_search_field, ll_sort_field, ll_filter_btn,ll_select_all,ll_approval_section;
     EditText et_search_field;
     ImageView iv_search_close;
     int selected_pos = 0;
     Spinner sp_sort_items;
     String field_name = "", order_by = "", start_date = "", end_date = "", department = "", designation = "";
+    CheckBox chkbxSelectApproval;
+    RadioButton rb_approve,rb_reject;
+    JsonArray conveyance_approvals;
+    TextView tv_approval_submit;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -83,6 +91,12 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         sp_sort_items = findViewById(R.id.sp_sort_items);
         ll_sort_field = findViewById(R.id.ll_sort_field);
         ll_filter_btn = findViewById(R.id.ll_filter_btn);
+        ll_select_all = findViewById(R.id.ll_select_all);
+        chkbxSelectApproval = findViewById(R.id.chkbxSelectApproval);
+        ll_approval_section = findViewById(R.id.ll_approval_section);
+        rb_approve = findViewById(R.id.rb_approve);
+        rb_reject = findViewById(R.id.rb_reject);
+        tv_approval_submit = findViewById(R.id.tv_approval_submit);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
@@ -191,6 +205,83 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         });
 
 
+        ll_select_all.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (chkbxSelectApproval.isChecked() == false) {
+                        chkbxSelectApproval.setChecked(true);
+                        for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                            arrayList_conveyance.get(i).put("is_selected", true);
+                            ll_approval_section.setVisibility(View.VISIBLE);
+                        }
+                    } else {
+                        chkbxSelectApproval.setChecked(false);
+                        for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                            arrayList_conveyance.get(i).put("is_selected", false);
+                            ll_approval_section.setVisibility(View.GONE);
+                        }
+                    }
+                    adapter_conveyance_list.notifyDataSetChanged();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        rb_approve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    conveyance_approvals = new JsonArray();
+                    for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                        if (arrayList_conveyance.get(i).getBoolean("is_selected") == true) {
+                            JsonObject conveyance_approvals_name_obj = new JsonObject();
+                            conveyance_approvals_name_obj.addProperty("req_id", arrayList_conveyance.get(i).getInt("id"));
+                            conveyance_approvals_name_obj.addProperty("conveyance_approval", "2");
+                            conveyance_approvals.add(conveyance_approvals_name_obj);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        rb_reject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    conveyance_approvals = new JsonArray();
+                    for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                        if (arrayList_conveyance.get(i).getBoolean("is_selected") == true) {
+                            JsonObject conveyance_approvals_name_obj = new JsonObject();
+                            conveyance_approvals_name_obj.addProperty("req_id", arrayList_conveyance.get(i).getInt("id"));
+                            conveyance_approvals_name_obj.addProperty("conveyance_approval", "1");
+                            conveyance_approvals.add(conveyance_approvals_name_obj);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        tv_approval_submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (conveyance_approvals ==null){
+                    showMessagePopup("Please Approve/Reject before submit");
+                } else {
+                    put_attendance_conveyance_approval_multiple();
+                }
+            }
+        });
+
+
         custom_spinner();
         get_attendance_conveyance_approval_list();
     }
@@ -200,7 +291,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         adapter_conveyance_list.loader(true);
 
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_conveyance_approval_list("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), start_date, end_date, department, designation, field_name, order_by),
+                et_search_field.getText().toString(), start_date, end_date, department, designation, field_name, order_by,1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
@@ -213,6 +304,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
                                 for (int i = 0; i < results.length(); i++) {
+                                    results.getJSONObject(i).put("is_selected", false);
                                     arrayList_conveyance.add(results.getJSONObject(i));
                                 }
                                 adapter_conveyance_list.notifyDataSetChanged();
@@ -227,17 +319,28 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     }
 
 
-    public void put_attendance_conveyance_approval_list(final int position, String approval_status, String conveyance_expense, int id) {
+    public void put_attendance_conveyance_approval(final int position, String approval_status, String conveyance_expense, int id) {
         final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
         progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
 
-
-        JsonObject object = new JsonObject();
+       /* JsonObject object = new JsonObject();
         object.addProperty("conveyance_approval", approval_status);
         object.addProperty("approved_expenses", conveyance_expense);
-        System.out.println("created jsonobject========>>" + object);
+        System.out.println("created jsonobject========>>" + object);*/
 
-        retrofitResponse.getWebServiceResponse(serviceClient.put_attendance_conveyance_approval_list("Token " + token, id, object),
+        JsonObject object = new JsonObject();
+        JsonArray conveyance_approvals = new JsonArray();
+
+        JsonObject conveyance_approvals_name_obj = new JsonObject();
+        conveyance_approvals_name_obj.addProperty("req_id", id);
+        conveyance_approvals_name_obj.addProperty("conveyance_approval", approval_status);
+        conveyance_approvals_name_obj.addProperty("approved_expenses", conveyance_expense);
+        conveyance_approvals.add(conveyance_approvals_name_obj);
+
+        object.add("conveyance_approvals", conveyance_approvals);
+        System.out.println("object======>>>>" + object.toString());
+
+        retrofitResponse.getWebServiceResponse(serviceClient.put_attendance_conveyance_approval("Token " + token, object),
 
                 new RetrofitResponse.DataFetchResult() {
                     @Override
@@ -261,10 +364,78 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     }
 
 
+    public void put_attendance_conveyance_approval_multiple() {
+        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
+        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
+
+       /* JsonObject object = new JsonObject();
+        object.addProperty("conveyance_approval", approval_status);
+        object.addProperty("approved_expenses", conveyance_expense);
+        System.out.println("created jsonobject========>>" + object);*/
+
+        JsonObject object = new JsonObject();
+        object.add("conveyance_approvals", conveyance_approvals);
+        System.out.println("object======>>>>" + object.toString());
+
+        retrofitResponse.getWebServiceResponse(serviceClient.put_attendance_conveyance_approval("Token " + token, object),
+
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        try {
+                            if (jsonObject != null) {
+                                ll_approval_section.setVisibility(View.GONE);
+                                rb_approve.setChecked(false);
+                                rb_reject.setChecked(false);
+                                arrayList_conveyance.clear();
+                                adapter_conveyance_list.notifyDataSetChanged();
+                                Toast.makeText(ConveyanceActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
+                                page = 1;
+                                get_attendance_conveyance_approval_list();
+                            } else {
+                                Toast.makeText(ConveyanceActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
+                            }
+                            progressBarDialog.dismiss();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+
     @Override
     public void onItemClick(int pos) {
         System.out.println("clicked=============>>>");
     }
+
+
+    @Override
+    public void onItemClickSelectedView(int pos) {
+        try {
+            for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                if (arrayList_conveyance.get(i).getBoolean("is_selected") == false) {
+                    chkbxSelectApproval.setChecked(false);
+                    break;
+                } else {
+                    chkbxSelectApproval.setChecked(true);
+                }
+            }
+
+            for (int i = 0; i < arrayList_conveyance.size(); i++) {
+                if (arrayList_conveyance.get(i).getBoolean("is_selected") == true) {
+                    ll_approval_section.setVisibility(View.VISIBLE);
+                    break;
+                } else {
+                    ll_approval_section.setVisibility(View.GONE);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     public void onItemClickApproval(int pos, String approval_status, String conveyance_expense) {
@@ -273,7 +444,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
             if (approval_status.equalsIgnoreCase("")) {
                 showMessagePopup("Please Approve/Reject before submit");
             } else {
-                put_attendance_conveyance_approval_list(pos, approval_status, conveyance_expense, arrayList_conveyance.get(pos).getInt("id"));
+                put_attendance_conveyance_approval(pos, approval_status, conveyance_expense, arrayList_conveyance.get(pos).getInt("id"));
             }
         } catch (JSONException e) {
             e.printStackTrace();

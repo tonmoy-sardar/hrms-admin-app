@@ -81,6 +81,7 @@ public class RetrofitResponse {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     Print.makePrint("Service URL==>" + response.raw().request().url());
+                    Print.makePrint("Service URL==>" + response.code());
                     try {
                         Print.makePrint("before Service Response ==>" + response.body());
                         if (response.code() == 401) {

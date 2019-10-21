@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -40,7 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class AttendanceSummeryActivity extends MainActivity implements EmployeeDetailAdapter.OnItemClickListenerEmployee,MonthsAdapter.OnItemClickListener {
+public class AttendanceSummeryActivity extends MainActivity implements EmployeeDetailAdapter.OnItemClickListenerEmployee, MonthsAdapter.OnItemClickListener {
 
     public View view;
     ArrayList<JSONObject> arrayList_attendance_summery = new ArrayList<>();
@@ -54,7 +57,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
     AttendanceSummaryAdapter attendanceSummaryAdapter;
 
-    RecyclerView rvSummaryList,rvMonths;
+    RecyclerView rvSummaryList, rvMonths;
     LinearLayoutManager linearLayoutManager;
 
     List<Result> resultListEmployee = new ArrayList<>();
@@ -63,14 +66,12 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     List<AttendanceSummaryMonths> newListMonths = new ArrayList<>();
 
 
-    TextView tvGraceTime,tvCL,tvEL,tvSL,tvAbsent;
+    TextView tvGraceTime, tvCL, tvEL, tvSL, tvAbsent;
 
 
-
-
-
-    TextView tvSelectEmployee,tvSelectMonth;
-    LinearLayout llDropDownEmployee,llDropDown,llStatic;
+    EditText tvSelectEmployee;
+    TextView tvSelectMonth;
+    LinearLayout llDropDownEmployee, llDropDown, llStatic;
     RecyclerView rvEmployee;
 
     int employee_id = 0;
@@ -87,7 +88,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         view = View.inflate(this, R.layout.activity_attendance_summery, null);
         addContentView(view);
         System.out.println("className=======>>>" + getClass().getSimpleName());
-        tv_universal_header.setText("ATTENDANCE SUMMERY");
+        tv_universal_header.setText("ATTENDANCE SUMMARY");
         img_topbar_menu.setVisibility(View.GONE);
         img_topbar_back.setVisibility(View.VISIBLE);
 
@@ -103,8 +104,6 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
-        //token = "887e7ebcd525674733e8496ef2a991234d63b1e2";
 
 
         tvSelectEmployee = findViewById(R.id.tvSelectEmployee);
@@ -126,12 +125,12 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
 
         Date d = new Date();
-        System.out.println("Year: "+getYear(d)+" "+getMonth(d));
-        String monthname=(String)android.text.format.DateFormat.format("MMMM", new Date());
-        System.out.println("monthName: "+monthname);
+        System.out.println("Year: " + getYear(d) + " " + getMonth(d));
+        String monthname = (String) android.text.format.DateFormat.format("MMMM", new Date());
+        System.out.println("monthName: " + monthname);
 
 
-        tvSelectEmployee.setOnClickListener(new View.OnClickListener() {
+       /* tvSelectEmployee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -143,8 +142,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
                     llDropDownEmployee.setVisibility(View.GONE);
                 }
             }
-        });
-
+        });*/
 
 
         tvSelectMonth.setOnClickListener(new View.OnClickListener() {
@@ -161,18 +159,48 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
             }
         });
 
+        setAdapter();
+
+
+        arrayList_employee_list = new ArrayList<JSONObject>();
+        employeeDetailAdapter = new EmployeeDetailAdapter(this, arrayList_employee_list);
+        employeeDetailAdapter.setOnItemClickListenerEmployee(this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(AttendanceSummeryActivity.this, RecyclerView.VERTICAL, false);
+        rvEmployee.setHasFixedSize(true);
+        rvEmployee.setLayoutManager(linearLayoutManager);
+        rvEmployee.setAdapter(employeeDetailAdapter);
+
 
         get_employee_list_wo_pagination();
 
         year = String.valueOf(getYear(d));
 
-        setAdapter();
+
         //get_attendance_admin_summary_list();
 
 
-        for (int i = 0; i < getMonths().size(); i++){
+        tvSelectEmployee.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-            if (!getMonths().get(i).getMonth().equalsIgnoreCase(monthname)){
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                employeeDetailAdapter.Filter(charSequence.toString().toLowerCase());
+                llDropDownEmployee.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
+        for (int i = 0; i < getMonths().size(); i++) {
+
+            if (!getMonths().get(i).getMonth().equalsIgnoreCase(monthname)) {
 
                 AttendanceSummaryMonths attendanceSummaryMonths = new AttendanceSummaryMonths();
                 attendanceSummaryMonths.setId(getMonths().get(i).getId());
@@ -181,7 +209,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
                 newListMonths.add(attendanceSummaryMonths);
 
-            }else {
+            } else {
 
                 AttendanceSummaryMonths attendanceSummaryMonths = new AttendanceSummaryMonths();
                 attendanceSummaryMonths.setId(getMonths().get(i).getId());
@@ -194,13 +222,9 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         }
 
-        System.out.println("SizeNewMonthList: "+newListMonths.size());
+        System.out.println("SizeNewMonthList: " + newListMonths.size());
 
         setAdapterForMonths();
-
-
-
-
 
 
     }
@@ -233,21 +257,6 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
 
     private void setAdapter() {
-
-
-        employeeDetailAdapter = new EmployeeDetailAdapter(this, resultListEmployee);
-        employeeDetailAdapter.setOnItemClickListenerEmployee(this);
-
-        LinearLayoutManager linearLayoutManager =
-                new LinearLayoutManager(AttendanceSummeryActivity.this, RecyclerView.VERTICAL, false);
-        rvEmployee.setHasFixedSize(true);
-        rvEmployee.setLayoutManager(linearLayoutManager);
-        rvEmployee.setAdapter(employeeDetailAdapter);
-
-
-
-
-
         attendanceSummaryAdapter = new AttendanceSummaryAdapter(AttendanceSummeryActivity.this,
                 arrayList_attendance_summery);
         linearLayoutManager = new LinearLayoutManager(this);
@@ -262,22 +271,18 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         arrayList_attendance_summery.clear();
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_admin_summary_list("Token " +
                         token, "application/json",
-                employee_id, yearInt, monthID),
+                employee_id, yearInt, monthID,1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         if (jsonObject != null) {
                             try {
                                 JSONArray results = jsonObject.getJSONArray("result");
-                                System.out.println("results: "+results);
+                                System.out.println("results: " + results);
                                 for (int i = 0; i < results.length(); i++) {
                                     arrayList_attendance_summery.add(results.getJSONObject(i));
                                 }
                                 attendanceSummaryAdapter.notifyDataSetChanged();
-
-
-
-
                                 //get_employee_list_wo_pagination();
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -288,9 +293,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     }
 
 
-
-
-    public List<AttendanceSummaryMonths> getMonths(){
+    public List<AttendanceSummaryMonths> getMonths() {
 
 
         List<AttendanceSummaryMonths> listMonths = new ArrayList<>();
@@ -409,24 +412,22 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     String todaysDate = "";
 
 
-    public void getGraceFirst(){
+    public void getGraceFirst() {
 
 
         retrofitResponse.getWebServiceResponse(serviceClient.call_attendance_grace_leave_list("Token " + token,
-                "application/json",employee_id, MethodUtils.getTodaysDate()),
+                "application/json", employee_id, MethodUtils.getTodaysDate()),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         try {
 
 
-
                             String responseString = jsonObject.toString();
 
-                            System.out.println("responseStringGrace: "+responseString);
+                            System.out.println("responseStringGrace: " + responseString);
 
                             setValues(responseString);
-
 
 
                         } catch (Exception e) {
@@ -454,49 +455,48 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         }
 
 
-
-        if (attendanceGraceLeavePojo.getResult().getAvailedCl()!= null) {
+        if (attendanceGraceLeavePojo.getResult().getAvailedCl() != null) {
             tvCL.setText("Cl: " + attendanceGraceLeavePojo.getResult().getAvailedCl());
         }
 
-        if (attendanceGraceLeavePojo.getResult().getAvailedEl()!= null){
+        if (attendanceGraceLeavePojo.getResult().getAvailedEl() != null) {
 
-            tvEL.setText("EL: "+attendanceGraceLeavePojo.getResult().getAvailedEl());
+            tvEL.setText("EL: " + attendanceGraceLeavePojo.getResult().getAvailedEl());
         }
 
-        if (attendanceGraceLeavePojo.getResult().getAvailedSl()!= null){
+        if (attendanceGraceLeavePojo.getResult().getAvailedSl() != null) {
 
-            tvSL.setText("SL: "+attendanceGraceLeavePojo.getResult().getAvailedSl());
+            tvSL.setText("SL: " + attendanceGraceLeavePojo.getResult().getAvailedSl());
         }
 
-        if (attendanceGraceLeavePojo.getResult().getAvailedAb()!= null){
+        if (attendanceGraceLeavePojo.getResult().getAvailedAb() != null) {
 
-            tvAbsent.setText("Absent: "+attendanceGraceLeavePojo.getResult().getAvailedAb());
+            tvAbsent.setText("Absent: " + attendanceGraceLeavePojo.getResult().getAvailedAb());
         }
 
     }
 
 
     public void get_employee_list_wo_pagination() {
-
-        resultListEmployee.clear();
-        retrofitResponse.getWebServiceResponse(serviceClient.get_employee_list_wo_pagination("Token " + token),
+        retrofitResponse.getWebServiceResponse(serviceClient.get_employee_list_wo_pagination("Token " + token, 1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         try {
-
-
-
                             String responseString = jsonObject.toString();
+                            System.out.println("responseString: " + responseString);
+                            JSONArray results = jsonObject.getJSONArray("result");
+                            for (int i = 0; i < results.length(); i++) {
+                                arrayList_employee_list.add(results.getJSONObject(i));
+                            }
+                            employeeDetailAdapter.refreshBackup(arrayList_employee_list);
+                            employeeDetailAdapter.notifyDataSetChanged();
 
-                            System.out.println("responseString: "+responseString);
-
-                            EmployeeDetailsPojo employeeDetailsPojo;
+                            /*EmployeeDetailsPojo employeeDetailsPojo;
                             Gson gson = new Gson();
 
                             employeeDetailsPojo = gson.fromJson(responseString,EmployeeDetailsPojo.class);
-                            resultListEmployee.addAll(employeeDetailsPojo.getResult());
+                            resultListEmployee.addAll(employeeDetailsPojo.getResult());*/
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -506,10 +506,11 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     }
 
     String emp_name = "";
+
     @Override
     public void OnItemClick(Integer id, String name) {
 
-        System.out.println("getResL: "+id+" "+name);
+        System.out.println("getResL: " + id + " " + name);
 
         employee_id = id;
 
@@ -535,10 +536,10 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     @Override
     public void OnItemClick(String id, String month, String year) {
 
-        System.out.println("monthsDetails: "+id+" "+month+" "+year);
+        System.out.println("monthsDetails: " + id + " " + month + " " + year);
         monthID = Integer.parseInt(id);
         yearInt = Integer.parseInt(year);
-        tvSelectMonth.setText(month+", "+year);
+        tvSelectMonth.setText(month + ", " + year);
         llDropDown.setVisibility(View.GONE);
         //llDropDown.setVisibility(View.GONE);
 

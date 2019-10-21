@@ -23,6 +23,7 @@
     <color name="approved_green">#008577</color>
     <color name="green_justification">#4CAF50</color>
     <color name="reject_red">#D81B60</color>
+    <color name="tranparent_selection">#65232320</color>
 
 
 </resources>
