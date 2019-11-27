@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/_5sdp"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 >
 
             <androidx.recyclerview.widget.RecyclerView

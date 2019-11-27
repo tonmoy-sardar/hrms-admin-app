@@ -2,9 +2,9 @@ package com.sft.hrmsadmin.RetrofitServiceClass;
 
 public class mServiceList {
 
-    //public static final String Base_URL = "http://192.168.24.243:8000/";//local Server
+    public static final String Base_URL = "http://192.168.25.118:8000/";//local Server
     //public static final String Base_URL = "http://166.62.54.122:8001/"; //Live Server
-    public static final String Base_URL = "http://13.232.240.233:8000/"; //AWS Server
+    //public static final String Base_URL = "http://13.232.240.233:8000/"; //AWS Server
 
     public static final String e_task_attendance_approval_list = "e_task_attendance_approval_list/?";
     public static final String admin_attendance_advance_leave_pending_list = "admin_attendance_advance_leave_pending_list/?";
@@ -23,6 +23,7 @@ public class mServiceList {
     public static final String t_core_department_add = "t_core_department_add/";
     public static final String employee_list_wo_pagination = "employee_list_wo_pagination/";
     public static final String ATTENDANCE_GRACE_LEAVE_LIST = "attendance_grace_leave_list_first_modified/?";
+    public static final String atendance_employee_list_wo_details = "employee_list_without_details/?";
     public static final String get_app_version = "get_app_version/?";
     public static final String CHANGE_PWD = "change_password/";
 

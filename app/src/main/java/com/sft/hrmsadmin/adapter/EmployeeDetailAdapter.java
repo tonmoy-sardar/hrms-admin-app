@@ -24,7 +24,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
     Activity activity;
     // List<Result> resultListEmployee;
     ArrayList<JSONObject> arrayList = new ArrayList<JSONObject>();
-    ArrayList<JSONObject> arrayList_Backup;
+    //ArrayList<JSONObject> arrayList_Backup;
 
     OnItemClickListenerEmployee itemClickListener;
 
@@ -33,7 +33,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
         this.activity = activity;
         //this.resultListEmployee = resultListEmployee;
         this.arrayList = arrayList;
-        arrayList_Backup = new ArrayList<>();
+        //arrayList_Backup = new ArrayList<>();
     }
 
     @NonNull
@@ -61,7 +61,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
                 try {
 
                     if (itemClickListener != null) {
-                        itemClickListener.OnItemClick(arrayList.get(position).getInt("cu_user"),
+                        itemClickListener.OnItemClick(arrayList.get(position).getInt("id"),
                                 arrayList.get(position).getString("first_name") + " " + arrayList.get(position).getString("last_name"));
                     }
 
@@ -102,7 +102,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
     }
 
 
-    public void refreshBackup(ArrayList<JSONObject> arrayList) {
+   /* public void refreshBackup(ArrayList<JSONObject> arrayList) {
         arrayList_Backup.clear();
         this.arrayList_Backup.addAll(arrayList);
     }
@@ -129,7 +129,7 @@ public class EmployeeDetailAdapter extends RecyclerView.Adapter<EmployeeDetailAd
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 }

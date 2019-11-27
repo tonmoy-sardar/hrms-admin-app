@@ -1,18 +1,15 @@
 package com.sft.hrmsadmin.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,13 +21,10 @@ import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.AttendanceSummaryAdapter;
-import com.sft.hrmsadmin.adapter.EmployeeArrayAdapter;
 import com.sft.hrmsadmin.adapter.EmployeeDetailAdapter;
 import com.sft.hrmsadmin.adapter.MonthsAdapter;
 import com.sft.hrmsadmin.pojo_calsses.AttendanceSummaryMonths;
-import com.sft.hrmsadmin.pojo_calsses.EmployeeDetail;
 import com.sft.hrmsadmin.pojo_calsses.attendance_grace_pojo.AttendanceGraceLeavePojo;
-import com.sft.hrmsadmin.pojo_calsses.employee_detail.EmployeeDetailsPojo;
 import com.sft.hrmsadmin.pojo_calsses.employee_detail.Result;
 import com.sft.hrmsadmin.utils.MethodUtils;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
@@ -180,7 +174,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         rvEmployee.setAdapter(employeeDetailAdapter);
 
 
-        get_employee_list_wo_pagination();
+        //get_employee_list_wo_pagination(charSequence);
 
         year = String.valueOf(getYear(d));
 
@@ -196,8 +190,20 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                employeeDetailAdapter.Filter(charSequence.toString().toLowerCase());
-                llDropDownEmployee.setVisibility(View.VISIBLE);
+
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        llDropDownEmployee.setVisibility(View.VISIBLE);
+                        arrayList_employee_list.clear();
+                        employeeDetailAdapter.notifyDataSetChanged();
+                        get_employee_list_wo_pagination(tvSelectEmployee.getText().toString().trim());
+                        //employeeDetailAdapter.Filter(charSequence.toString().toLowerCase());
+                        //llDropDownEmployee.setVisibility(View.VISIBLE);
+                    }
+                }, 2000);
+
             }
 
             @Override
@@ -486,26 +492,29 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
     }
 
 
-    public void get_employee_list_wo_pagination() {
-        retrofitResponse.getWebServiceResponse(serviceClient.get_employee_list_wo_pagination("Token " + token, 1),
+    public void get_employee_list_wo_pagination(String charSequence) {
+        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
+        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
+        int page_size = 0;
+
+        System.out.println("charSequence: "+charSequence);
+
+        retrofitResponse.getWebServiceResponse(serviceClient.get_employee_list_wo_details("Token " + token,charSequence,0, 1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
+                        arrayList_employee_list.clear();
                         try {
                             String responseString = jsonObject.toString();
                             System.out.println("responseString: " + responseString);
-                            JSONArray results = jsonObject.getJSONArray("result");
+                            JSONArray results = jsonObject.getJSONArray("results");
                             for (int i = 0; i < results.length(); i++) {
                                 arrayList_employee_list.add(results.getJSONObject(i));
                             }
-                            employeeDetailAdapter.refreshBackup(arrayList_employee_list);
+                            //employeeDetailAdapter.refreshBackup(arrayList_employee_list);
                             employeeDetailAdapter.notifyDataSetChanged();
 
-                            /*EmployeeDetailsPojo employeeDetailsPojo;
-                            Gson gson = new Gson();
-
-                            employeeDetailsPojo = gson.fromJson(responseString,EmployeeDetailsPojo.class);
-                            resultListEmployee.addAll(employeeDetailsPojo.getResult());*/
+                            progressBarDialog.dismiss();
 
                         } catch (Exception e) {
                             e.printStackTrace();
