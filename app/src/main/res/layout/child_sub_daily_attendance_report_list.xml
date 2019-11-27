@@ -25,9 +25,9 @@
 
         <com.sft.hrmsadmin.widget.GothiciBoldTextView
                 android:layout_width="@dimen/_110sdp"
-                android:layout_height="@dimen/_20sdp"
+                android:layout_height="@dimen/_22sdp"
                 android:textColor="@color/color_white"
-                android:background="@drawable/rectangle_box_curve_solid"
+                android:background="@mipmap/submit_button"
                 android:text="Late Conveyance"
                 android:gravity="center"
                 android:textSize="@dimen/_10sdp"

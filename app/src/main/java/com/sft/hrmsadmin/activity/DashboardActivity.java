@@ -1,6 +1,7 @@
 package com.sft.hrmsadmin.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -8,6 +9,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.sft.hrmsadmin.BuildConfig;
@@ -33,6 +36,7 @@ public class DashboardActivity extends MainActivity {
     String app_name = "HRMS Admin";
     int current_app_version = -1;
     JSONObject jsonObject;
+    CardView cv_attendance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class DashboardActivity extends MainActivity {
         tv_universal_header.setText("HRMS DASHBOARD");
 
         ll_attendance = findViewById(R.id.ll_attendance);
+        cv_attendance = findViewById(R.id.cv_attendance);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
@@ -86,6 +91,15 @@ public class DashboardActivity extends MainActivity {
             e.printStackTrace();
         }
 
+        setAnimation(cv_attendance);
+
+    }
+
+
+    private void setAnimation(View viewToAnimate) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        Animation animation = AnimationUtils.loadAnimation(DashboardActivity.this, R.anim.fade_in);
+        viewToAnimate.startAnimation(animation);
     }
 
 
@@ -103,6 +117,7 @@ public class DashboardActivity extends MainActivity {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         try {
+                            setAnimation(cv_attendance);
                             if (jsonObject.getJSONObject("result").getBoolean("version_upgraded") == true) {
                                 showMessagePopup("New updated version of HRMS Admin is available in Play Store now. Please install the latest version.");
                             }

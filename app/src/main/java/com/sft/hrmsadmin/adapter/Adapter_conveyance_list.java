@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -37,6 +39,8 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
     boolean upDateAgain = true;
     boolean updateLoader = true;
     ViewGroup parent;
+
+    private int lastPosition = -1;
 
 
     public Adapter_conveyance_list(ArrayList<JSONObject> arrayList, Context context) {
@@ -201,12 +205,24 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
+                setAnimation(((DataObjectHolder) holder).cv_total,position);
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
 
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 

@@ -38,10 +38,12 @@ public class GothiciBoldTextView extends AppCompatTextView {
         if (style == 1) {
             //replace "HelveticaBOLD.otf" with the name of your bold font
             tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHICB.TTF");
+            //tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "Montserrat_Bold.ttf");
         }
         else {
             //replace "HelveticaNORMAL.otf" with the name of your normal font
             tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHICB.TTF");
+            //tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "Montserrat_Bold.ttf");
         }
         super.setTypeface(tf, 0);
     }

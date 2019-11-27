@@ -45,35 +45,35 @@ public class AttendanceSummarySubAdapter extends RecyclerView.Adapter<Attendance
     public void onBindViewHolder(@NonNull AttendanceSummarySubAdapter.MyViewHolder holder, int position) {
 
         try {
-            if (attendanceRequest.get(position).getString("leave_type_changed_period")!= null){
+            if (!attendanceRequest.get(position).getString("leave_type_changed_period").equalsIgnoreCase("null")){
 
                 holder.tvLeaveType.setText(Html.fromHtml("<b>"+"Leave Type:  "+"</b>"+attendanceRequest.get(position).getString("leave_type_changed_period")));
 
-            }else if (attendanceRequest.get(position).getString("leave_type_changed")!= null){
+            }else if (!attendanceRequest.get(position).getString("leave_type_changed").equalsIgnoreCase("null")){
 
                 holder.tvLeaveType.setText(Html.fromHtml("<b>"+"Leave Type:  "+"</b>"+attendanceRequest.get(position).getString("leave_type_changed")));
                 //holder.tvLeaveType.setText("Leave Type:  "+attendanceRequest.get(position).getLeaveTypeChanged());
 
             }else {
 
-                if (attendanceRequest.get(position).getString("leave_type")!= null) {
+                if (!attendanceRequest.get(position).getString("leave_type").equalsIgnoreCase("null")) {
                     //holder.tvLeaveType.setText("Leave Type:  " + attendanceRequest.get(position).getLeaveType());
                     holder.tvLeaveType.setText(Html.fromHtml("<b>"+"Leave Type:  "+"</b>"+attendanceRequest.get(position).getString("leave_type")));
                 }else {
                     //holder.tvLeaveType.setText("Leave Type:  " + "N/A");
-                    holder.tvLeaveType.setText(Html.fromHtml("<b>"+"Leave Type:  "+"</b>"+"N/A"));
+                    holder.tvLeaveType.setText(Html.fromHtml("<b>"+"Leave Type:  "+"</b>"));
 
                 }
             }
 
 
-            if (attendanceRequest.get(position).getString("duration")!= null){
+            if (!attendanceRequest.get(position).getString("duration").equalsIgnoreCase("null")){
 
                 holder.tvDuration.setText(Html.fromHtml("<b>"+"Duration:  "+"</b>"+String.valueOf(attendanceRequest.get(position).getString("duration"))+" mins")  );
             }
 
 
-            if (attendanceRequest.get(position).getString("approved_status")!= null){
+            if (!attendanceRequest.get(position).getString("approved_status").equalsIgnoreCase("null")){
 
                 if (attendanceRequest.get(position).getString("approved_status").equalsIgnoreCase("Pending")) {
 
@@ -89,7 +89,7 @@ public class AttendanceSummarySubAdapter extends RecyclerView.Adapter<Attendance
             }
 
 
-            if (attendanceRequest.get(position).getString("remarks")!= null){
+            if (!attendanceRequest.get(position).getString("remarks").equalsIgnoreCase("null")){
 
                 holder.rlRemarks.setVisibility(View.VISIBLE);
                 holder.tvRemarks.setText(attendanceRequest.get(position).getString("remarks"));

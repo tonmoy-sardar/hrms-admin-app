@@ -1,6 +1,7 @@
 package com.sft.hrmsadmin.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -81,6 +82,8 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
     TextView tvEmpName;
 
+    NestedScrollView nsv_attendance_summery;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +98,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         rvSummaryList = findViewById(R.id.rvSummaryList);
         rvMonths = findViewById(R.id.rvMonths);
+        nsv_attendance_summery = findViewById(R.id.nsv_attendance_summery);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
@@ -122,6 +126,11 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         llDropDown = findViewById(R.id.llDropDown);
         llStatic = findViewById(R.id.llStatic);
         rvEmployee = findViewById(R.id.rvEmployee);
+
+
+        rvSummaryList.setNestedScrollingEnabled(false);
+        rvMonths.setNestedScrollingEnabled(false);
+        rvEmployee.setNestedScrollingEnabled(false);
 
 
         Date d = new Date();
@@ -449,7 +458,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
         tvEmpName.setText(emp_name);
         if (attendanceGraceLeavePojo.getResult().getMonthStart() != null && attendanceGraceLeavePojo.getResult().getMonthEnd() != null) {
             tvGraceTime.setText("Grace Time(" + MethodUtils.profileDate(attendanceGraceLeavePojo.getResult().getMonthStart()) +
-                    " - " + MethodUtils.profileDate(attendanceGraceLeavePojo.getResult().getMonthEnd()) + ")");
+                    " - " + MethodUtils.profileDate(attendanceGraceLeavePojo.getResult().getMonthEnd()) + ") - "+attendanceGraceLeavePojo.getResult().getAvailedGrace()+" mins");
         } else {
             tvGraceTime.setText("N/A");
         }

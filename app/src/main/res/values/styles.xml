@@ -32,6 +32,17 @@
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
 
+    <style name="DialogCustomStyle">
+        <!-- No backgrounds, titles or window float -->
+        <item name="colorPrimaryDark">@color/FullTranparent</item>
+        <item name="android:windowBackground">@color/FullTranparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:windowFullscreen">true</item>-->
+        <item name="android:windowIsFloating">false</item>
+        <!--<item name="android:windowEnterAnimation">@anim/zoom_in</item>-->
+        <!--<item name="android:windowExitAnimation">@anim/slide_up</item>-->
+    </style>
+
 
     <style name="TextLabel" parent="TextAppearance.AppCompat">
         <!-- Hint color and label color in FALSE state -->

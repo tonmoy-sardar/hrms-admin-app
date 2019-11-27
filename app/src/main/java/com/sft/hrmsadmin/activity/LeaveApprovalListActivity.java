@@ -21,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +34,6 @@ import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_leave_approval_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_add_remarks;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_by;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_approval;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
@@ -65,6 +63,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
     CheckBox chkbxSelectApproval;
     RadioButton rb_approve, rb_reject, rb_free;
     JsonArray advance_leaves_approvals;
+    ArrayList<JSONObject> temp_arrayList_filter_by;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -166,6 +165,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 field_name = "";
                 order_by = "";
                 request_types = "";
+                temp_arrayList_filter_by = null;
                 arrayList_leave_approval.clear();
                 adapter_leave_approval_list.notifyDataSetChanged();
                 get_admin_attendance_advance_leave_pending_list();
@@ -189,6 +189,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 field_name = "";
                 order_by = "";
                 request_types = "";
+                temp_arrayList_filter_by = null;
                 arrayList_leave_approval.clear();
                 adapter_leave_approval_list.notifyDataSetChanged();
                 get_attendance_leave_approval_list();
@@ -259,12 +260,14 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
                 final Dialog_Fragment_filter_leave_approval dialog_fragment_filter_leave_approval = new Dialog_Fragment_filter_leave_approval();
+                dialog_fragment_filter_leave_approval.setData(temp_arrayList_filter_by);
                 dialog_fragment_filter_leave_approval.setOnDialogListener(new Dialog_Fragment_filter_leave_approval.OnItemClickDialog() {
                     @Override
-                    public void onItemClick(String request_type) {
+                    public void onItemClick(String request_type, ArrayList<JSONObject> arrayList_filter_by) {
                         System.out.println("request_type=====>>>" + request_type);
                         request_types = request_type;
                         page = 1;
+                        temp_arrayList_filter_by = arrayList_filter_by;
                         arrayList_leave_approval.clear();
                         adapter_leave_approval_list.notifyDataSetChanged();
                         if (select_type == 1) {

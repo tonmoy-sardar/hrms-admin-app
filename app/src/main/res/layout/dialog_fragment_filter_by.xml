@@ -9,86 +9,98 @@
     >
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@color/color_white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        >
-
-        <LinearLayout
+    <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_36sdp"
-            android:orientation="horizontal"
-            android:background="@color/statusBarColor"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/color_white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@color/color_white"
+            app:cardCornerRadius="@dimen/_10sdp"
             >
 
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="@dimen/_14sdp"
-                android:text="Filter By"
-                android:textColor="@color/color_white"
-                android:paddingLeft="15dp"
-                android:id="@+id/tv_title_name"
-                android:gravity="center_vertical"
-                android:layout_weight="1"
-                />
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_36sdp"
+                    android:orientation="horizontal"
+                    android:background="@mipmap/hedder_bg_new"
+                    >
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="@dimen/_14sdp"
+                        android:text="Filter By"
+                        android:textColor="@color/color_white"
+                        android:paddingLeft="15dp"
+                        android:id="@+id/tv_title_name"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
 
 
 
-            <ImageView
-                android:layout_width="@dimen/_38sdp"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_cancel_black_24dp"
-                android:padding="@dimen/_7sdp"
-                android:id="@+id/iv_df_cross"
-                />
+                <ImageView
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_cancel_black_24dp"
+                        android:padding="@dimen/_7sdp"
+                        android:id="@+id/iv_df_cross"
+                        />
+
+            </LinearLayout>
+
+
+            <Button
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:background="@mipmap/submit_button"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_10sdp"
+                    android:text="Clear All"
+                    android:id="@+id/bt_clear_filter"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/_7sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    />
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/rv_filter_by_list"
+                    />
+
+
+            <Button
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_34sdp"
+                    android:background="@mipmap/submit_button"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/_12sdp"
+                    android:text="Submit"
+                    android:id="@+id/bt_apply_filter"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+
 
         </LinearLayout>
 
 
-        <Button
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:background="@drawable/rectangle_box_curve_solid"
-                android:textColor="@color/color_white"
-                android:textSize="@dimen/_10sdp"
-                android:text="Clear All"
-                android:id="@+id/bt_clear_filter"
-                android:layout_gravity="right"
-                android:layout_marginRight="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_7sdp"
-                />
+    </androidx.cardview.widget.CardView>
 
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rv_filter_by_list"
-            />
-
-
-        <Button
-            android:layout_width="@dimen/_120sdp"
-            android:layout_height="@dimen/_34sdp"
-            android:background="@drawable/rectangle_box_curve_solid"
-            android:textColor="@color/color_white"
-            android:textSize="@dimen/_12sdp"
-            android:text="Submit"
-            android:id="@+id/bt_apply_filter"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:layout_gravity="center_horizontal"
-            />
-
-
-
-    </LinearLayout>
 
 
 </RelativeLayout>

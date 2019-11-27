@@ -189,6 +189,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
                 final Dialog_Fragment_filter_conveyance dialog_fragment_filter_conveyance = new Dialog_Fragment_filter_conveyance();
+                dialog_fragment_filter_conveyance.setData(start_date, end_date, department, designation);
                 dialog_fragment_filter_conveyance.setOnDialogListener(new Dialog_Fragment_filter_conveyance.OnItemClickDialog() {
                     @Override
                     public void onItemClick(String from_date, String to_date, String department_id, String designation_id) {

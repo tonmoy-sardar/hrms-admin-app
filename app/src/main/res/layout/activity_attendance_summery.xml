@@ -1,190 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:id="@+id/nsv_attendance_summery"
         tools:context=".activity.AttendanceSummeryActivity">
 
 
     <LinearLayout
-            android:id="@+id/llStatic"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone">
-
-
-        <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:id="@+id/tvEmpName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="" />
-
-
-        <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                android:id="@+id/tvGraceTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text=""
-                android:textColor="@color/text_color">
-
-        </com.sft.hrmsadmin.widget.GothiciBoldTextView>
-
+            >
 
         <LinearLayout
+                android:id="@+id/llStatic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
+                android:orientation="vertical"
+                android:visibility="gone">
 
 
-            <RelativeLayout
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:id="@+id/tvEmpName"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="" />
 
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvCL"
+
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:id="@+id/tvGraceTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text=""
+                    android:textColor="@color/text_color">
+
+            </com.sft.hrmsadmin.widget.GothiciBoldTextView>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+
+                <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
-                        android:text="CL: 0" />
+                        android:layout_height="wrap_content">
 
-            </RelativeLayout>
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tvCL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_5sdp"
+                            android:text="CL: 0" />
+
+                </RelativeLayout>
 
 
-            <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvEL"
+                <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:padding="@dimen/_5sdp"
-                        android:text="EL: 0" />
+                        android:layout_height="wrap_content">
 
-            </RelativeLayout>
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tvEL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="@dimen/_5sdp"
+                            android:text="EL: 0" />
 
-            <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                </RelativeLayout>
 
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvSL"
+                <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp"
-                        android:text="SL: 0">
+                        android:layout_height="wrap_content">
 
-                </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tvSL"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="@dimen/_5sdp"
+                            android:text="SL: 0">
 
-            </RelativeLayout>
+                    </com.sft.hrmsadmin.widget.GothiciRegularTextView>
 
-            <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                </RelativeLayout>
 
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tvAbsent"
+                <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:padding="@dimen/_5sdp"
-                        android:text="Absent: 0">
+                        android:layout_height="wrap_content">
 
-                </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tvAbsent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:padding="@dimen/_5sdp"
+                            android:text="Absent: 0">
 
-            </RelativeLayout>
+                    </com.sft.hrmsadmin.widget.GothiciRegularTextView>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/border_color" />
 
 
         </LinearLayout>
 
 
-        <View
+        <com.sft.hrmsadmin.widget.GothiciRegularEditText
+                android:id="@+id/tvSelectEmployee"
                 android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="@color/border_color" />
+                android:layout_height="@dimen/_34sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/rectangle_border_solid_white"
+                android:ems="10"
+                android:hint="Search By Employee"
+                android:padding="@dimen/_5sdp"
+                android:textSize="@dimen/_11sdp"
+                />
+
+        <LinearLayout
+                android:id="@+id/llDropDownEmployee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvEmployee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
 
-    <com.sft.hrmsadmin.widget.GothiciRegularEditText
-            android:id="@+id/tvSelectEmployee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="@dimen/_5sdp"
-            android:background="@drawable/rectangle_border_solid_white"
-            android:ems="10"
-            android:hint="Search By Employee"
-            android:padding="@dimen/_5sdp"
-            android:textSize="@dimen/_11sdp"
-            />
+        <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                android:id="@+id/tvSelectMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/rectangle_border_solid_white"
+                android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                android:gravity="center_vertical"
+                android:hint="Select Month"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingTop="@dimen/_7sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_7sdp"
+                android:visibility="gone" />
 
-    <LinearLayout
-            android:id="@+id/llDropDownEmployee"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:orientation="vertical"
-            android:visibility="gone"
-           >
+        <LinearLayout
+                android:id="@+id/llDropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingBottom="@dimen/_10sdp"
+                android:paddingLeft="@dimen/_10sdp"
+                android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvMonths"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvEmployee"
+                android:id="@+id/rvSummaryList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-
     </LinearLayout>
 
 
-    <com.sft.hrmsadmin.widget.GothiciRegularTextView
-            android:id="@+id/tvSelectMonth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/rectangle_border_solid_white"
-            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-            android:gravity="center_vertical"
-            android:hint="Select Month"
-            android:paddingLeft="@dimen/_10sdp"
-            android:paddingTop="@dimen/_7sdp"
-            android:paddingRight="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_7sdp"
-            android:visibility="gone" />
-
-    <LinearLayout
-            android:id="@+id/llDropDown"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:orientation="vertical"
-            android:padding="@dimen/_10sdp"
-            android:visibility="gone">
-
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMonths"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-        </androidx.recyclerview.widget.RecyclerView>
 
 
-    </LinearLayout>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvSummaryList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

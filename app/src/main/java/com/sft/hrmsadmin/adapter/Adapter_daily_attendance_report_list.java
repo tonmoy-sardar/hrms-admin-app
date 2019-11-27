@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +40,8 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
     boolean upDateAgain = true;
     boolean updateLoader = true;
     ViewGroup parent;
+
+    private int lastPosition = -1;
 
 
     public Adapter_daily_attendance_report_list(ArrayList<JSONObject> arrayList, Context context) {
@@ -110,6 +114,7 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
                 }
 
                 ((DataObjectHolder) holder).tv_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).optString("date")));
+                ((DataObjectHolder) holder).tv_al_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).optString("date")));
                 if (arrayList.get(position).getString("login_time").equalsIgnoreCase("null")) {
                     ((DataObjectHolder) holder).tv_login_time.setText("--");
                     ((DataObjectHolder) holder).tv_logout_time.setText("--");
@@ -133,12 +138,22 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
                 ((DataObjectHolder) holder).rv_deviations.setAdapter(adapter_sub_daily_attendance_report_list);
 
 
+                setAnimation(((DataObjectHolder) holder).viewItem,position);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
 
 
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 
@@ -170,7 +185,7 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
     public class DataObjectHolder extends RecyclerView.ViewHolder {
 
         View viewItem;
-        TextView tv_employee_name, tv_date, tv_login_time, tv_logout_time;
+        TextView tv_employee_name, tv_date, tv_login_time, tv_logout_time,tv_al_date;
         RecyclerView rv_deviations;
 
         public DataObjectHolder(View itemView) {
@@ -181,6 +196,7 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
             tv_login_time = itemView.findViewById(R.id.tv_login_time);
             tv_logout_time = itemView.findViewById(R.id.tv_logout_time);
             rv_deviations = itemView.findViewById(R.id.rv_deviations);
+            tv_al_date = itemView.findViewById(R.id.tv_al_date);
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,7 +25,6 @@ import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_department_list;
 import com.sft.hrmsadmin.adapter.Adapter_designation_list;
-import com.sft.hrmsadmin.adapter.Adapter_filter_by_list;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
@@ -57,6 +57,8 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
     Adapter_designation_list adapter_designation_list;
     ArrayList<JSONObject> arrayList_designation;
     ArrayList<JSONObject> arrayList_department;
+    String temp_start_date = "", temp_end_date = "";
+    Button bt_clear_filter;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -64,6 +66,14 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
     String token = "", date_type = "", department_id = "", designation_id = "";
     MySharedPreferance mySharedPreferance;
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
+
+
+    public void setData(String start_date, String end_date, String department, String designation) {
+        temp_start_date = start_date;
+        temp_end_date = end_date;
+        department_id = department;
+        designation_id = designation;
+    }
 
 
     @NonNull
@@ -84,6 +94,10 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
         animation_zoom_in = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.zoom_in);
         slide_out_buttom = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out_bottom);
         System.out.println("Current CLASS===>>>" + getClass().getSimpleName());
+        System.out.println("temp_start_date===>>>" + temp_start_date);
+        System.out.println("temp_end_date===>>>" + temp_end_date);
+        System.out.println("leave_type===>>>" + department_id);
+        System.out.println("approved_type===>>>" + designation_id);
 
         iv_df_back = v.findViewById(R.id.iv_df_back);
         tv_submit = v.findViewById(R.id.tv_submit);
@@ -91,6 +105,17 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
         tv_fr_to_date = v.findViewById(R.id.tv_fr_to_date);
         rv_filter_department = v.findViewById(R.id.rv_filter_department);
         rv_filter_designation = v.findViewById(R.id.rv_filter_designation);
+        bt_clear_filter = v.findViewById(R.id.bt_clear_filter);
+
+
+        if (!temp_start_date.equalsIgnoreCase("")) {
+            tv_fr_from_date.setText(temp_start_date);
+        }
+
+        if (!temp_end_date.equalsIgnoreCase("")) {
+            tv_fr_to_date.setText(temp_end_date);
+        }
+
 
         rv_filter_department.setNestedScrollingEnabled(false);
         rv_filter_designation.setNestedScrollingEnabled(false);
@@ -107,7 +132,7 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
 
 
         arrayList_department = new ArrayList<JSONObject>();
-        adapter_department_list = new Adapter_department_list(arrayList_department, getActivity());
+        adapter_department_list = new Adapter_department_list(arrayList_department, getActivity(), department_id);
         adapter_department_list.setOnItemListener(this);
         RecyclerView.LayoutManager layoutManagerDepartment = new LinearLayoutManager(getActivity());
         rv_filter_department.setLayoutManager(layoutManagerDepartment);
@@ -116,7 +141,7 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
 
 
         arrayList_designation = new ArrayList<JSONObject>();
-        adapter_designation_list = new Adapter_designation_list(arrayList_designation, getActivity());
+        adapter_designation_list = new Adapter_designation_list(arrayList_designation, getActivity(), designation_id);
         adapter_designation_list.setOnItemListener(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_filter_designation.setLayoutManager(layoutManager);
@@ -162,8 +187,6 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
         });
 
 
-
-
         iv_df_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,6 +219,36 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
         });
 
 
+        bt_clear_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tv_fr_from_date.setText("");
+                tv_fr_to_date.setText("");
+                department_id = "";
+                designation_id = "";
+
+                arrayList_department = new ArrayList<JSONObject>();
+                adapter_department_list = new Adapter_department_list(arrayList_department, getActivity(), department_id);
+                adapter_department_list.setOnItemListener(Dialog_Fragment_filter_conveyance.this);
+                RecyclerView.LayoutManager layoutManagerDepartment = new LinearLayoutManager(getActivity());
+                rv_filter_department.setLayoutManager(layoutManagerDepartment);
+                rv_filter_department.setHasFixedSize(true);
+                rv_filter_department.setAdapter(adapter_department_list);
+
+
+                arrayList_designation = new ArrayList<JSONObject>();
+                adapter_designation_list = new Adapter_designation_list(arrayList_designation, getActivity(), designation_id);
+                adapter_designation_list.setOnItemListener(Dialog_Fragment_filter_conveyance.this);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                rv_filter_designation.setLayoutManager(layoutManager);
+                rv_filter_designation.setHasFixedSize(true);
+                rv_filter_designation.setAdapter(adapter_designation_list);
+
+                get_t_core_department_add();
+            }
+        });
+
+
         get_t_core_department_add();
 
 
@@ -213,6 +266,7 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
                             JSONArray result = jsonObject.getJSONArray("result");
                             if (result.length() > 0) {
                                 for (int i = 0; i < result.length(); i++) {
+                                    result.getJSONObject(i).put("request_type", result.getJSONObject(i).getString("id"));
                                     arrayList_department.add(result.getJSONObject(i));
                                 }
                                 adapter_department_list.notifyDataSetChanged();
@@ -237,6 +291,7 @@ public class Dialog_Fragment_filter_conveyance extends DialogFragment implements
                             JSONArray result = jsonObject.getJSONArray("result");
                             if (result.length() > 0) {
                                 for (int i = 0; i < result.length(); i++) {
+                                    result.getJSONObject(i).put("request_type", result.getJSONObject(i).getString("id"));
                                     arrayList_designation.add(result.getJSONObject(i));
                                 }
                                 adapter_designation_list.notifyDataSetChanged();

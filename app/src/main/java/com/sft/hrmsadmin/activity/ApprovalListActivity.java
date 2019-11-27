@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -59,6 +61,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     CheckBox chkbxSelectApproval;
     RadioButton rb_approve, rb_reject, rb_free;
     JsonArray attendence_approvals;
+    int resId = R.anim.layout_animation_from_bottom;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -79,6 +82,9 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         img_topbar_back.setVisibility(View.VISIBLE);
 
         rv_approval_list = findViewById(R.id.rv_approval_list);
+       /* LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ApprovalListActivity.this, resId);
+        rv_approval_list.setLayoutAnimation(animation);*/
+
         ll_search_btn = findViewById(R.id.ll_search_btn);
         ll_search_sort_section = findViewById(R.id.ll_search_sort_section);
         ll_search_field = findViewById(R.id.ll_search_field);
@@ -105,6 +111,9 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
 
 
         arrayList_approval = new ArrayList<JSONObject>();
+       /* final Context context = rv_approval_list.getContext();
+        final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
+        rv_approval_list.setLayoutAnimation(controller);*/
         adapter_approval_list = new Adapter_approval_list(arrayList_approval, this);
         adapter_approval_list.setOnItemListener(this);
         adapter_approval_list.paginate(new Adapter_approval_list.UpdateData() {
@@ -118,6 +127,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         rv_approval_list.setLayoutManager(layoutManager);
         rv_approval_list.setHasFixedSize(true);
         rv_approval_list.setAdapter(adapter_approval_list);
+        //rv_approval_list.scheduleLayoutAnimation();
 
 
         rv_approval_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -128,7 +138,10 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                     adapter_approval_list.updateAgain(false);
                 } else {
                     adapter_approval_list.updateAgain(true);
+                    //rv_approval_list.startLayoutAnimation();
                 }
+
+
             }
         });
 
@@ -319,7 +332,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         adapter_approval_list.loader(true);
 
         retrofitResponse.getWebServiceResponse(serviceClient.get_e_task_attendance_approval_list("Token " + token, "application/json", page,
-                et_search_field.getText().toString(), request_types, field_name, order_by, 1),
+                20, et_search_field.getText().toString(), request_types, field_name, order_by, 1),
                 new RetrofitResponse.DataFetchResult() {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {

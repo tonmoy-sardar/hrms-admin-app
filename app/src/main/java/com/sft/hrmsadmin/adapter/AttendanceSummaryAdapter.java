@@ -6,6 +6,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,8 +36,11 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
     ArrayList<JSONObject> arrayList_attendance_summery;
     AttendanceSummarySubAdapter attendanceSummarySubAdapter;
 
-    ArrayList<JSONObject> arrayList_attendance_request = new ArrayList<>();
+    ArrayList<JSONObject> arrayList_attendance_request;
     ArrayList<JSONObject> conveyanceDetailList = new ArrayList<>();
+
+    private int lastPosition = -1;
+
 
     public AttendanceSummaryAdapter(Activity activity, ArrayList<JSONObject> arrayList_attendance_summery) {
 
@@ -60,6 +65,7 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
                     String.valueOf(arrayList_attendance_summery.get(position).getString("daily_grace"))+" mins"));
 
             holder.tvDate.setText(MethodUtils.profileDate(arrayList_attendance_summery.get(position).getString("date")));
+            holder.tv_al_date.setText(MethodUtils.profileDate(arrayList_attendance_summery.get(position).getString("date")));
 
 
 
@@ -142,7 +148,7 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
                 });
 
 
-                JSONArray attendance_request = arrayList_attendance_summery.get(position).getJSONArray("attendance_request");
+                /*JSONArray attendance_request = arrayList_attendance_summery.get(position).getJSONArray("attendance_request");
 
                 for (int i = 0; i < attendance_request.length(); i++){
 
@@ -157,6 +163,18 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
                         new LinearLayoutManager(activity, RecyclerView.VERTICAL, false);
                 holder.rvLeaveType.setHasFixedSize(true);
                 holder.rvLeaveType.setLayoutManager(linearLayoutManager);
+                holder.rvLeaveType.setAdapter(attendanceSummarySubAdapter);*/
+
+
+
+                arrayList_attendance_request = new ArrayList<JSONObject>();
+                for (int i = 0; i < arrayList_attendance_summery.get(position).getJSONArray("attendance_request").length(); i++) {
+                    arrayList_attendance_request.add( arrayList_attendance_summery.get(position).getJSONArray("attendance_request").getJSONObject(i));
+                }
+                attendanceSummarySubAdapter = new AttendanceSummarySubAdapter(activity, arrayList_attendance_request);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity);
+                holder.rvLeaveType.setLayoutManager(layoutManager);
+                holder.rvLeaveType.setHasFixedSize(true);
                 holder.rvLeaveType.setAdapter(attendanceSummarySubAdapter);
 
             }else {
@@ -207,15 +225,24 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
                 holder.tvConveyance.setVisibility(View.GONE);
             }
 
-
+            setAnimation(holder.viewItem,position);
 
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(activity, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
 
     @Override
     public int getItemCount() {
@@ -225,15 +252,17 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvDate,tvLoginTime,tvLogoutTime,tvGrace,tvRemarks,
-                tvCL,tvEL,tvSL,tvAbsent,tvConveyance;
+                tvCL,tvEL,tvSL,tvAbsent,tvConveyance,tv_al_date;
 
         RecyclerView rvLeaveType;
         ImageView ivArrowup,ivArrowDown;
 
         LinearLayout llLeaveDetails;
+        View viewItem;
 
         public MyViewHolder(@NonNull View itemView, Activity activity) {
             super(itemView);
+            viewItem = itemView;
             tvGrace = itemView.findViewById(R.id.tvGrace);
             tvLogoutTime = itemView.findViewById(R.id.tvLogoutTime);
             tvLoginTime = itemView.findViewById(R.id.tvLoginTime);
@@ -251,6 +280,7 @@ public class AttendanceSummaryAdapter extends RecyclerView.Adapter<AttendanceSum
             ivArrowDown = itemView.findViewById(R.id.ivArrowDown);
 
             llLeaveDetails = itemView.findViewById(R.id.llLeaveDetails);
+            tv_al_date = itemView.findViewById(R.id.tv_al_date);
         }
     }
 

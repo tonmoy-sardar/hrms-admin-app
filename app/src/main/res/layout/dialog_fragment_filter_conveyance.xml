@@ -15,7 +15,7 @@
         <com.sft.hrmsadmin.widget.GothiciBoldTextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@color/drawer_background"
+                android:background="@mipmap/hedder_bg_new"
             android:gravity="center"
             android:text="Filter Conveyance"
             android:textColor="@color/color_white"
@@ -33,12 +33,24 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+                <Button
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:background="@mipmap/submit_button"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Clear All"
+                        android:id="@+id/bt_clear_filter"
+                        android:layout_gravity="right"
+                        android:layout_marginRight="@dimen/_7sdp"
+                        android:layout_marginTop="@dimen/_7sdp"
+                        />
+
 
                 <com.sft.hrmsadmin.widget.GothiciBoldTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
-                        android:layout_marginTop="@dimen/_20sdp"
                         android:layout_marginRight="15dp"
                         android:text="Date Range : "
                         android:textColor="@color/text_color"
@@ -134,7 +146,7 @@
                     android:id="@+id/tv_submit"
                     android:layout_width="@dimen/_180sdp"
                     android:layout_height="@dimen/_40sdp"
-                    android:background="@drawable/rectangle_box_curve_solid"
+                    android:background="@mipmap/submit_button"
                     android:gravity="center"
                     android:text="apply"
                     android:textColor="@color/color_white"

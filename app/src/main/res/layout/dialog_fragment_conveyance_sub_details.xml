@@ -8,254 +8,52 @@
         android:background="@color/tranparent"
         >
 
-
-    <LinearLayout
+    <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:background="@color/color_white"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:orientation="vertical"
+            app:cardBackgroundColor="@color/color_white"
+            app:cardCornerRadius="@dimen/_10sdp"
             >
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_36sdp"
-                android:orientation="horizontal"
-                android:background="@color/statusBarColor"
-                >
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="@dimen/_14sdp"
-                    android:text="Conveyance Details"
-                    android:textColor="@color/color_white"
-                    android:paddingLeft="15dp"
-                    android:id="@+id/tv_title_name"
-                    android:gravity="center_vertical"
-                    android:layout_weight="1"
-                    />
-
-
-
-            <ImageView
-                    android:layout_width="@dimen/_38sdp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_cancel_black_24dp"
-                    android:padding="@dimen/_7sdp"
-                    android:id="@+id/iv_df_cross"
-                    />
-
-        </LinearLayout>
 
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingTop="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_15sdp">
-
+                >
 
             <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_36sdp"
                     android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Name : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="jhon"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_df_employee_name"
-                        />
-
-
-            </LinearLayout>
-
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@mipmap/hedder_bg_new"
                     >
 
                 <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Date : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="12.03.2019"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_df_date"
-                        />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Deviation Start : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.00PM - 3.00PM"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_df_deviation_start"
-                        />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Deviation End : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.00PM - 3.00PM"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_df_deviation_end_time"
-                        />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Deviation Time : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2.00PM - 3.00PM"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_df_deviation_time"
-                        />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Vehicle Type : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Taxi"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_vehicle_type"
-                        />
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Purpose : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:id="@+id/tv_purpose"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="project site visit"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_14sdp"
+                        android:text="Conveyance Details"
+                        android:textColor="@color/color_white"
+                        android:paddingLeft="15dp"
+                        android:id="@+id/tv_title_name"
+                        android:gravity="center_vertical"
+                        android:layout_weight="1"
+                        />
 
+
+
+                <ImageView
+                        android:layout_width="@dimen/_38sdp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_cancel_black_24dp"
+                        android:padding="@dimen/_7sdp"
+                        android:id="@+id/iv_df_cross"
+                        />
 
             </LinearLayout>
 
@@ -263,37 +61,251 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="@dimen/_10sdp">
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_15sdp">
 
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
+
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Job Alloted By : "
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
 
 
-                <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                        android:layout_width="wrap_content"
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="jhon"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_df_employee_name"
+                            />
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Jhone deo"
-                        android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp"
-                        android:id="@+id/tv_job_alloted_by"
-                        />
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        >
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Date : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="12.03.2019"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_df_date"
+                            />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deviation Start : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2.00PM - 3.00PM"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_df_deviation_start"
+                            />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deviation End : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2.00PM - 3.00PM"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_df_deviation_end_time"
+                            />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Deviation Time : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2.00PM - 3.00PM"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_df_deviation_time"
+                            />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Vehicle Type : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Taxi"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_vehicle_type"
+                            />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Purpose : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:id="@+id/tv_purpose"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="project site visit"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_10sdp">
+
+                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Job Alloted By : "
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp" />
+
+
+                    <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jhone deo"
+                            android:textColor="@color/color_black"
+                            android:textSize="@dimen/_12sdp"
+                            android:id="@+id/tv_job_alloted_by"
+                            />
+
+
+                </LinearLayout>
+
 
 
             </LinearLayout>
-
 
 
         </LinearLayout>
 
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
 
 
 </RelativeLayout>

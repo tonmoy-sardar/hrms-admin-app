@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,7 +28,6 @@ import com.sft.hrmsadmin.adapter.Adapter_designation_list;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -56,6 +56,8 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
     Adapter_designation_list adapter_approved_type_list;
     ArrayList<JSONObject> arrayList_leave_type;
     ArrayList<JSONObject> arrayList_approved_type;
+    String temp_start_date = "", temp_end_date = "", temp_request_types = "", temp_approval_filter = "";
+    Button bt_clear_filter;
 
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
@@ -63,6 +65,14 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
     String token = "", date_type = "", leave_type = "", approved_type = "";
     MySharedPreferance mySharedPreferance;
     private static final String FRAG_TAG_DATE_PICKER = "fragment_date_picker_name";
+
+
+    public void setData(String startDate, String endDate, String request_types, String approval_filter) {
+        temp_start_date = startDate;
+        temp_end_date = endDate;
+        leave_type = request_types;
+        approved_type = approval_filter;
+    }
 
 
     @NonNull
@@ -83,6 +93,10 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
         animation_zoom_in = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.zoom_in);
         slide_out_buttom = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.slide_out_bottom);
         System.out.println("Current CLASS===>>>" + getClass().getSimpleName());
+        System.out.println("temp_start_date===>>>" + temp_start_date);
+        System.out.println("temp_end_date===>>>" + temp_end_date);
+        System.out.println("leave_type===>>>" + leave_type);
+        System.out.println("approved_type===>>>" + approved_type);
 
         iv_df_back = v.findViewById(R.id.iv_df_back);
         tv_submit = v.findViewById(R.id.tv_submit);
@@ -90,6 +104,16 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
         tv_fr_to_date = v.findViewById(R.id.tv_fr_to_date);
         rv_filter_leave_type = v.findViewById(R.id.rv_filter_leave_type);
         rv_filter_approved_type = v.findViewById(R.id.rv_filter_approved_type);
+        bt_clear_filter = v.findViewById(R.id.bt_clear_filter);
+
+        if (!temp_start_date.equalsIgnoreCase("")) {
+            tv_fr_from_date.setText(temp_start_date);
+        }
+
+        if (!temp_end_date.equalsIgnoreCase("")) {
+            tv_fr_to_date.setText(temp_end_date);
+        }
+
 
         rv_filter_leave_type.setNestedScrollingEnabled(false);
         rv_filter_approved_type.setNestedScrollingEnabled(false);
@@ -106,7 +130,7 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
 
 
         arrayList_leave_type = new ArrayList<JSONObject>();
-        adapter_leave_type_list = new Adapter_department_list(arrayList_leave_type, getActivity());
+        adapter_leave_type_list = new Adapter_department_list(arrayList_leave_type, getActivity(), leave_type);
         adapter_leave_type_list.setOnItemListener(this);
         RecyclerView.LayoutManager layoutManagerDepartment = new LinearLayoutManager(getActivity());
         rv_filter_leave_type.setLayoutManager(layoutManagerDepartment);
@@ -116,7 +140,7 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
 
 
         arrayList_approved_type = new ArrayList<JSONObject>();
-        adapter_approved_type_list = new Adapter_designation_list(arrayList_approved_type, getActivity());
+        adapter_approved_type_list = new Adapter_designation_list(arrayList_approved_type, getActivity(), approved_type);
         adapter_approved_type_list.setOnItemListener(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         rv_filter_approved_type.setLayoutManager(layoutManager);
@@ -191,6 +215,36 @@ public class Dialog_Fragment_filter_leave_report extends DialogFragment implemen
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+
+        bt_clear_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                leave_type = "";
+                approved_type = "";
+                tv_fr_from_date.setText("");
+                tv_fr_to_date.setText("");
+
+                arrayList_leave_type = new ArrayList<JSONObject>();
+                adapter_leave_type_list = new Adapter_department_list(arrayList_leave_type, getActivity(), leave_type);
+                adapter_leave_type_list.setOnItemListener(Dialog_Fragment_filter_leave_report.this);
+                RecyclerView.LayoutManager layoutManagerDepartment = new LinearLayoutManager(getActivity());
+                rv_filter_leave_type.setLayoutManager(layoutManagerDepartment);
+                rv_filter_leave_type.setHasFixedSize(true);
+                rv_filter_leave_type.setAdapter(adapter_leave_type_list);
+                loadFilterData();
+
+
+                arrayList_approved_type = new ArrayList<JSONObject>();
+                adapter_approved_type_list = new Adapter_designation_list(arrayList_approved_type, getActivity(), approved_type);
+                adapter_approved_type_list.setOnItemListener(Dialog_Fragment_filter_leave_report.this);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                rv_filter_approved_type.setLayoutManager(layoutManager);
+                rv_filter_approved_type.setHasFixedSize(true);
+                rv_filter_approved_type.setAdapter(adapter_approved_type_list);
+                loadFilterApprovedData();
             }
         });
 

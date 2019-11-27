@@ -19,241 +19,115 @@
                 android:orientation="vertical">
 
 
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:layout_width="wrap_content"
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:text="APPROVALS"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/_14sdp"
-                    app:textAllCaps="true" />
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    android:id="@+id/cv_approvals"
+                    >
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36sdp"
+                        android:text="APPROVALS"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_14sdp"
+                        app:textAllCaps="true"
+                        android:background="@mipmap/hd_title"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/_15sdp"
+                        />
+
+            </androidx.cardview.widget.CardView>
+
+
 
 
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_7sdp"
-                    android:orientation="horizontal">
-
-
-                <LinearLayout
-                        android:id="@+id/ll_approval"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_106sdp"
-                        android:layout_marginRight="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                    <ImageView
-                            android:id="@+id/iv_item"
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_attendance_approval" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            android:gravity="center"
-                            android:text="attendance\napproval"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                        android:id="@+id/ll_leave_approval"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_106sdp"
-                        android:layout_marginLeft="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_applyadvanceleave" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            android:gravity="center"
-                            android:text="leave\napproval"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_7sdp"
                     android:orientation="horizontal"
-                    android:gravity="center"
+                    android:id="@+id/ll_attendance_leave_section"
                     >
 
 
-                <LinearLayout
-                        android:id="@+id/ll_conveyance"
+                <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
-                        android:layout_marginRight="@dimen/_4sdp"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
 
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_conveyanceapproval" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
+                    <LinearLayout
+                            android:id="@+id/ll_approval"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="conveyance\napproval"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
+                            android:orientation="vertical">
 
 
-                </LinearLayout>
+                        <ImageView
+                                android:id="@+id/iv_item"
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_attendance_approval" />
 
 
-                <LinearLayout
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="attendance\napproval"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
-                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:visibility="invisible">
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
 
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@mipmap/attendance" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            android:text="approval"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
-
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-
-            <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/_25sdp"
-                    android:text="reports"
-                    android:textColor="@color/color_black"
-                    android:textSize="@dimen/_14sdp"
-                    app:textAllCaps="true" />
-
-
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_7sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_7sdp"
-                    android:orientation="horizontal">
-
-
-                <LinearLayout
-                        android:id="@+id/ll_report"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_106sdp"
-                        android:layout_marginRight="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_dailyattendance" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
+                    <LinearLayout
+                            android:id="@+id/ll_leave_approval"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="daily\nattendance"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
+                            android:orientation="vertical">
 
 
-                </LinearLayout>
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_applyadvanceleave" />
 
 
-                <LinearLayout
-                        android:id="@+id/ll_attendance_summery"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_106sdp"
-                        android:layout_marginLeft="@dimen/_4sdp"
-                        android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="leave\napproval"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
 
 
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_attendancesummary" />
+                    </LinearLayout>
 
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
-                            android:gravity="center"
-                            android:text="attendance\nsummary"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
-
-
-                </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
 
             </LinearLayout>
@@ -262,71 +136,301 @@
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_7sdp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:id="@+id/ll_conveyance_section"
+                    >
+
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_106sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+
+                    <LinearLayout
+                            android:id="@+id/ll_conveyance"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_conveyanceapproval" />
+
+
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="conveyance\napproval"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_106sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        android:visibility="invisible"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_conveyanceapproval" />
+
+
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="conveyance\napproval"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_7sdp"
-                    android:layout_marginBottom="@dimen/_20sdp"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:cardCornerRadius="@dimen/_5sdp"
+                    android:id="@+id/cv_reports"
+                    >
 
 
-                <LinearLayout
-                        android:id="@+id/ll_leave_report"
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_36sdp"
+                        android:text="reports"
+                        android:textColor="@color/color_white"
+                        android:textSize="@dimen/_14sdp"
+                        app:textAllCaps="true"
+                        android:background="@mipmap/hd_title"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="@dimen/_15sdp"
+                        />
+
+
+
+            </androidx.cardview.widget.CardView>
+
+
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/ll_daily_summery_section"
+                    >
+
+
+                <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
-                        android:layout_marginRight="@dimen/_4sdp"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
 
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_leavehistory" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
+                    <LinearLayout
+                            android:id="@+id/ll_report"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="leave\nreport"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
+                            android:orientation="vertical">
 
 
-                </LinearLayout>
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_dailyattendance" />
 
 
-                <LinearLayout
-                        android:id="@+id/ll_conveyance_report"
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="daily\nattendance"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_106sdp"
-                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_weight="1"
-                        android:background="@drawable/rectangle_box_background"
-                        android:gravity="center"
-                        android:orientation="vertical">
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
 
-
-                    <ImageView
-                            android:layout_width="@dimen/_50sdp"
-                            android:layout_height="@dimen/_50sdp"
-                            android:background="@drawable/ic_conveyance" />
-
-
-                    <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/_6sdp"
+                    <LinearLayout
+                            android:id="@+id/ll_attendance_summery"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:gravity="center"
-                            android:text="conveyance\nreport"
-                            android:textSize="@dimen/_11sdp"
-                            app:textAllCaps="true" />
+                            android:orientation="vertical">
 
 
-                </LinearLayout>
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_attendancesummary" />
+
+
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="attendance\nsummary"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:id="@+id/ll_leave_conveyance"
+                    >
+
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_106sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+
+                    <LinearLayout
+                            android:id="@+id/ll_leave_report"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_leavehistory" />
+
+
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="leave\nreport"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_106sdp"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:layout_weight="1"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        app:cardElevation="@dimen/_5sdp">
+
+
+                    <LinearLayout
+                            android:id="@+id/ll_conveyance_report"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+
+                        <ImageView
+                                android:layout_width="@dimen/_50sdp"
+                                android:layout_height="@dimen/_50sdp"
+                                android:background="@drawable/ic_conveyance" />
+
+
+                        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_6sdp"
+                                android:gravity="center"
+                                android:text="conveyance\nreport"
+                                android:textSize="@dimen/_11sdp"
+                                app:textAllCaps="true" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
 
 
             </LinearLayout>

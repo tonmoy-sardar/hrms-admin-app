@@ -2,18 +2,31 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:elevation="@dimen/_10sdp"
-        android:id="@+id/cv_total"
-        >
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        app:cardElevation="@dimen/_3sdp"
+        app:cardCornerRadius="@dimen/_3sdp"
+        app:cardBackgroundColor="@color/color_white"
+        android:id="@+id/cv_total">
 
     <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_320sdp">
+            android:layout_height="@dimen/_334sdp">
+
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@mipmap/hd_title"
+                android:id="@+id/tv_al_date"
+                android:textColor="@color/color_white"
+                android:text="oct 22,2020"
+                android:gravity="center"
+                android:textSize="@dimen/_12sdp"
+                />
 
 
         <LinearLayout
@@ -21,9 +34,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/_10sdp"
-                android:paddingTop="@dimen/_10sdp"
+                android:paddingTop="@dimen/_7sdp"
                 android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_15sdp">
+                android:layout_below="@+id/tv_al_date"
+                >
 
 
             <LinearLayout
@@ -57,7 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    >
 
                 <com.sft.hrmsadmin.widget.GothiciBoldTextView
                         android:layout_width="wrap_content"
@@ -263,6 +279,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Approve"
+                            android:textColor="@color/color_green_approve"
                             android:textSize="@dimen/_12sdp" />
 
                     <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
@@ -271,7 +288,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Reject"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/red_color"
+                            />
 
 
                     <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
@@ -280,7 +299,9 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Free"
-                            android:textSize="@dimen/_12sdp" />
+                            android:textSize="@dimen/_12sdp"
+                            android:textColor="@color/drawer_background"
+                            />
 
                 </RadioGroup>
 
@@ -304,10 +325,10 @@
 
                 <com.sft.hrmsadmin.widget.GothiciBoldTextView
                         android:id="@+id/tv_approval_submit"
-                        android:layout_width="@dimen/_120sdp"
-                        android:layout_height="@dimen/_26sdp"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:background="@drawable/rectangle_box_curve_solid"
+                        android:background="@mipmap/submit_button"
                         android:gravity="center"
                         android:text="Submit"
                         android:textColor="@color/color_white" />
@@ -321,7 +342,7 @@
 
         <View
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_320sdp"
+                android:layout_height="@dimen/_334sdp"
                 android:background="@color/tranparent_selection"
                 android:id="@+id/v_selection"
                 android:visibility="gone"

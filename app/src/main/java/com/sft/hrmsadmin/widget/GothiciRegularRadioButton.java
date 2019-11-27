@@ -39,11 +39,11 @@ public class GothiciRegularRadioButton extends AppCompatRadioButton {
         System.out.println();
         if (style == 1) {
             //replace "HelveticaBOLD.otf" with the name of your bold font
-            tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHIC.TTF");
+            tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHICB.TTF");
         }
         else {
             //replace "HelveticaNORMAL.otf" with the name of your normal font
-            tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHIC.TTF");
+            tf = Typeface.createFromAsset(getContext().getApplicationContext().getAssets(), "GOTHICB.TTF");
         }
         super.setTypeface(tf, 0);
     }

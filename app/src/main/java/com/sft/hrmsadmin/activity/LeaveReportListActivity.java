@@ -16,23 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
-import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_leave_report_list;
-import com.sft.hrmsadmin.adapter.Adapter_leave_report_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_conveyance;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_approval;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_leave_report;
 import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
@@ -148,6 +142,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                 v_normal_leave.setVisibility(View.GONE);
 
                 select_type = 1;
+                page = 1;
                 clear_local_value();
                 arrayList_leave_approval.clear();
                 adapter_leave_report_list.notifyDataSetChanged();
@@ -193,6 +188,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
+                arrayList_leave_approval.clear();
+                adapter_leave_report_list.notifyDataSetChanged();
                 if (select_type == 1) {
                     get_attendance_advance_leave_report();
                 } else {
@@ -209,6 +206,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
+                        arrayList_leave_approval.clear();
+                        adapter_leave_report_list.notifyDataSetChanged();
                         if (select_type == 1) {
                             get_attendance_advance_leave_report();
                         } else {
@@ -234,6 +233,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
             public void onClick(View view) {
                 System.out.println("clicked=============>>>");
                 final Dialog_Fragment_filter_leave_report dialog_fragment_filter_leave_report = new Dialog_Fragment_filter_leave_report();
+                dialog_fragment_filter_leave_report.setData(start_date,end_date,request_types,approval_filter);
                 dialog_fragment_filter_leave_report.setOnDialogListener(new Dialog_Fragment_filter_leave_report.OnItemClickDialog() {
                     @Override
                     public void onItemClick(String from_date, String to_date, String leave_type, String approved_type) {
@@ -242,6 +242,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                         request_types = leave_type;
                         approval_filter = approved_type;
                         page = 1;
+                        arrayList_leave_approval.clear();
+                        adapter_leave_report_list.notifyDataSetChanged();
                         if (select_type == 1) {
                             get_attendance_advance_leave_report();
                         } else {
@@ -306,8 +308,7 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                         adapter_leave_report_list.updateAgain(false);
                         if (jsonObject != null) {
                             if (page == 1) {
-                                arrayList_leave_approval.clear();
-                                adapter_leave_report_list.notifyDataSetChanged();
+                                rv_approval_list.scrollToPosition(0);
                             }
                             try {
                                 JSONArray results = jsonObject.getJSONArray("results");
@@ -406,6 +407,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "date_of_application";
                     order_by = "asc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -415,6 +418,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "date_of_application";
                     order_by = "desc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -424,6 +429,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "start_date";
                     order_by = "asc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -433,6 +440,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "start_date";
                     order_by = "desc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -442,6 +451,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "end_date";
                     order_by = "asc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -451,6 +462,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "end_date";
                     order_by = "desc";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {
@@ -460,6 +473,8 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                     field_name = "";
                     order_by = "";
                     page = 1;
+                    arrayList_leave_approval.clear();
+                    adapter_leave_report_list.notifyDataSetChanged();
                     if (select_type == 1) {
                         get_attendance_advance_leave_report();
                     } else {

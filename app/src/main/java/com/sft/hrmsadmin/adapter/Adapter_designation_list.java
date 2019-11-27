@@ -27,10 +27,12 @@ public class Adapter_designation_list extends RecyclerView.Adapter<Adapter_desig
     Context context;
     OnItemClick itemClick;
     int mSelectedPos = -1;
+    String approved_type = "";
 
-    public Adapter_designation_list(ArrayList<JSONObject> arrayList, Context context) {
+    public Adapter_designation_list(ArrayList<JSONObject> arrayList, Context context, String approved_type) {
         this.arrayList = arrayList;
         this.context = context;
+        this.approved_type = approved_type;
     }
 
     @Override
@@ -57,11 +59,15 @@ public class Adapter_designation_list extends RecyclerView.Adapter<Adapter_desig
                 }
             });
 
-
-            if (mSelectedPos == position) {
+            if (approved_type.equalsIgnoreCase(arrayList.get(position).getString("request_type"))) {
                 holder.chkbxSelect.setChecked(true);
+                approved_type = "";
             } else {
-                holder.chkbxSelect.setChecked(false);
+                if (mSelectedPos == position) {
+                    holder.chkbxSelect.setChecked(true);
+                } else {
+                    holder.chkbxSelect.setChecked(false);
+                }
             }
 
         } catch (JSONException e) {

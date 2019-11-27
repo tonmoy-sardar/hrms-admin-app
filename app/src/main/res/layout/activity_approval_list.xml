@@ -10,17 +10,18 @@
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
         <LinearLayout
                 android:id="@+id/ll_search_field"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/_38sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"
+                >
 
             <com.sft.hrmsadmin.widget.GothiciRegularEditText
                     android:id="@+id/et_search_field"
@@ -32,11 +33,12 @@
                     android:imeOptions="actionSearch"
                     android:paddingLeft="@dimen/_10sdp"
                     android:singleLine="true"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/_12sdp" />
 
             <ImageView
                     android:id="@+id/iv_search_close"
-                    android:layout_width="44dp"
+                    android:layout_width="@dimen/_32sdp"
                     android:layout_height="match_parent"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"
@@ -76,7 +78,7 @@
                         android:layout_height="wrap_content"
                         android:text="Select All"
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_12sdp"
                         android:layout_marginLeft="@dimen/_5sdp"
                         />
 
@@ -111,8 +113,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Search"
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/_13sdp"
-                        />
+                        android:textSize="@dimen/_12sdp" />
 
 
             </LinearLayout>
@@ -160,7 +161,7 @@
                             android:layout_marginLeft="5dp"
                             android:text="Sort"
                             android:textColor="@color/color_black"
-                            android:textSize="@dimen/_13sdp"
+                            android:textSize="@dimen/_12sdp"
                             />
 
 
@@ -196,7 +197,7 @@
                         android:layout_marginLeft="5dp"
                         android:text="Filter"
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/_13sdp"
+                        android:textSize="@dimen/_12sdp"
                         />
 
 
@@ -239,7 +240,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Approve"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textColor="@color/color_green_approve"
+                        android:textSize="@dimen/_12sdp"
+                        />
 
                 <com.sft.hrmsadmin.widget.GothiciRegularRadioButton
                         android:id="@+id/rb_reject"
@@ -247,6 +250,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Reject"
+                        android:textColor="@color/red_color"
                         android:textSize="@dimen/_12sdp" />
 
 
@@ -256,6 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Free"
+                        android:textColor="@color/drawer_background"
                         android:textSize="@dimen/_12sdp" />
 
             </RadioGroup>
@@ -274,7 +279,9 @@
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_approval_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/_10sdp"
+                />
 
 
     </LinearLayout>

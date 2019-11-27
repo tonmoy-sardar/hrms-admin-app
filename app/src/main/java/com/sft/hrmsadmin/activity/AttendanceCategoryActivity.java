@@ -1,10 +1,13 @@
 package com.sft.hrmsadmin.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.sft.hrmsadmin.R;
@@ -12,7 +15,9 @@ import com.sft.hrmsadmin.R;
 public class AttendanceCategoryActivity extends MainActivity {
 
     public View view;
-    LinearLayout ll_conveyance, ll_report, ll_approval, ll_leave_approval, ll_attendance_summery, ll_conveyance_report, ll_leave_report;
+    LinearLayout ll_conveyance, ll_report, ll_approval, ll_leave_approval, ll_attendance_summery, ll_conveyance_report, ll_leave_report,ll_attendance_leave_section,
+            ll_conveyance_section,ll_daily_summery_section,ll_leave_conveyance;
+    CardView cv_approvals,cv_reports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,12 @@ public class AttendanceCategoryActivity extends MainActivity {
         ll_attendance_summery = findViewById(R.id.ll_attendance_summery);
         ll_conveyance_report = findViewById(R.id.ll_conveyance_report);
         ll_leave_report = findViewById(R.id.ll_leave_report);
+        cv_approvals = findViewById(R.id.cv_approvals);
+        cv_reports = findViewById(R.id.cv_reports);
+        ll_attendance_leave_section = findViewById(R.id.ll_attendance_leave_section);
+        ll_conveyance_section = findViewById(R.id.ll_conveyance_section);
+        ll_daily_summery_section = findViewById(R.id.ll_daily_summery_section);
+        ll_leave_conveyance = findViewById(R.id.ll_leave_conveyance);
 
 
         ll_conveyance.setOnClickListener(new View.OnClickListener() {
@@ -93,5 +104,32 @@ public class AttendanceCategoryActivity extends MainActivity {
                 startActivity(intent);
             }
         });
+
+        setAnimation(cv_approvals);
+        setAnimation(cv_reports);
+        setAnimation(ll_attendance_leave_section);
+        setAnimation(ll_daily_summery_section);
+        setAnimation(ll_conveyance_section);
+        setAnimation(ll_leave_conveyance);
+    }
+
+
+    private void setAnimation(View viewToAnimate) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        Animation animation = AnimationUtils.loadAnimation(AttendanceCategoryActivity.this, R.anim.fade_in);
+        viewToAnimate.startAnimation(animation);
+    }
+
+    private void setAnimationEnterFromLeft(View viewToAnimate) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        Animation animation = AnimationUtils.loadAnimation(AttendanceCategoryActivity.this, R.anim.item_animaion_from_left);
+        viewToAnimate.startAnimation(animation);
+    }
+
+
+    private void setAnimationEnterFromRight(View viewToAnimate) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        Animation animation = AnimationUtils.loadAnimation(AttendanceCategoryActivity.this, R.anim.item_animaion_from_right);
+        viewToAnimate.startAnimation(animation);
     }
 }

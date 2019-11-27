@@ -27,10 +27,12 @@ public class Adapter_department_list extends RecyclerView.Adapter<Adapter_depart
     Context context;
     OnItemClick itemClick;
     int mSelectedPos = -1;
+    String leave_type = "";
 
-    public Adapter_department_list(ArrayList<JSONObject> arrayList, Context context) {
+    public Adapter_department_list(ArrayList<JSONObject> arrayList, Context context, String leave_type) {
         this.arrayList = arrayList;
         this.context = context;
+        this.leave_type = leave_type;
     }
 
     @Override
@@ -57,11 +59,15 @@ public class Adapter_department_list extends RecyclerView.Adapter<Adapter_depart
                 }
             });
 
-
-            if (mSelectedPos == position) {
+            if (leave_type.equalsIgnoreCase(arrayList.get(position).getString("request_type"))) {
                 holder.chkbxSelect.setChecked(true);
+                leave_type = "";
             } else {
-                holder.chkbxSelect.setChecked(false);
+                if (mSelectedPos == position) {
+                    holder.chkbxSelect.setChecked(true);
+                } else {
+                    holder.chkbxSelect.setChecked(false);
+                }
             }
 
         } catch (JSONException e) {

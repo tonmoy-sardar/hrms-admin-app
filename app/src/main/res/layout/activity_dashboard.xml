@@ -7,70 +7,43 @@
         android:background="@color/color_white"
         tools:context=".activity.DashboardActivity">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+            android:layout_height="@dimen/_106sdp"
+            app:cardBackgroundColor="@color/color_white"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_10sdp"
+            android:layout_margin="@dimen/_15sdp"
+            android:id="@+id/cv_attendance"
+            >
 
         <LinearLayout
+                android:id="@+id/ll_attendance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginRight="@dimen/_7sdp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
 
-            <LinearLayout
-                    android:id="@+id/ll_attendance"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_114sdp"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/rectangle_box_background"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-
-                <ImageView
-                        android:id="@+id/iv_item"
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="@dimen/_50sdp"
-                        android:background="@drawable/ic_teamattendance" />
-
-
-                <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_6sdp"
-                        android:gravity="center"
-                        android:text="Team Attendance Report &amp; Approval"
-                        android:textSize="@dimen/_12sdp"
-                        app:textAllCaps="true" />
-
-
-            </LinearLayout>
+            <ImageView
+                    android:id="@+id/iv_item"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@drawable/ic_teamattendance" />
 
 
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
-                    android:id="@+id/tv_creat_new_task"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_110sdp"
-                    android:layout_marginLeft="@dimen/_4sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/gradiant_box"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_6sdp"
                     android:gravity="center"
-                    android:text="create new task"
-                    android:textAllCaps="true"
-                    android:textColor="@color/color_white"
-                    android:textSize="@dimen/_13sdp"
-                    android:visibility="invisible" />
+                    android:text="Team Attendance Report &amp; Approval"
+                    android:textSize="@dimen/_12sdp"
+                    app:textAllCaps="true" />
 
 
         </LinearLayout>
 
-
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

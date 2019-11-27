@@ -1,19 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_3sdp"
-        android:elevation="@dimen/_3sdp"
-        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        app:cardElevation="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/_3sdp"
-        app:cardElevation="@dimen/_3sdp">
+        app:cardBackgroundColor="@color/color_white"
+        >
 
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
+        <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_32sdp"
+                android:background="@mipmap/hd_title"
+                android:id="@+id/tv_al_date"
+                android:textColor="@color/color_white"
+                android:text="oct 22,2020"
+                android:gravity="center"
+                android:textSize="@dimen/_12sdp"
+                />
+
+
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -24,7 +40,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
-                    android:text="02.02.2019">
+                    android:text="02.02.2019"
+                    android:visibility="gone"
+                    >
 
             </com.sft.hrmsadmin.widget.GothiciRegularTextView>
 
@@ -33,9 +51,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/rounded_corner_button"
+                    android:background="@mipmap/submit_button"
                     android:padding="@dimen/_5sdp"
                     android:text="Conveyance"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_marginRight="@dimen/_7sdp"
                     android:textColor="@color/color_white">
 
             </com.sft.hrmsadmin.widget.GothiciRegularTextView>
@@ -62,6 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:padding="@dimen/_5sdp"
+                    android:layout_marginRight="@dimen/_5sdp"
                     android:text="Log Out: 06:00 pm">
 
             </com.sft.hrmsadmin.widget.GothiciRegularTextView>
@@ -89,7 +110,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
-                    android:text="Leave Details">
+                    android:text="Leave Details"
+                    android:textColor="@color/red_color">
 
 
             </com.sft.hrmsadmin.widget.GothiciRegularTextView>
@@ -126,7 +148,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="4">
+                android:weightSum="4"
+                android:visibility="gone"
+                >
 
 
             <RelativeLayout
@@ -211,10 +235,5 @@
 
     </LinearLayout>
 
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/border_color" />
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

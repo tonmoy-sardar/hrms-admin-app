@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -37,6 +39,8 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
     boolean upDateAgain = true;
     boolean updateLoader = true;
     ViewGroup parent;
+
+    private int lastPosition = -1;
 
 
     public Adapter_leave_approval_list(ArrayList<JSONObject> arrayList, Context context) {
@@ -102,6 +106,7 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
             try {
                 ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("employee_name"));
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("created_at")));
+                ((DataObjectHolder) holder).tv_al_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("created_at")));
 
                 if (arrayList.get(position).has("start_date")) {
                     ((DataObjectHolder) holder).tv_start_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).optString("start_date")));
@@ -219,12 +224,25 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
                         }
                     }
                 });
+
+
+                setAnimation(((DataObjectHolder) holder).cv_total,position);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
 
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 
@@ -257,7 +275,7 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
 
         View viewItem;
         TextView tv_conveyance_details, tv_employee_name, tv_request_date, tv_start_date, tv_end_date, tv_leave_type,
-                tv_leave_reason, tv_approval_submit,tv_start_title,tv_end_title;
+                tv_leave_reason, tv_approval_submit,tv_start_title,tv_end_title,tv_al_date;
         RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
         View v_selection;
@@ -282,6 +300,7 @@ public class Adapter_leave_approval_list extends RecyclerView.Adapter<RecyclerVi
             tv_end_title = itemView.findViewById(R.id.tv_end_title);
             v_selection = itemView.findViewById(R.id.v_selection);
             cv_total = itemView.findViewById(R.id.cv_total);
+            tv_al_date = itemView.findViewById(R.id.tv_al_date);
         }
     }
 

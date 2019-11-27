@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -38,6 +40,8 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
     boolean upDateAgain = true;
     boolean updateLoader = true;
     ViewGroup parent;
+
+    private int lastPosition = -1;
 
 
     public Adapter_approval_list(ArrayList<JSONObject> arrayList, Context context) {
@@ -92,7 +96,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
                 ((FooterProgressbar) holder).ll_loader.setVisibility(View.GONE);
             }
         } else {
-            if (position > 0 && position == (arrayList.size() - 5)) {
+            if (position > 0 && position == (arrayList.size() - 2)) {
                 System.out.println("the Position pgnton======================>" + position);
                 if (upDateAgain) {
                     System.out.println("the Position pgnton exact======================>" + position);
@@ -103,6 +107,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
             try {
                 ((DataObjectHolder) holder).tv_employee_name.setText(arrayList.get(position).getString("employee_name"));
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
+                ((DataObjectHolder) holder).tv_al_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
                 ((DataObjectHolder) holder).tv_deviation_start_time.setText(arrayList.get(position).getString("duration_start")
                         .substring(arrayList.get(position).getString("duration_start").indexOf("T") + 1));
                 ((DataObjectHolder) holder).tv_deviation_end_time.setText(arrayList.get(position).getString("duration_end")
@@ -238,12 +243,25 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
                 });*/
 
 
+              setAnimation(((DataObjectHolder) holder).cv_total,position);
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
 
+    }
+
+
+    private void setAnimation(View viewToAnimate, int position) {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
+        }
     }
 
 
@@ -276,7 +294,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
 
         View viewItem;
         TextView tv_conveyance_details, tv_employee_name, tv_request_date, tv_deviation_start_time, tv_deviation_end_time, tv_deviation_time, tv_leave_type,
-                tv_approval_justification, tv_approval_submit;
+                tv_approval_justification, tv_approval_submit,tv_al_date;
         RadioButton rb_approve, rb_reject, rb_free;
         EditText et_add_remarks;
         View v_selection;
@@ -300,6 +318,7 @@ public class Adapter_approval_list extends RecyclerView.Adapter<RecyclerView.Vie
             rb_free = itemView.findViewById(R.id.rb_free);
             v_selection = itemView.findViewById(R.id.v_selection);
             cv_total = itemView.findViewById(R.id.cv_total);
+            tv_al_date = itemView.findViewById(R.id.tv_al_date);
         }
     }
 

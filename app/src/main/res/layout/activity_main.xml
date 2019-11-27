@@ -31,7 +31,7 @@
 
     <include
         layout="@layout/include_menu"
-        android:layout_width="@dimen/_220sdp"
+        android:layout_width="@dimen/_240sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start" />
 

@@ -22,7 +22,7 @@ public class mServiceList {
     public static final String t_core_designation_add = "t_core_designation_add/";
     public static final String t_core_department_add = "t_core_department_add/";
     public static final String employee_list_wo_pagination = "employee_list_wo_pagination/";
-    public static final String ATTENDANCE_GRACE_LEAVE_LIST = "attendance_grace_leave_list_first/?";
+    public static final String ATTENDANCE_GRACE_LEAVE_LIST = "attendance_grace_leave_list_first_modified/?";
     public static final String get_app_version = "get_app_version/?";
     public static final String CHANGE_PWD = "change_password/";
 

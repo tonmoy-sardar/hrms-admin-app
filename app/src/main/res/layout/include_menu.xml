@@ -1,178 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/drawer_background">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/left_menu">
 
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/rl_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            >
+
+        <LinearLayout
+                android:id="@+id/rl_header"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_topbar_menu_profile"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="@dimen/_90sdp"
-                android:layout_marginLeft="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginBottom="@dimen/_20sdp"
-                android:src="@drawable/ic_logo" />
+                    android:id="@+id/img_topbar_menu_profile"
+                    android:layout_width="@dimen/_90sdp"
+                    android:layout_height="@dimen/_90sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/ic_logo" />
 
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/img_topbar_menu_profile"
-                android:layout_centerVertical="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingBottom="@dimen/_15sdp"
-                android:text="SSIL Admin"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp" />
+            <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:layout_gravity="center_horizontal"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:text="SSIL Admin"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_14sdp"
+                    android:layout_marginBottom="@dimen/_15sdp"
+                    />
 
             <ImageView
-                android:id="@+id/iv_cross"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_20sdp"
-                android:src="@mipmap/close_icon" />
+                    android:id="@+id/iv_cross"
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:src="@mipmap/close_icon"
+                    android:visibility="gone"
+                    />
 
             <View
-                android:id="@+id/view1"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tv_user_name"
-                android:background="@color/color_white" />
+                    android:id="@+id/view1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/tv_user_name"
+                    android:background="@color/color_white" />
 
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_dashboard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view1"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                android:text="Dashboard"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp" />
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_46sdp"
+                    android:orientation="horizontal"
+                    >
+
+                <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:src="@mipmap/dashboard"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:id="@+id/tv_dashboard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/view1"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:text="Dashboard"
+                        android:textColor="#ffffff"
+                        android:textSize="@dimen/_14sdp"
+                        android:gravity="center_vertical"
+                        />
+
+
+            </LinearLayout>
+
+
+
 
             <View
-                android:id="@+id/view5"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tv_dashboard"
-                android:background="@color/color_white"
-                android:visibility="gone" />
+                    android:id="@+id/view5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/tv_dashboard"
+                    android:background="@color/color_white"
+                    android:visibility="gone" />
 
 
             <TextView
-                android:id="@+id/tv_tender_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view5"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:text="Tender List"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp"
-                android:visibility="gone" />
+                    android:id="@+id/tv_tender_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view5"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:text="Tender List"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_14sdp"
+                    android:visibility="gone" />
 
             <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tv_tender_list"
-                android:background="@color/color_white"
-                android:visibility="gone" />
+                    android:id="@+id/view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/tv_tender_list"
+                    android:background="@color/color_white"
+                    android:visibility="gone" />
 
             <TextView
-                android:id="@+id/tv_attendance"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view2"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_8sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_8sdp"
-                android:text="My attendance"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_17sdp"
-                android:visibility="gone" />
+                    android:id="@+id/tv_attendance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view2"
+                    android:paddingLeft="@dimen/_20sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:text="My attendance"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_17sdp"
+                    android:visibility="gone" />
 
             <View
-                android:id="@+id/view4"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tv_attendance"
-                android:background="@color/color_white" />
+                    android:id="@+id/view4"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_below="@+id/tv_attendance"
+                    android:background="@color/color_white" />
 
-          <!--  <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tvAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view4"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                android:text="My Account"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp" />
+            <!--  <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                  android:id="@+id/tvAccount"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/view4"
+                  android:paddingLeft="@dimen/_20sdp"
+                  android:paddingTop="@dimen/_12sdp"
+                  android:paddingRight="@dimen/_10sdp"
+                  android:paddingBottom="@dimen/_12sdp"
+                  android:text="My Account"
+                  android:textColor="#ffffff"
+                  android:textSize="@dimen/_14sdp" />
 
-            <View
-                android:id="@+id/view3"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tvAccount"
-                android:background="@color/color_white" />
+              <View
+                  android:id="@+id/view3"
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:layout_below="@+id/tvAccount"
+                  android:background="@color/color_white" />
 
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tvSupport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view3"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                android:text="Support"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp" />
-
-
-            <View
-                android:id="@+id/viewLogout"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_below="@+id/tvSupport"
-                android:background="@color/color_white" />-->
+              <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                  android:id="@+id/tvSupport"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@+id/view3"
+                  android:paddingLeft="@dimen/_20sdp"
+                  android:paddingTop="@dimen/_12sdp"
+                  android:paddingRight="@dimen/_10sdp"
+                  android:paddingBottom="@dimen/_12sdp"
+                  android:text="Support"
+                  android:textColor="#ffffff"
+                  android:textSize="@dimen/_14sdp" />
 
 
-            <com.sft.hrmsadmin.widget.GothiciRegularTextView
-                android:id="@+id/tv_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/view4"
-                android:paddingLeft="@dimen/_20sdp"
-                android:paddingTop="@dimen/_12sdp"
-                android:paddingRight="@dimen/_10sdp"
-                android:paddingBottom="@dimen/_12sdp"
-                android:text="Logout"
-                android:textColor="#ffffff"
-                android:textSize="@dimen/_15sdp" />
+              <View
+                  android:id="@+id/viewLogout"
+                  android:layout_width="match_parent"
+                  android:layout_height="0.5dp"
+                  android:layout_below="@+id/tvSupport"
+                  android:background="@color/color_white" />-->
 
-        </RelativeLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_44sdp"
+                    >
+
+
+                <ImageView
+                        android:layout_width="@dimen/_17sdp"
+                        android:layout_height="@dimen/_17sdp"
+                        android:src="@mipmap/logout"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_15sdp"
+                        />
+
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:id="@+id/tv_logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@+id/view4"
+                        android:paddingLeft="@dimen/_10sdp"
+                        android:text="Logout"
+                        android:textColor="#ffffff"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/_14sdp" />
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
     </ScrollView>
 
 

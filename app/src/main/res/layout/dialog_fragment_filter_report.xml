@@ -16,7 +16,7 @@
             android:id="@+id/tv_establishment_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:background="@color/drawer_background"
+            android:background="@mipmap/hedder_bg_new"
             android:gravity="center"
             android:text="Filter Report"
             android:textColor="@color/color_white"
