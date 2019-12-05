@@ -172,9 +172,10 @@ public interface ServiceClient {
     @GET(mServiceList.employee_list_wo_pagination)
     Call<ResponseBody> get_employee_list_wo_pagination(@Header("Authorization") String Bearer,
                                                        @Query("team_approval_flag") int team_approval_flag);
+
     @GET(mServiceList.atendance_employee_list_wo_details)
     Call<ResponseBody> get_employee_list_wo_details(@Header("Authorization") String Bearer,
-                                                       @Query("search") String search,
+                                                       @Query("search_key") String search,
                                                        @Query("page_size") int page_size,
                                                        @Query("team_approval_flag") int team_approval_flag);
 

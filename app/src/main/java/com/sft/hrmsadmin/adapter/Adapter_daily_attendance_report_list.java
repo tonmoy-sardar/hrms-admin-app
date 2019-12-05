@@ -10,14 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sft.hrmsadmin.R;
 import com.sft.hrmsadmin.utils.GetFormatDateTime;
 
-import org.json.JSONException;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -125,6 +124,13 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
                             .substring(arrayList.get(position).getString("logout_time").indexOf("T") + 1));
                 }
 
+                if (arrayList.get(position).optString("day_remarks").equalsIgnoreCase("null")){
+                    ((DataObjectHolder) holder).tv_day_status.setText("");
+                } else {
+                    ((DataObjectHolder) holder).tv_day_status.setText(arrayList.get(position).optString("day_remarks"));
+                }
+
+
 
                 arrayList_sub_daily_attendance = new ArrayList<JSONObject>();
                 for (int i = 0; i < arrayList.get(position).getJSONArray("attendance_request").length(); i++) {
@@ -136,6 +142,26 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
                 ((DataObjectHolder) holder).rv_deviations.setLayoutManager(layoutManager);
                 ((DataObjectHolder) holder).rv_deviations.setHasFixedSize(true);
                 ((DataObjectHolder) holder).rv_deviations.setAdapter(adapter_sub_daily_attendance_report_list);
+
+                if (arrayList.get(position).getBoolean("is_late_conveyance_completed") == true){
+                    ((DataObjectHolder) holder).tv_conveyance_details.setVisibility(View.VISIBLE);
+                } else {
+                    ((DataObjectHolder) holder).tv_conveyance_details.setVisibility(View.GONE);
+                }
+
+
+                ((DataObjectHolder) holder).tv_conveyance_details.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        try {
+                            if (itemClick != null) {
+                                itemClick.onItemClickConveyanceDetails(arrayList.get(position).getJSONArray("conveyance_details"));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                });
 
 
                 setAnimation(((DataObjectHolder) holder).viewItem,position);
@@ -185,7 +211,7 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
     public class DataObjectHolder extends RecyclerView.ViewHolder {
 
         View viewItem;
-        TextView tv_employee_name, tv_date, tv_login_time, tv_logout_time,tv_al_date;
+        TextView tv_employee_name, tv_date, tv_login_time, tv_logout_time,tv_al_date,tv_conveyance_details,tv_day_status;
         RecyclerView rv_deviations;
 
         public DataObjectHolder(View itemView) {
@@ -197,6 +223,8 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
             tv_logout_time = itemView.findViewById(R.id.tv_logout_time);
             rv_deviations = itemView.findViewById(R.id.rv_deviations);
             tv_al_date = itemView.findViewById(R.id.tv_al_date);
+            tv_conveyance_details = itemView.findViewById(R.id.tv_conveyance_details);
+            tv_day_status = itemView.findViewById(R.id.tv_day_status);
         }
     }
 
@@ -223,14 +251,12 @@ public class Adapter_daily_attendance_report_list extends RecyclerView.Adapter<R
 
         void onItemClickApproval(int pos, String approval_status, String conveyance_expense);
 
-        void onItemClickDetails(int pos);
+        void onItemClickConveyanceDetails(JSONArray conveyance_details);
     }
 
 
     @Override
     public void onSubItemClick(JSONObject pos_obj) {
-        if (itemClick != null) {
-            itemClick.onItemClick(pos_obj);
-        }
+
     }
 }

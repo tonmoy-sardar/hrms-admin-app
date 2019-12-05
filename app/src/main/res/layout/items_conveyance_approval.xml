@@ -285,6 +285,7 @@
                     android:paddingLeft="@dimen/_10sdp"
                     android:textSize="@dimen/_11sdp"
                     android:inputType="number"
+                    android:visibility="invisible"
                     />
 
 

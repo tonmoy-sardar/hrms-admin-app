@@ -285,6 +285,9 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                                     arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
                                 adapter_leave_report_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_leave_report_list.loader(false);
@@ -316,6 +319,9 @@ public class LeaveReportListActivity extends MainActivity implements Adapter_lea
                                     arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
                                 adapter_leave_report_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_leave_report_list.loader(false);

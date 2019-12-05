@@ -109,29 +109,38 @@ public class Adapter_conveyance_report_list extends RecyclerView.Adapter<Recycle
                 ((DataObjectHolder) holder).tvTo.setText(arrayList.get(position).getString("to_place"));
                 ((DataObjectHolder) holder).tvEligibility.setText("INR " + arrayList.get(position).getString("eligibility") + "/day");
 
+                ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
+                ((DataObjectHolder) holder).tvApprovedAmount.setText("INR " + arrayList.get(position).getString("approved_expenses"));
+
                 if (arrayList.get(position).getString("approved_expenses").equalsIgnoreCase("null")){
-                    ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
+                    ((DataObjectHolder) holder).tvApprovedAmount.setText("INR " + arrayList.get(position).getString("conveyance_expense"));
                 } else {
-                    ((DataObjectHolder) holder).tvAmount.setText("INR " + arrayList.get(position).getString("approved_expenses"));
+                    ((DataObjectHolder) holder).tvApprovedAmount.setText("INR " + arrayList.get(position).getString("approved_expenses"));
                 }
 
                 ((DataObjectHolder) holder).tv_request_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
+                ((DataObjectHolder) holder).tv_al_date.setText(GetFormatDateTime.getFormatDate(arrayList.get(position).getString("duration_start")));
 
                 if (arrayList.get(position).getInt("conveyance_approval") == 0) {
                     ((DataObjectHolder) holder).tv_approval_status.setText("Pending Approval");
                     ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_approval_status));
+                    ((DataObjectHolder) holder).llApprovedAmount.setVisibility(View.GONE);
                 } else if (arrayList.get(position).getInt("conveyance_approval") == 1) {
                     ((DataObjectHolder) holder).tv_approval_status.setText("Rejected by "+arrayList.get(position).getString("conveyance_approved_by"));
                     ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.red_color));
+                    ((DataObjectHolder) holder).llApprovedAmount.setVisibility(View.GONE);
                 } else if (arrayList.get(position).getInt("conveyance_approval") == 2) {
                     ((DataObjectHolder) holder).tv_approval_status.setText("Approved by "+arrayList.get(position).getString("conveyance_approved_by"));
                     ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                    ((DataObjectHolder) holder).llApprovedAmount.setVisibility(View.VISIBLE);
                 } else if (arrayList.get(position).getInt("conveyance_approval") == 3) {
                     ((DataObjectHolder) holder).tv_approval_status.setText("Modified by "+arrayList.get(position).getString("conveyance_approved_by"));
                     ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_green));
+                    ((DataObjectHolder) holder).llApprovedAmount.setVisibility(View.VISIBLE);
                 } else {
                     ((DataObjectHolder) holder).tv_approval_status.setText("Pending Approval");
                     ((DataObjectHolder) holder).tv_approval_status.setTextColor(ContextCompat.getColor(context,R.color.color_approval_status));
+                    ((DataObjectHolder) holder).llApprovedAmount.setVisibility(View.GONE);
                 }
 
                 ((DataObjectHolder) holder).tv_details.setOnClickListener(new View.OnClickListener() {
@@ -190,7 +199,8 @@ public class Adapter_conveyance_report_list extends RecyclerView.Adapter<Recycle
     public class DataObjectHolder extends RecyclerView.ViewHolder {
 
         View viewItem;
-        TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details, tv_approval_status;
+        TextView tv_employee_name, tv_request_date, tvFrom, tvTo, tv_approval_submit, tvEligibility, tvAmount, tv_details, tv_approval_status,tv_al_date,tvApprovedAmount;
+        LinearLayout llApprovedAmount;
 
         public DataObjectHolder(View itemView) {
             super(itemView);
@@ -204,6 +214,9 @@ public class Adapter_conveyance_report_list extends RecyclerView.Adapter<Recycle
             tvAmount = itemView.findViewById(R.id.tvAmount);
             tv_details = itemView.findViewById(R.id.tv_details);
             tv_approval_status = itemView.findViewById(R.id.tv_approval_status);
+            tv_al_date = itemView.findViewById(R.id.tv_al_date);
+            tvApprovedAmount = itemView.findViewById(R.id.tvApprovedAmount);
+            llApprovedAmount = itemView.findViewById(R.id.llApprovedAmount);
         }
     }
 

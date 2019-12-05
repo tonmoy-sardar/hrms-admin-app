@@ -127,10 +127,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/rectangle_border_solid_white"
-                android:ems="10"
                 android:hint="Search By Employee"
-                android:padding="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_10sdp"
                 android:textSize="@dimen/_11sdp"
+                android:imeOptions="actionDone"
                 />
 
         <LinearLayout

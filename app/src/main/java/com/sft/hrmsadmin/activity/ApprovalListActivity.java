@@ -349,6 +349,9 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                                     arrayList_approval.add(results.getJSONObject(i));
                                 }
                                 adapter_approval_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_approval_list.loader(false);
@@ -392,6 +395,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                             if (jsonObject != null) {
                                 arrayList_approval.remove(position);
                                 adapter_approval_list.notifyDataSetChanged();
+                                Toast.makeText(ApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 get_e_task_attendance_approval_list();
                             } else {
@@ -436,6 +440,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                                 chkbxSelectApproval.setChecked(false);
                                 arrayList_approval.clear();
                                 adapter_approval_list.notifyDataSetChanged();
+                                Toast.makeText(ApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 get_e_task_attendance_approval_list();
                             } else {

@@ -33,6 +33,7 @@
                 android:textSize="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:id="@+id/tv_late_conveyance"
+                android:visibility="gone"
                 />
 
 

@@ -38,6 +38,9 @@ public class ConveyanceDetails extends MainActivity {
 
         view = View.inflate(this, R.layout.activity_conveyance_details, null);
         addContentView(view);
+        tv_universal_header.setText("CONVEYANCE DETAILS");
+        img_topbar_menu.setVisibility(View.GONE);
+        img_topbar_back.setVisibility(View.VISIBLE);
 
         rvConveyance = findViewById(R.id.rvConveyance);
 

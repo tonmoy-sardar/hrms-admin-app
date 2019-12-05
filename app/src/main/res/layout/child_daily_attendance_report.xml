@@ -69,6 +69,18 @@
                         android:textSize="@dimen/_12sdp" />
 
 
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:id="@+id/tv_conveyance_details"
+                        android:layout_width="@dimen/_90sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:background="@mipmap/submit_button"
+                        android:gravity="center"
+                        android:text="Conveyances"
+                        android:textColor="@color/color_white" />
+
+
+
             </LinearLayout>
 
 
@@ -154,6 +166,35 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="11.00 AM"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Day Status : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:id="@+id/tv_day_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="present or absent"
                         android:textColor="@color/color_black"
                         android:textSize="@dimen/_12sdp" />
 

@@ -41,25 +41,25 @@ public class Adapter_sub_daily_attendance_report_list extends RecyclerView.Adapt
     public void onBindViewHolder(final View_Holder_menu holder, final int position) {
         try {
             holder.tv_sda_approval_status.setText(arrayList.get(position).getString("approved_status"));
-            if (arrayList.get(position).getBoolean("is_late_conveyance") == true) {
+          /*  if (arrayList.get(position).getBoolean("is_late_conveyance") == true) {
                 holder.tv_late_conveyance.setVisibility(View.VISIBLE);
             } else {
                 holder.tv_late_conveyance.setVisibility(View.GONE);
-            }
+            }*/
             holder.tv_deviation_time.setText(arrayList.get(position).getString("duration_start")
                     .substring(arrayList.get(position).getString("duration_start").indexOf("T") + 1)+" - "+
                     arrayList.get(position).getString("duration_end")
                     .substring(arrayList.get(position).getString("duration_end").indexOf("T") + 1));
 
 
-            holder.tv_late_conveyance.setOnClickListener(new View.OnClickListener() {
+            /*holder.tv_late_conveyance.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (subitemClick != null) {
                         subitemClick.onSubItemClick(arrayList.get(position));
                     }
                 }
-            });
+            });*/
         } catch (JSONException e) {
             e.printStackTrace();
         }

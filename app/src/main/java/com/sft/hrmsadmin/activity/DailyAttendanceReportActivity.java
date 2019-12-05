@@ -15,21 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.gson.JsonObject;
 import com.sft.hrmsadmin.R;
-import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
 import com.sft.hrmsadmin.adapter.Adapter_daily_attendance_report_list;
-import com.sft.hrmsadmin.adapter.Adapter_daily_attendance_report_list;
-import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details;
+import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_conveyance_details_list;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_filter_conveyance;
 import com.sft.hrmsadmin.dialog_fragment.Dialog_Fragment_late_conveyance_details;
 import com.sft.hrmsadmin.utils.MessageDialog;
@@ -215,6 +211,9 @@ public class DailyAttendanceReportActivity extends MainActivity implements Adapt
                                     arrayList_daily_attendance.add(results.getJSONObject(i));
                                 }
                                 adapter_daily_attendance_report_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_daily_attendance_report_list.loader(false);
@@ -240,8 +239,11 @@ public class DailyAttendanceReportActivity extends MainActivity implements Adapt
     }
 
     @Override
-    public void onItemClickDetails(int pos) {
-        System.out.println("clicked=============>>>");
+    public void onItemClickConveyanceDetails(JSONArray conveyance_details) {
+        System.out.println("onItemClickConveyanceDetails=============>>>");
+        final Dialog_Fragment_conveyance_details_list dialog_fragment_conveyance_details_list = new Dialog_Fragment_conveyance_details_list();
+        dialog_fragment_conveyance_details_list.setData(conveyance_details);
+        dialog_fragment_conveyance_details_list.show(getSupportFragmentManager(), "dialog_fragment_conveyance_details_list");
     }
 
 

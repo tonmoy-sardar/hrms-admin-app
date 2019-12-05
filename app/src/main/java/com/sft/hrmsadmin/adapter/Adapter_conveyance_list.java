@@ -116,6 +116,8 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         approval_status = "2";
+                        ((DataObjectHolder) holder).et_modified_amount.setText("");
+                        ((DataObjectHolder) holder).et_modified_amount.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -124,6 +126,8 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         approval_status = "1";
+                        ((DataObjectHolder) holder).et_modified_amount.setText("");
+                        ((DataObjectHolder) holder).et_modified_amount.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -131,6 +135,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         approval_status = "3";
+                        ((DataObjectHolder) holder).et_modified_amount.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -144,12 +149,16 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                 ((DataObjectHolder) holder).tv_approval_submit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (itemClick != null) {
-                            if (((DataObjectHolder) holder).et_modified_amount.getText().toString().equalsIgnoreCase("")){
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).tvAmount.getText().toString());
-                            } else {
-                                itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_modified_amount.getText().toString());
+                        try {
+                            if (itemClick != null) {
+                                if (((DataObjectHolder) holder).et_modified_amount.getText().toString().equalsIgnoreCase("")) {
+                                    itemClick.onItemClickApproval(position, approval_status, arrayList.get(position).getString("conveyance_expense"));
+                                } else {
+                                    itemClick.onItemClickApproval(position, approval_status, ((DataObjectHolder) holder).et_modified_amount.getText().toString());
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 });
@@ -176,7 +185,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         try {
-                            arrayList.get(position).put("is_selected",true);
+                            arrayList.get(position).put("is_selected", true);
                             notifyDataSetChanged();
 
                             if (itemClick != null) {
@@ -193,7 +202,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     @Override
                     public void onClick(View view) {
                         try {
-                            arrayList.get(position).put("is_selected",false);
+                            arrayList.get(position).put("is_selected", false);
                             notifyDataSetChanged();
 
                             if (itemClick != null) {
@@ -205,7 +214,7 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
                     }
                 });
 
-                setAnimation(((DataObjectHolder) holder).cv_total,position);
+                setAnimation(((DataObjectHolder) holder).cv_total, position);
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -300,7 +309,9 @@ public class Adapter_conveyance_list extends RecyclerView.Adapter<RecyclerView.V
 
     public interface OnItemClick {
         void onItemClick(int pos);
+
         void onItemClickSelectedView(int pos);
+
         void onItemClickApproval(int pos, String approval_status, String conveyance_expense);
 
         void onItemClickDetails(int pos);

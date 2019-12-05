@@ -402,6 +402,9 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                     arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
                                 adapter_leave_approval_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_leave_approval_list.loader(false);
@@ -434,6 +437,9 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                     arrayList_leave_approval.add(results.getJSONObject(i));
                                 }
                                 adapter_leave_approval_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_leave_approval_list.loader(false);
@@ -576,6 +582,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                             if (jsonObject != null) {
                                 arrayList_leave_approval.clear();
                                 adapter_leave_approval_list.notifyDataSetChanged();
+                                Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 if (select_type == 1) {
                                     get_admin_attendance_advance_leave_pending_list();
@@ -624,6 +631,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                 chkbxSelectApproval.setChecked(false);
                                 arrayList_leave_approval.clear();
                                 adapter_leave_approval_list.notifyDataSetChanged();
+                                Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 if (select_type == 1) {
                                     get_admin_attendance_advance_leave_pending_list();

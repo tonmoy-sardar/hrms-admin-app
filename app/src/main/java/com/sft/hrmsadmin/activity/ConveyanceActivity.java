@@ -309,6 +309,9 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                                     arrayList_conveyance.add(results.getJSONObject(i));
                                 }
                                 adapter_conveyance_list.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup("No data found.");
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 adapter_conveyance_list.loader(false);

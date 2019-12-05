@@ -33,6 +33,7 @@ public class ConveyanceDetailsListAdapter extends RecyclerView.Adapter<Conveyanc
         this.activity = activity;
         this.conveyanceDetailList = conveyanceDetailList;
         this.logintym = logintym;
+        this.logouttym = logouttym;
         this.date = date;
 
     }

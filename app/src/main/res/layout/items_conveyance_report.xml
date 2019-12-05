@@ -224,6 +224,36 @@
             </LinearLayout>
 
 
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:id="@+id/llApprovedAmount"
+                    >
+
+                <com.sft.hrmsadmin.widget.GothiciBoldTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approved Amount : "
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+                <com.sft.hrmsadmin.widget.GothiciRegularTextView
+                        android:id="@+id/tvApprovedAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="INR 111"
+                        android:textColor="@color/color_black"
+                        android:textSize="@dimen/_12sdp" />
+
+            </LinearLayout>
+
+
+
             <com.sft.hrmsadmin.widget.GothiciBoldTextView
                     android:id="@+id/tv_conveyance_details"
                     android:layout_width="wrap_content"

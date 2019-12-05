@@ -4,12 +4,14 @@ import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import com.sft.hrmsadmin.adapter.MonthsAdapter;
 import com.sft.hrmsadmin.pojo_calsses.AttendanceSummaryMonths;
 import com.sft.hrmsadmin.pojo_calsses.attendance_grace_pojo.AttendanceGraceLeavePojo;
 import com.sft.hrmsadmin.pojo_calsses.employee_detail.Result;
+import com.sft.hrmsadmin.utils.MessageDialog;
 import com.sft.hrmsadmin.utils.MethodUtils;
 import com.sft.hrmsadmin.utils.MySharedPreferance;
 
@@ -97,8 +100,8 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
         serviceClient = retrofitServiceGenerator.createService(ServiceClient.class);
-        //retrofitResponse = new RetrofitResponse(this);
-        retrofitResponse = new RetrofitResponse(this, getSupportFragmentManager());
+        retrofitResponse = new RetrofitResponse(this);
+        //retrofitResponse = new RetrofitResponse(this, getSupportFragmentManager());
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
@@ -190,20 +193,19 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
+                System.out.println("charSequence.length()========>>>"+charSequence.length());
+                if (charSequence.length()< 6){
+                    employee_id = 0;
+                }
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        llDropDownEmployee.setVisibility(View.VISIBLE);
-                        arrayList_employee_list.clear();
-                        employeeDetailAdapter.notifyDataSetChanged();
-                        get_employee_list_wo_pagination(tvSelectEmployee.getText().toString().trim());
-                        //employeeDetailAdapter.Filter(charSequence.toString().toLowerCase());
-                        //llDropDownEmployee.setVisibility(View.VISIBLE);
+                        if (employee_id ==0){
+                            llDropDownEmployee.setVisibility(View.VISIBLE);
+                            get_employee_list_wo_pagination(tvSelectEmployee.getText().toString().trim());
+                        }
                     }
-                }, 2000);
-
+                }, 1000);
             }
 
             @Override
@@ -283,6 +285,9 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
     public void get_attendance_admin_summary_list() {
 
+        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
+        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
+
         arrayList_attendance_summery.clear();
         retrofitResponse.getWebServiceResponse(serviceClient.get_attendance_admin_summary_list("Token " +
                         token, "application/json",
@@ -298,11 +303,15 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
                                     arrayList_attendance_summery.add(results.getJSONObject(i));
                                 }
                                 attendanceSummaryAdapter.notifyDataSetChanged();
+                                if (results.length()<1){
+                                    showMessagePopup(jsonObject.getString("msg"));
+                                }
                                 //get_employee_list_wo_pagination();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
+                        progressBarDialog.dismiss();
                     }
                 });
     }
@@ -493,8 +502,6 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
 
     public void get_employee_list_wo_pagination(String charSequence) {
-        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
-        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
         int page_size = 0;
 
         System.out.println("charSequence: "+charSequence);
@@ -513,8 +520,6 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
                             }
                             //employeeDetailAdapter.refreshBackup(arrayList_employee_list);
                             employeeDetailAdapter.notifyDataSetChanged();
-
-                            progressBarDialog.dismiss();
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -543,6 +548,7 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         emp_name = name;
 
+        hideKeyBoard();
         getGraceFirst();
 
     }
@@ -565,5 +571,21 @@ public class AttendanceSummeryActivity extends MainActivity implements EmployeeD
 
         //todaysDate = "";
 
+    }
+
+
+    public void hideKeyBoard() {
+        InputMethodManager imm = (InputMethodManager) AttendanceSummeryActivity.this.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(tvSelectEmployee.getApplicationWindowToken(), 0);
+    }
+
+
+    MessageDialog messageDialogPopup;
+
+    public void showMessagePopup(String msg) {
+        messageDialogPopup = new MessageDialog(this);
+        messageDialogPopup.setTitle(msg);
+        messageDialogPopup.show();
     }
 }

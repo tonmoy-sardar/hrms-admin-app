@@ -117,7 +117,6 @@ public class DashboardActivity extends MainActivity {
                     @Override
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         try {
-                            setAnimation(cv_attendance);
                             if (jsonObject.getJSONObject("result").getBoolean("version_upgraded") == true) {
                                 showMessagePopup("New updated version of HRMS Admin is available in Play Store now. Please install the latest version.");
                             }
