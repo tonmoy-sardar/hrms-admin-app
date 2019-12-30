@@ -27,5 +27,6 @@ public class mServiceList {
     public static final String atendance_employee_list_wo_details = "employee_list_without_details/?";
     public static final String get_app_version = "get_app_version/?";
     public static final String CHANGE_PWD = "change_password/";
+    public static final String object_top_lavel_permission_by_module = "object_top_lavel_permission_by_module/{module_name}/";
 
 }

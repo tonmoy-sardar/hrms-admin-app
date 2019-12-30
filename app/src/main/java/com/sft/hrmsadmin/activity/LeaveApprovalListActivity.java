@@ -113,10 +113,11 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
-        arrayList_leave_approval = new ArrayList<JSONObject>();
+        set_leave_approval_adapter();
+
+       /* arrayList_leave_approval = new ArrayList<JSONObject>();
         adapter_leave_approval_list = new Adapter_leave_approval_list(arrayList_leave_approval, this);
         adapter_leave_approval_list.setOnItemListener(this);
         adapter_leave_approval_list.paginate(new Adapter_leave_approval_list.UpdateData() {
@@ -133,7 +134,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rv_approval_list.setLayoutManager(layoutManager);
         rv_approval_list.setHasFixedSize(true);
-        rv_approval_list.setAdapter(adapter_leave_approval_list);
+        rv_approval_list.setAdapter(adapter_leave_approval_list);*/
 
 
         rv_approval_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -166,8 +167,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 order_by = "";
                 request_types = "";
                 temp_arrayList_filter_by = null;
-                arrayList_leave_approval.clear();
-                adapter_leave_approval_list.notifyDataSetChanged();
+                set_leave_approval_adapter();
                 get_admin_attendance_advance_leave_pending_list();
             }
         });
@@ -190,8 +190,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 order_by = "";
                 request_types = "";
                 temp_arrayList_filter_by = null;
-                arrayList_leave_approval.clear();
-                adapter_leave_approval_list.notifyDataSetChanged();
+                set_leave_approval_adapter();
                 get_attendance_leave_approval_list();
             }
         });
@@ -215,8 +214,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
-                arrayList_leave_approval.clear();
-                adapter_leave_approval_list.notifyDataSetChanged();
+                set_leave_approval_adapter();
                 if (select_type == 1) {
                     get_admin_attendance_advance_leave_pending_list();
                 } else {
@@ -233,8 +231,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
-                        arrayList_leave_approval.clear();
-                        adapter_leave_approval_list.notifyDataSetChanged();
+                        set_leave_approval_adapter();
                         if (select_type == 1) {
                             get_admin_attendance_advance_leave_pending_list();
                         } else {
@@ -268,8 +265,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                         request_types = request_type;
                         page = 1;
                         temp_arrayList_filter_by = arrayList_filter_by;
-                        arrayList_leave_approval.clear();
-                        adapter_leave_approval_list.notifyDataSetChanged();
+                        set_leave_approval_adapter();
                         if (select_type == 1) {
                             get_admin_attendance_advance_leave_pending_list();
                         } else {
@@ -381,6 +377,28 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
     }
 
 
+    public void set_leave_approval_adapter() {
+        arrayList_leave_approval = new ArrayList<JSONObject>();
+        adapter_leave_approval_list = new Adapter_leave_approval_list(arrayList_leave_approval, this);
+        adapter_leave_approval_list.setOnItemListener(this);
+        adapter_leave_approval_list.paginate(new Adapter_leave_approval_list.UpdateData() {
+            @Override
+            public void get(int position) {
+                page = page + 1;
+                if (select_type == 1) {
+                    get_admin_attendance_advance_leave_pending_list();
+                } else {
+                    get_attendance_leave_approval_list();
+                }
+            }
+        });
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rv_approval_list.setLayoutManager(layoutManager);
+        rv_approval_list.setHasFixedSize(true);
+        rv_approval_list.setAdapter(adapter_leave_approval_list);
+    }
+
+
     public void get_admin_attendance_advance_leave_pending_list() {
         adapter_leave_approval_list.loader(true);
 
@@ -484,8 +502,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                 adapter_leave_approval_list.notifyDataSetChanged();*/
                                 Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
-                                arrayList_leave_approval.clear();
-                                adapter_leave_approval_list.notifyDataSetChanged();
+                                set_leave_approval_adapter();
                                 if (select_type == 1) {
                                     get_admin_attendance_advance_leave_pending_list();
                                 } else {
@@ -531,8 +548,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                 chkbxSelectApproval.setChecked(false);
                                 Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
-                                arrayList_leave_approval.clear();
-                                adapter_leave_approval_list.notifyDataSetChanged();
+                                set_leave_approval_adapter();
                                 if (select_type == 1) {
                                     get_admin_attendance_advance_leave_pending_list();
                                 } else {
@@ -580,8 +596,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     public void onDataFetchComplete(JSONObject jsonObject) {
                         try {
                             if (jsonObject != null) {
-                                arrayList_leave_approval.clear();
-                                adapter_leave_approval_list.notifyDataSetChanged();
+                                set_leave_approval_adapter();
                                 Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 if (select_type == 1) {
@@ -629,8 +644,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                                 rb_reject.setChecked(false);
                                 rb_free.setChecked(false);
                                 chkbxSelectApproval.setChecked(false);
-                                arrayList_leave_approval.clear();
-                                adapter_leave_approval_list.notifyDataSetChanged();
+                                set_leave_approval_adapter();
                                 Toast.makeText(LeaveApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
                                 if (select_type == 1) {
@@ -771,8 +785,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "sort_applied";
                     order_by = "asc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -782,8 +795,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "sort_applied";
                     order_by = "desc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -793,8 +805,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "start_date";
                     order_by = "asc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -804,8 +815,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "start_date";
                     order_by = "desc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -815,8 +825,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "end_date";
                     order_by = "asc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -826,8 +835,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "end_date";
                     order_by = "desc";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {
@@ -837,8 +845,7 @@ public class LeaveApprovalListActivity extends MainActivity implements Adapter_l
                     field_name = "";
                     order_by = "";
                     page = 1;
-                    arrayList_leave_approval.clear();
-                    adapter_leave_approval_list.notifyDataSetChanged();
+                    set_leave_approval_adapter();
                     if (select_type == 1) {
                         get_admin_attendance_advance_leave_pending_list();
                     } else {

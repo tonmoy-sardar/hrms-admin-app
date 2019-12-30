@@ -106,10 +106,10 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
+        set_conveyance_approval_adapter();
 
-        arrayList_conveyance = new ArrayList<JSONObject>();
+       /* arrayList_conveyance = new ArrayList<JSONObject>();
         adapter_conveyance_list = new Adapter_conveyance_list(arrayList_conveyance, this);
         adapter_conveyance_list.setOnItemListener(this);
         adapter_conveyance_list.paginate(new Adapter_conveyance_list.UpdateData() {
@@ -122,7 +122,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rv_attendance_conveyance.setLayoutManager(layoutManager);
         rv_attendance_conveyance.setHasFixedSize(true);
-        rv_attendance_conveyance.setAdapter(adapter_conveyance_list);
+        rv_attendance_conveyance.setAdapter(adapter_conveyance_list);*/
 
 
         rv_attendance_conveyance.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -156,6 +156,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
+                set_conveyance_approval_adapter();
                 get_attendance_conveyance_approval_list();
             }
         });
@@ -168,6 +169,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
+                        set_conveyance_approval_adapter();
                         get_attendance_conveyance_approval_list();
                     }
                 }
@@ -198,6 +200,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                         department = department_id;
                         designation = designation_id;
                         page = 1;
+                        set_conveyance_approval_adapter();
                         get_attendance_conveyance_approval_list();
                     }
                 });
@@ -288,6 +291,24 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
     }
 
 
+    public void set_conveyance_approval_adapter() {
+        arrayList_conveyance = new ArrayList<JSONObject>();
+        adapter_conveyance_list = new Adapter_conveyance_list(arrayList_conveyance, this);
+        adapter_conveyance_list.setOnItemListener(this);
+        adapter_conveyance_list.paginate(new Adapter_conveyance_list.UpdateData() {
+            @Override
+            public void get(int position) {
+                page = page + 1;
+                get_attendance_conveyance_approval_list();
+            }
+        });
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rv_attendance_conveyance.setLayoutManager(layoutManager);
+        rv_attendance_conveyance.setHasFixedSize(true);
+        rv_attendance_conveyance.setAdapter(adapter_conveyance_list);
+    }
+
+
     public void get_attendance_conveyance_approval_list() {
         adapter_conveyance_list.loader(true);
 
@@ -355,6 +376,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                                 adapter_leave_approval_list.notifyDataSetChanged();*/
                                 Toast.makeText(ConveyanceActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
+                                set_conveyance_approval_adapter();
                                 get_attendance_conveyance_approval_list();
                             } else {
                                 Toast.makeText(ConveyanceActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
@@ -395,6 +417,7 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                                 adapter_conveyance_list.notifyDataSetChanged();
                                 Toast.makeText(ConveyanceActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
+                                set_conveyance_approval_adapter();
                                 get_attendance_conveyance_approval_list();
                             } else {
                                 Toast.makeText(ConveyanceActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
@@ -532,46 +555,55 @@ public class ConveyanceActivity extends MainActivity implements Adapter_conveyan
                     field_name = "date";
                     order_by = "asc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 2) {
                     field_name = "date";
                     order_by = "desc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 3) {
                     field_name = "duration_start";
                     order_by = "asc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 4) {
                     field_name = "duration_start";
                     order_by = "desc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 5) {
                     field_name = "duration_end";
                     order_by = "asc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 6) {
                     field_name = "duration_end";
                     order_by = "desc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 7) {
                     field_name = "duration";
                     order_by = "asc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 8) {
                     field_name = "duration";
                     order_by = "desc";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 } else if (position == 9) {
                     field_name = "";
                     order_by = "";
                     page = 1;
+                    set_conveyance_approval_adapter();
                     get_attendance_conveyance_approval_list();
                 }
             }

@@ -177,8 +177,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void callLogOutApi() {
-
-
         System.out.println("tokenLogOut: " + mySharedPreferance.getPreferancceString(mySharedPreferance.login_token));
 
         Retrofit retrofit = AppConfig.getRetrofit(mServiceList.Base_URL);
@@ -188,23 +186,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         register.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
                 System.out.println("url: " + response.raw().request().url() + " " + response.code());
                 if (response.code() == 200 || response.code() == 201) {
                     navigateToLogin();
+                } else {
+                    navigateToLogin();
                 }
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                navigateToLogin();
             }
         });
-
     }
 
     private void navigateToLogin() {
-
         mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_response);
         mySharedPreferance.deletePreferenceValue(mySharedPreferance.login_token);
         mySharedPreferance.deletePreferenceValue(mySharedPreferance.remember_user_name);

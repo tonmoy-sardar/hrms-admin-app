@@ -82,9 +82,6 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         img_topbar_back.setVisibility(View.VISIBLE);
 
         rv_approval_list = findViewById(R.id.rv_approval_list);
-       /* LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(ApprovalListActivity.this, resId);
-        rv_approval_list.setLayoutAnimation(animation);*/
-
         ll_search_btn = findViewById(R.id.ll_search_btn);
         ll_search_sort_section = findViewById(R.id.ll_search_sort_section);
         ll_search_field = findViewById(R.id.ll_search_field);
@@ -107,13 +104,11 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
-        //token = "bee8ced4601fc53d7e1bfc79981a925234e0678a";
 
 
-        arrayList_approval = new ArrayList<JSONObject>();
-       /* final Context context = rv_approval_list.getContext();
-        final LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_from_bottom);
-        rv_approval_list.setLayoutAnimation(controller);*/
+        set_attendance_approval_adapter();
+
+       /* arrayList_approval = new ArrayList<JSONObject>();
         adapter_approval_list = new Adapter_approval_list(arrayList_approval, this);
         adapter_approval_list.setOnItemListener(this);
         adapter_approval_list.paginate(new Adapter_approval_list.UpdateData() {
@@ -126,8 +121,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         rv_approval_list.setLayoutManager(layoutManager);
         rv_approval_list.setHasFixedSize(true);
-        rv_approval_list.setAdapter(adapter_approval_list);
-        //rv_approval_list.scheduleLayoutAnimation();
+        rv_approval_list.setAdapter(adapter_approval_list);*/
 
 
         rv_approval_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -138,7 +132,6 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                     adapter_approval_list.updateAgain(false);
                 } else {
                     adapter_approval_list.updateAgain(true);
-                    //rv_approval_list.startLayoutAnimation();
                 }
 
 
@@ -164,6 +157,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                 hideKeyBoard();
                 et_search_field.setText("");
                 page = 1;
+                set_attendance_approval_adapter();
                 get_e_task_attendance_approval_list();
             }
         });
@@ -176,6 +170,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                     if (et_search_field.getText().toString().length() > 0) {
                         hideKeyBoard();
                         page = 1;
+                        set_attendance_approval_adapter();
                         get_e_task_attendance_approval_list();
                     }
                 }
@@ -205,6 +200,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                         request_types = request_type;
                         page = 1;
                         temp_arrayList_filter_by = arrayList_filter_by;
+                        set_attendance_approval_adapter();
                         get_e_task_attendance_approval_list();
                     }
                 });
@@ -327,6 +323,25 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
     }
 
 
+    public void set_attendance_approval_adapter() {
+        arrayList_approval = new ArrayList<JSONObject>();
+        adapter_approval_list = new Adapter_approval_list(arrayList_approval, this);
+        adapter_approval_list.setOnItemListener(this);
+        adapter_approval_list.paginate(new Adapter_approval_list.UpdateData() {
+            @Override
+            public void get(int position) {
+                page = page + 1;
+                get_e_task_attendance_approval_list();
+            }
+        });
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        rv_approval_list.setLayoutManager(layoutManager);
+        rv_approval_list.setHasFixedSize(true);
+        rv_approval_list.setAdapter(adapter_approval_list);
+    }
+
+
+
     public void get_e_task_attendance_approval_list() {
 
         adapter_approval_list.loader(true);
@@ -397,6 +412,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                                 adapter_approval_list.notifyDataSetChanged();
                                 Toast.makeText(ApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
+                                set_attendance_approval_adapter();
                                 get_e_task_attendance_approval_list();
                             } else {
                                 Toast.makeText(ApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
@@ -442,6 +458,7 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                                 adapter_approval_list.notifyDataSetChanged();
                                 Toast.makeText(ApprovalListActivity.this, "Data updated successfully", Toast.LENGTH_LONG).show();
                                 page = 1;
+                                set_attendance_approval_adapter();
                                 get_e_task_attendance_approval_list();
                             } else {
                                 Toast.makeText(ApprovalListActivity.this, "Something went wrong!! Please try again", Toast.LENGTH_LONG).show();
@@ -571,46 +588,55 @@ public class ApprovalListActivity extends MainActivity implements Adapter_approv
                     field_name = "date";
                     order_by = "asc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 2) {
                     field_name = "date";
                     order_by = "desc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 3) {
                     field_name = "duration_start";
                     order_by = "asc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 4) {
                     field_name = "duration_start";
                     order_by = "desc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 5) {
                     field_name = "duration_end";
                     order_by = "asc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 6) {
                     field_name = "duration_end";
                     order_by = "desc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 7) {
                     field_name = "duration";
                     order_by = "asc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 8) {
                     field_name = "duration";
                     order_by = "desc";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 } else if (position == 9) {
                     field_name = "";
                     order_by = "";
                     page = 1;
+                    set_attendance_approval_adapter();
                     get_e_task_attendance_approval_list();
                 }
             }

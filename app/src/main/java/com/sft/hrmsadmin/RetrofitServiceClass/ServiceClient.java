@@ -200,4 +200,10 @@ public interface ServiceClient {
                                           @Body JsonObject object);
 
 
+    @GET(mServiceList.object_top_lavel_permission_by_module)
+    Call<ResponseBody> object_top_lavel_permission_by_module(@Header("Authorization") String Bearer,
+                                                     @Header("Content-Type") String Content_type,
+                                                     @Path("module_name") String module_name);
+
+
 }

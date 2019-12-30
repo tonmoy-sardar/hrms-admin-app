@@ -110,7 +110,9 @@
                         android:layout_height="wrap_content"
                         android:text="Start Date : "
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_12sdp"
+                        android:id="@+id/tv_lr_start_title"
+                        />
 
 
                 <com.sft.hrmsadmin.widget.GothiciRegularTextView
@@ -139,7 +141,9 @@
                         android:layout_height="wrap_content"
                         android:text="End Date : "
                         android:textColor="@color/color_black"
-                        android:textSize="@dimen/_12sdp" />
+                        android:textSize="@dimen/_12sdp"
+                        android:id="@+id/tv_lr_end_title"
+                        />
 
 
                 <com.sft.hrmsadmin.widget.GothiciRegularTextView
@@ -188,7 +192,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                 <com.sft.hrmsadmin.widget.GothiciBoldTextView

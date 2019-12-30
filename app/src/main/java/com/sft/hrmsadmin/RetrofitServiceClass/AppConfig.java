@@ -64,8 +64,8 @@ public class AppConfig {
 
             OkHttpClient.Builder builder = new OkHttpClient.Builder();
             builder.sslSocketFactory(sslSocketFactory);
-            builder.connectTimeout(600, TimeUnit.SECONDS)
-                    .readTimeout(600, TimeUnit.SECONDS).build();
+            builder.connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS).build();
             builder.hostnameVerifier(new HostnameVerifier() {
                 @Override
                 public boolean verify(String hostname, SSLSession session) {

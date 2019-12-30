@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import com.sft.hrmsadmin.BuildConfig;
 import com.sft.hrmsadmin.R;
+import com.sft.hrmsadmin.RetrofitServiceClass.ProgressBarDialog;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitResponse;
 import com.sft.hrmsadmin.RetrofitServiceClass.RetrofitServiceGenerator;
 import com.sft.hrmsadmin.RetrofitServiceClass.ServiceClient;
@@ -28,7 +29,7 @@ import org.json.JSONObject;
 public class DashboardActivity extends MainActivity {
 
     public View view;
-    LinearLayout ll_attendance;
+    LinearLayout ll_attendance,ll_app_closed_msg;
     RetrofitServiceGenerator retrofitServiceGenerator;
     ServiceClient serviceClient;
     RetrofitResponse retrofitResponse;
@@ -48,12 +49,13 @@ public class DashboardActivity extends MainActivity {
 
         ll_attendance = findViewById(R.id.ll_attendance);
         cv_attendance = findViewById(R.id.cv_attendance);
+        ll_app_closed_msg = findViewById(R.id.ll_app_closed_msg);
 
 
         retrofitServiceGenerator = new RetrofitServiceGenerator();
         serviceClient = retrofitServiceGenerator.createService(ServiceClient.class);
         //retrofitResponse = new RetrofitResponse(getActivity());
-        retrofitResponse = new RetrofitResponse(this, getSupportFragmentManager());
+        retrofitResponse = new RetrofitResponse(this);
 
         mySharedPreferance = new MySharedPreferance(this);
         token = mySharedPreferance.getPreferancceString(mySharedPreferance.login_token);
@@ -91,7 +93,7 @@ public class DashboardActivity extends MainActivity {
             e.printStackTrace();
         }
 
-        setAnimation(cv_attendance);
+        //setAnimation(cv_attendance);
 
     }
 
@@ -106,6 +108,7 @@ public class DashboardActivity extends MainActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        object_top_lavel_permission_by_module();
         get_app_version();
     }
 
@@ -123,6 +126,33 @@ public class DashboardActivity extends MainActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+                });
+    }
+
+
+    public void object_top_lavel_permission_by_module() {
+
+        final ProgressBarDialog progressBarDialog = new ProgressBarDialog();
+        progressBarDialog.show(getSupportFragmentManager(), "progressBarDialog");
+
+        retrofitResponse.getWebServiceResponse(serviceClient.object_top_lavel_permission_by_module("Token " + token, "application/json",
+                "ATTENDANCE & HRMS"),
+                new RetrofitResponse.DataFetchResult() {
+                    @Override
+                    public void onDataFetchComplete(JSONObject jsonObject) {
+                        try {
+                            if (jsonObject.getJSONObject("result").getBoolean("teamlead_permission") == true) {
+                                ll_app_closed_msg.setVisibility(View.VISIBLE);
+                                cv_attendance.setVisibility(View.GONE);
+                            } else {
+                                ll_app_closed_msg.setVisibility(View.GONE);
+                                cv_attendance.setVisibility(View.VISIBLE);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        progressBarDialog.dismiss();
                     }
                 });
     }
