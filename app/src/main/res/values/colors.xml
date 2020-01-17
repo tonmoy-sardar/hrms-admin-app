@@ -30,6 +30,8 @@
     <color name="reject_red">#D81B60</color>
     <color name="tranparent_selection">#65232320</color>
     <color name="colorCardBackground">#E9F7FD</color>
+    <color name="colorRippleLight">#2F9CFB</color>
+    <color name="colorRippleDark">#126CF2</color>
 
 
 </resources>

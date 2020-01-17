@@ -5,7 +5,7 @@
     <string name="password_old">Old Password</string>
     <string name="password_new">New Password</string>
     <string name="password_confirm">Confirm Password</string>
-    <string name="login_button">Log In</string>
+    <string name="login_button">Login</string>
     <string name="save_button">Save</string>
     <string name="forgot_password">Forgot Password?</string>
 </resources>
